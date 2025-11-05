@@ -1,0 +1,50 @@
+\documentclass[dvips,letterpaper,12pt]{report}
+\usepackage{thesis}
+
+\begin{document}
+
+\pagenumbering{roman}
+
+% Fill in the title, author, degree name, department, and month/year.
+% Upon completion, this should look like the following:
+%\thesistitle
+%	{Complicated and Important-Sounding Thesis Title}
+%	{John P. Doe}
+%	{Master of Science}
+%	{Department of Computer Science}
+%	{May 2009}
+% The \thesistitle definition is in thesis.sty.  Other customizations
+% can be made there.
+\thesistitle
+    {Proyecto de Investigación: \\
+     Análisis, Diseño y Construcción de un Sistema Operativo desde Cero}
+    {\emph{Magaña Osorio Jhoel Fabrizzio}\\
+     \emph{Colque Quispe Fidel Enrique}\\
+     \emph{Montalvo Sol\'orzano Rosy Aurely}\\
+     \emph{Quispe Llavilla Jhon Andherson}}
+    {Docente responsable: \emph{Ugarte Rojas Hector Ugarte}}
+    {Universidad Nacional de San Antonio Abad del Cusco\\
+    Facultad de Ingeniería Eléctrica, Electrónica, Informática y Mecánica \\
+     Escuela Profesional de Ingeniería Informática y de Sistemas}
+    {\emph{2025}}
+
+%%\include{abstract}
+%%\include{ack}
+\include{contents}
+\include{tables}
+\include{figures}
+
+\pagenumbering{arabic}
+\include{chap1}
+\include{chap2}
+\include{chap3}
+
+
+\include{bib}
+
+% If you have no appendices, remove the following two lines.
+% If you have more appdences, add them as necessary.
+%\appendix
+%\include{apdxa}
+
+\end{document}
