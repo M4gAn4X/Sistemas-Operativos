@@ -1,0 +1,571 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.4)  7 NOV 2025 09:17
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**c:/Users/Home/Desktop/Sistemas_Operativos_2/thesis.tex
+(c:/Users/Home/Desktop/Sistemas_Operativos_2/thesis.tex
+LaTeX2e <2025-06-01> patch level 1
+L3 programming layer <2025-10-09>
+(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/base\report.cls
+Document Class: report 2025/01/22 v1.4n Standard LaTeX document class
+(C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/base\size12.clo
+File: size12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count275
+\c@chapter=\count276
+\c@section=\count277
+\c@subsection=\count278
+\c@subsubsection=\count279
+\c@paragraph=\count280
+\c@subparagraph=\count281
+\c@figure=\count282
+\c@table=\count283
+\abovecaptionskip=\skip49
+\belowcaptionskip=\skip50
+\bibindent=\dimen148
+) (thesis.sty (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks17
+) (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+) (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 106.
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen149
+\Gin@req@width=\dimen150
+) (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/base\latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
+) (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/graphics\rotating.sty
+Package: rotating 2025/01/14 v2.16e rotated objects in LaTeX
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
+Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
+)
+\c@r@tfl@t=\count284
+\rotFPtop=\skip51
+\rotFPbot=\skip52
+\rot@float@box=\box53
+\rot@mess@toks=\toks18
+) (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/apacite\apacite.sty
+Package: apacite 2013/07/21 v6.03 APA citation
+\c@BibCnt=\count285
+\bibleftmargin=\skip53
+\bibindent=\skip54
+\bibparsep=\skip55
+\bibitemsep=\skip56
+\biblabelsep=\skip57
+) (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
+Package: fontenc 2024/12/21 v2.1c Standard LaTeX package
+) (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
+Package: inputenc 2024/02/08 v1.3d Input encoding file
+\inpenc@prehook=\toks19
+\inpenc@posthook=\toks20
+) (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/lm\lmodern.sty
+Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/lmm/m/it on input line 23.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/lmsy/m/n on input line 24.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 25.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 26.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/lmm/b/it on input line 27.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/lmsy/b/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 31.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 32.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/lmr/m/it on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 36.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
+) (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype.sty
+Package: microtype 2025/07/09 v3.2b Micro-typographical refinements (RS)
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count286
+)
+\MT@toks=\toks21
+\MT@tempbox=\box54
+\MT@count=\count287
+LaTeX Info: Redefining \noprotrusionifhmode on input line 1087.
+LaTeX Info: Redefining \leftprotrusion on input line 1088.
+\MT@prot@toks=\toks22
+LaTeX Info: Redefining \rightprotrusion on input line 1107.
+LaTeX Info: Redefining \textls on input line 1449.
+\MT@outer@kern=\dimen151
+LaTeX Info: Redefining \microtypecontext on input line 2053.
+LaTeX Info: Redefining \textmicrotypecontext on input line 2070.
+\MT@listname@count=\count288
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype-pdftex.def
+File: microtype-pdftex.def 2025/07/09 v3.2b Definitions specific to pdftex (RS)
+LaTeX Info: Redefining \lsstyle on input line 944.
+LaTeX Info: Redefining \lslig on input line 944.
+\MT@outer@space=\skip58
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/microtype\microtype.cfg
+File: microtype.cfg 2025/07/09 v3.2b microtype main configuration file (RS)
+)
+LaTeX Info: Redefining \microtypesetup on input line 3065.
+)
+\c@cor=\count289
+)
+\c@thm=\count290
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 4.
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd
+File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+) (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
+File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count291
+) (thesis.aux (abstract.aux) (ack.aux) (contents.aux) (tables.aux) (figures.aux) (chap1.aux) (chap2.aux) (chap3.aux) (chap4.aux) (chap5.aux) (chap6.aux) (bib.aux) (apdxa.aux))
+\openout1 = `thesis.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count292
+\scratchdimen=\dimen152
+\scratchbox=\box55
+\nofMPsegments=\count293
+\nofMParguments=\count294
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count295
+\MPscratchDim=\dimen153
+\MPnumerator=\count296
+\makeMPintoPDFobject=\count297
+\everyMPtoPDFconversion=\toks24
+) (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
+))
+\c@maskedRefs=\count298
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/apacite\english.apc
+File: english.apc 2013/07/21 v6.03 apacite language file
+LaTeX Info: Redefining \BPBI on input line 129.
+LaTeX Info: Redefining \BHBI on input line 130.
+)
+LaTeX Info: Redefining \microtypecontext on input line 4.
+Package microtype Info: Applying patch `item' on input line 4.
+Package microtype Info: Applying patch `toc' on input line 4.
+Package microtype Info: Applying patch `eqnum' on input line 4.
+Package microtype Info: Applying patch `footnote' on input line 4.
+Package microtype Info: Applying patch `verbatim' on input line 4.
+LaTeX Info: Redefining \microtypesetup on input line 4.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using default protrusion set `alltext'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `alltext-nott'.
+Package microtype Info: Patching command `\showhyphens'.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
+)
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 29.
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
+File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 29.
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
+File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 29.
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
+File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 29.
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
+File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <17.28> on input line 29.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 29.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 29.
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 29.
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/base\ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 29.
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `lmtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 29.
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
+File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+
+[1
+
+{C:/Users/Home/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}]
+\openout2 = `abstract.aux'.
+
+ (abstract.tex
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 7.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 7.
+)
+
+[2
+
+]
+\openout2 = `ack.aux'.
+
+ (ack.tex)
+
+[3
+
+
+
+]
+\openout2 = `contents.aux'.
+
+ (contents.tex (thesis.toc
+
+[4
+
+
+
+
+])
+\tf@toc=\write3
+\openout3 = `thesis.toc'.
+
+)
+
+[5]
+\openout2 = `tables.aux'.
+
+ (tables.tex (thesis.lot)
+\tf@lot=\write4
+\openout4 = `thesis.lot'.
+
+)
+
+[6
+
+
+
+
+]
+\openout2 = `figures.aux'.
+
+ (figures.tex (thesis.lof)
+\tf@lof=\write5
+\openout5 = `thesis.lof'.
+
+)
+
+[7
+
+
+
+
+]
+\openout2 = `chap1.aux'.
+
+ (chap1.tex
+Chapter 1.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 29.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 29.
+
+
+[1
+
+
+
+
+]
+
+[2{C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}{C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}]
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <17.28> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 82.
+
+
+[3]
+
+[4]
+LaTeX Font Info:    Trying to load font information for T1+lmss on input line 183.
+ (C:\Users\Home\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmss.fd
+File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `lmss' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+)
+
+[5]
+
+[6]
+\openout2 = `chap2.aux'.
+
+ (chap2.tex
+Chapter 2.
+Package epstopdf Info: Source file: <figures/MUN_Logo_Pantone.eps>
+(epstopdf)                    date: 2025-11-07 08:29:33
+(epstopdf)                    size: 347512 bytes
+(epstopdf)             Output file: <figures/MUN_Logo_Pantone-eps-converted-to.pdf>
+(epstopdf)                    date: 2025-11-07 08:41:13
+(epstopdf)                    size: 15488 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=figures/MUN_Logo_Pantone-eps-converted-to.pdf figures/MUN_Logo_Pantone.eps>
+(epstopdf)             \includegraphics on input line 9.
+Package epstopdf Info: Output file is already uptodate.
+<figures/MUN_Logo_Pantone-eps-converted-to.pdf, id=63, 202.7575pt x 121.45375pt>
+File: figures/MUN_Logo_Pantone-eps-converted-to.pdf Graphic file (type pdf)
+<use figures/MUN_Logo_Pantone-eps-converted-to.pdf>
+Package pdftex.def Info: figures/MUN_Logo_Pantone-eps-converted-to.pdf  used on input line 9.
+(pdftex.def)             Requested size: 202.757pt x 121.45343pt.
+Package epstopdf Info: Source file: <figures/enrollment.eps>
+(epstopdf)                    date: 2025-11-07 08:29:33
+(epstopdf)                    size: 82215 bytes
+(epstopdf)             Output file: <figures/enrollment-eps-converted-to.pdf>
+(epstopdf)                    date: 2025-11-07 08:41:14
+(epstopdf)                    size: 42680 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=figures/enrollment-eps-converted-to.pdf figures/enrollment.eps>
+(epstopdf)             \includegraphics on input line 14.
+Package epstopdf Info: Output file is already uptodate.
+<figures/enrollment-eps-converted-to.pdf, id=64, 694.595pt x 383.4325pt>
+File: figures/enrollment-eps-converted-to.pdf Graphic file (type pdf)
+<use figures/enrollment-eps-converted-to.pdf>
+Package pdftex.def Info: figures/enrollment-eps-converted-to.pdf  used on input line 14.
+(pdftex.def)             Requested size: 347.29665pt x 191.71577pt.
+
+
+[7
+
+
+
+
+ <./figures/MUN_Logo_Pantone-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <figures/enrollment-landscape.eps>
+(epstopdf)                    date: 2025-11-07 08:29:33
+(epstopdf)                    size: 82215 bytes
+(epstopdf)             Output file: <figures/enrollment-landscape-eps-converted-to.pdf>
+(epstopdf)                    date: 2025-11-07 08:41:15
+(epstopdf)                    size: 42680 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=figures/enrollment-landscape-eps-converted-to.pdf figures/enrollment-landscape.eps>
+(epstopdf)             \includegraphics on input line 30.
+Package epstopdf Info: Output file is already uptodate.
+<figures/enrollment-landscape-eps-converted-to.pdf, id=77, 694.595pt x 383.4325pt>
+File: figures/enrollment-landscape-eps-converted-to.pdf Graphic file (type pdf)
+<use figures/enrollment-landscape-eps-converted-to.pdf>
+Package pdftex.def Info: figures/enrollment-landscape-eps-converted-to.pdf  used on input line 30.
+(pdftex.def)             Requested size: 590.40854pt x 325.91916pt.
+Package epstopdf Info: Source file: <figures/enrollment-rotate.eps>
+(epstopdf)                    date: 2025-11-07 08:29:33
+(epstopdf)                    size: 82215 bytes
+(epstopdf)             Output file: <figures/enrollment-rotate-eps-converted-to.pdf>
+(epstopdf)                    date: 2025-11-07 08:41:17
+(epstopdf)                    size: 42680 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=figures/enrollment-rotate-eps-converted-to.pdf figures/enrollment-rotate.eps>
+(epstopdf)             \includegraphics on input line 39.
+Package epstopdf Info: Output file is already uptodate.
+<figures/enrollment-rotate-eps-converted-to.pdf, id=78, 694.595pt x 383.4325pt>
+File: figures/enrollment-rotate-eps-converted-to.pdf Graphic file (type pdf)
+<use figures/enrollment-rotate-eps-converted-to.pdf>
+Package pdftex.def Info: figures/enrollment-rotate-eps-converted-to.pdf  used on input line 39.
+(pdftex.def)             Requested size: 208.38011pt x 115.03062pt.
+
+
+[8 <./figures/enrollment-eps-converted-to.pdf>]
+
+[9 <./figures/enrollment-landscape-eps-converted-to.pdf>]
+Package epstopdf Info: Source file: <figures/db-deadlock.eps>
+(epstopdf)                    date: 2025-11-07 08:29:33
+(epstopdf)                    size: 64725 bytes
+(epstopdf)             Output file: <figures/db-deadlock-eps-converted-to.pdf>
+(epstopdf)                    date: 2025-11-07 08:41:18
+(epstopdf)                    size: 18097 bytes
+(epstopdf)             Command: <miktex-epstopdf --outfile=figures/db-deadlock-eps-converted-to.pdf figures/db-deadlock.eps>
+(epstopdf)             \includegraphics on input line 50.
+Package epstopdf Info: Output file is already uptodate.
+<figures/db-deadlock-eps-converted-to.pdf, id=90, 666.49pt x 395.4775pt>
+File: figures/db-deadlock-eps-converted-to.pdf Graphic file (type pdf)
+<use figures/db-deadlock-eps-converted-to.pdf>
+Package pdftex.def Info: figures/db-deadlock-eps-converted-to.pdf  used on input line 50.
+(pdftex.def)             Requested size: 266.59128pt x 158.18819pt.
+
+Overfull \hbox (12.41617pt too wide) in paragraph at lines 46--51
+[]\T1/lmr/m/n/12 (-20) Figure 2.5[] shows a Petri net cre-ated us-ing the \T1/lmtt/m/n/12 xfig \T1/lmr/m/n/12 (-20) pro-gram (\T1/lmtt/m/n/12 http://www.xfig.org/\T1/lmr/m/n/12 (-20) )
+ []
+
+
+Overfull \hbox (0.42491pt too wide) in paragraph at lines 52--65
+[]\T1/lmr/m/n/12 (-20) We can also cre-ate fig-ures of text (such as short code snip-pets) us-ing the [][]\T1/lmtt/m/n/12 \muntxtfig
+ []
+
+
+
+[10 <./figures/enrollment-rotate-eps-converted-to.pdf> <./figures/db-deadlock-eps-converted-to.pdf>]
+
+[11]
+Overfull \hbox (17.5172pt too wide) in paragraph at lines 108--151
+ [][] 
+ []
+
+)
+
+[12]
+
+[13]
+\openout2 = `chap3.aux'.
+
+ (chap3.tex
+Chapter 3.
+)
+
+[14
+
+
+
+
+]
+\openout2 = `chap4.aux'.
+
+ (chap4.tex
+Chapter 4.
+
+
+[15
+
+
+
+
+]
+
+[16])
+
+[17]
+\openout2 = `chap5.aux'.
+
+ (chap5.tex
+Chapter 5.
+
+LaTeX Warning: Citation `someguy2002' undefined on input line 20.
+
+
+LaTeX Warning: Citation `LastName1996' undefined on input line 21.
+
+
+LaTeX Warning: Citation `lam1994' undefined on input line 22.
+
+)
+
+[18
+
+
+
+
+]
+\openout2 = `chap6.aux'.
+
+ (chap6.tex
+Chapter 6.
+)
+
+[19
+
+
+
+
+]
+\openout2 = `bib.aux'.
+
+ (bib.tex (thesis.bbl))
+
+[20
+
+
+
+
+]
+\openout2 = `apdxa.aux'.
+
+ (apdxa.tex
+Appendix A.
+)
+
+[21
+
+
+
+
+] (thesis.aux (abstract.aux) (ack.aux) (contents.aux) (tables.aux) (figures.aux) (chap1.aux) (chap2.aux) (chap3.aux) (chap4.aux) (chap5.aux) (chap6.aux) (bib.aux) (apdxa.aux))
+ ***********
+LaTeX2e <2025-06-01> patch level 1
+L3 programming layer <2025-10-09>
+ ***********
+
+
+LaTeX Warning: There were undefined references.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 5507 strings out of 468079
+ 94253 string characters out of 5426235
+ 545014 words of memory out of 5000000
+ 33814 multiletter control sequences out of 15000+600000
+ 721509 words of font info for 187 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 72i,11n,79p,1047b,386s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti12.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmro10.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmro12.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss10.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss12.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtk10.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt12.pfb><C:/Users/Home/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtto10.pfb>
+Output written on thesis.pdf (28 pages, 611629 bytes).
+PDF statistics:
+ 233 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 55322 words of extra memory for PDF output out of 61914 (max. 10000000)
+
