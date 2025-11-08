@@ -6,12 +6,10 @@
 We can include encapsulated PostScript\texttrademark\ figures
 (\texttt{.eps}) in the document and refer to it using a label.
 For example, MUN's logo can be seen in Figure~\ref{fig:MUN_Logo_Pantone}.
-\munepsfig{MUN_Logo_Pantone}{This is MUN's logo}
 
 Figure~\ref{fig:enrollment} shows a chart of MUN's Fall
 enrollment from 2005 -- 2009.\munfootnote{From \emph{Memorial
 University of Newfoundland --- Fact Book 2009}.}
-\munepsfig[scale=0.50]{enrollment}{MUN Fall Enrollment 2005 -- 2009}
 The figure was created using the \textsf{Calc} spreadsheet application of
 the office suite \textsf{OpenOffice.org}.\munfootnote{This office suite
 can be downloaded at no cost from \texttt{http://openoffice.org/}. Unlike
@@ -25,18 +23,12 @@ For larger figures, we can use landscape mode to rotate the page
 and display the figure using the \verb+\munlepsfig+ command, as shown
 in Figure~\ref{fig:enrollment-landscape}.  The figure will be the
 only thing on the page when typeset in landscape mode. 
-(The figure is reduced to 85\% of its original size.)
-\munlepsfig[scale=0.85]{enrollment-landscape}
-	{MUN Fall Enrollment 2005 -- 2009 (landscape)}
-
 Alternatively, if we just want to rotate the figure, but not 
 the entire page, we can specify an \texttt{angle} attribute
 in the default argument of the \verb+\munepsfig+ command.
 The result is shown in Figure~\ref{fig:enrollment-rotate}.
 If the figure is too large or if there isn't sufficient
 text, then the figure may appear on its own page.
-\munepsfig[scale=0.30,angle=90]{enrollment-rotate}
-	{MUN Fall Enrollment 2005 -- 2009 (rotated)}
 
 Note that all three of the enrollment figures are basically
 the same file, but with different names --- on Linux, they are
@@ -47,7 +39,6 @@ Figure~\ref{fig:db-deadlock} shows a Petri net created using the
 \texttt{xfig} program (\texttt{http://www.xfig.org/}) which has
 very good support for \LaTeX.  This figure has been
 reduced to 40\% of its original size.
-\munepsfig[scale=0.40]{db-deadlock}{A deadlocked Petri net}
 
 We can also create figures of text (such as short code snippets)
 using the \verb+\muntxtfig+ command, as show in Figure~\ref{fig:code}.
@@ -149,4 +140,3 @@ Master of Women's Studies               &   2 &   0 &   2 &   0 &   1 &   1 &   
 \hline
 \textbf{Total Masters}                  & 287 & 263 & 302 & 177 & 321 & 212 & 296 & 239 & 243 & 204 & 7,369 & 9,913 \\
 \end{munltab}
-\renewcommand{\baselinestretch}{\spacing}\normalsize
