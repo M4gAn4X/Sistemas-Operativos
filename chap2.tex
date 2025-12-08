@@ -185,36 +185,3 @@ El nivel de complejidad de Visopsys es \textbf{medio}, ya que su código fuente 
 	\vspace{1mm}
 	\textit{Nota.} Adaptado de “SO Visopsys” (McLaughlin, 2023).
 \end{table}
-% =======================================
-% Investigación de Toarus y otro SO extra - Rosy
-% =======================================
-
-\subsection{ToarusOS}
-\subsubsection{Nombre del proyecto o sistema operativo}
-ToaruOS es un sistema operativo independiente, escrito casi completamente desde cero, diseñado como un recurso educativo que ofrece una implementación completa de un SO moderno.
-
-
-\subsubsection{Enlace al repositorio y/o documentación oficial}
-
-Repositorio oficial: \url{https://github.com/klange/toaruos}
-
-Sitio web del proyecto: \url{http://toaruos.org/}
-
-\subsection{Objetivo del proyecto}
-ToarusOS esta diseñado para servir como recurso educativo que permita estudiar y comprender el funcionamiento de un sistema operativo completo. Pretendiendo ser una representación compacta y funcional de los componentes que forman parte de un sistema operativo de escritorio moderno.
-
-\subsubsection{Lenguajes de implementación}
-ToaruOS está implementado principalmente en el lenguaje de programación \textbf{C}, además de ello, se encuentra implementado con el lenguaje de programación de Kuroko, un lenguaje propio, un lenguaje de programación dinámico, compilado a bytecode y un dialecto de Python.
-
-\subsubsection{Arquitectura del sistema}
-ToaruOS adopta una arquitectura que posee un kernel híbrido y modular, denominada Misaka, es una arquitectura híbrida con módulos cargables en tiempo de ejecución. El kernel proporciona servicios esenciales como la gestión de procesos, memoria y sistemas de archivos, mientras que otros componentes del sistema operativo, como el entorno gráfico y las aplicaciones, se ejecutan en espacio de usuario.
-
-\subsubsection{Componentes implementados}
-\begin{itemize}
-	\item \textbf{Gestión de procesos e hilos:} ToaruOS ToaruOS utiliza el kernel Misaka, un núcleo híbrido con soporte para multiprocesamiento simétrico (SMP), que implementa un planificador de procesos, mecanismos de comunicación entre procesos mediante el sistema pex y una arquitectura basada en procesos expuestos a través del sistema de archivos virtual \texttt{/proc}.
-	\item \textbf{Gestión de memoria: } Incorpora un sistema de memoria  con paginación y asignación dinámica dentro del kernel, complementado por una implementación propia de la biblioteca estándar de C (libc) que administra la memoria en espacio de usuario, junto con el uso de un ramdisk comprimido como sistema de archivos raíz inicial.
-	\item \textbf{Sistema de archivos:} ToaruOS emplea un filesystem raíz montado desde un ramdisk e incluye soporte para ISO9660, además de una estructura tipo Unix que integra directorios virtuales como /dev, /proc y /tmp, permitiendo la interacción con dispositivos, procesos y almacenamiento temporal de forma eficiente.
-	\item \textbf{Dispositivos y controladores:} El sistema dispone de un conjunto modular de controladores cargables que gestionan dispositivos gráficos, audio, almacenamiento IDE, red y periféricos de entrada, ofreciendo además integración avanzada con entornos de virtualización como VirtualBox y VMware, mientras continúa el desarrollo de drivers adicionales como AHCI, USB y virtio.
-	\item \textbf{Interfaz gráfica (GUI):}  ToaruOS cuenta con un entorno gráfico completo basado en Yutani, un servidor de ventanas compositado con aceleración por software y un diseño inspirado en interfaces de finales de los años 2000, acompañado por un conjunto de aplicaciones y herramientas gráficas como la Terminal, el editor Bim y el sistema de widgets TTK.
-	\item \textbf{Herramientas de sistema:} Incluye utilidades fundamentales como el shell Esh con soporte para tuberías y redirecciones, el cargador dinámico ld.so, el editor de texto Bim, el lenguaje de programación Kuroko y un conjunto de comandos Unix-like, complementados por herramientas de desarrollo internas como auto-dep.krk.
-	\item \textbf{Soporte de hardware:} ToaruOS funciona principalmente sobre arquitecturas x86-64, con soporte experimental para ARMv8 y compatibilidad comprobada tanto en entornos virtualizados como en hardware real, incorporando funcionalidades específicas para mejorar la experiencia en máquinas virtuales y extendiendo continuamente su compatibilidad mediante el desarrollo de nuevos controladores.
