@@ -1,0 +1,120 @@
+% =======================================
+% Investigación de Toarus y otro SO extra - Rosy
+% =======================================
+
+\subsection{ToarusOS}
+\subsubsection{Nombre del proyecto o sistema operativo}
+ToaruOS es un sistema operativo independiente, escrito casi completamente desde cero, diseñado como un recurso educativo que ofrece una implementación completa de un SO moderno.
+
+
+\subsubsection{Enlace al repositorio y/o documentación oficial}
+
+Repositorio oficial: \url{https://github.com/klange/toaruos}
+
+Sitio web del proyecto: \url{http://toaruos.org/}
+
+\subsection{Objetivo del proyecto}
+ToarusOS esta diseñado para servir como recurso educativo que permita estudiar y comprender el funcionamiento de un sistema operativo completo. Pretendiendo ser una representación compacta y funcional de los componentes que forman parte de un sistema operativo de escritorio moderno.
+
+\subsubsection{Lenguajes de implementación}
+ToaruOS está implementado principalmente en el lenguaje de programación \textbf{C}, además de ello, se encuentra implementado con el lenguaje de programación de Kuroko, un lenguaje propio, un lenguaje de programación dinámico, compilado a bytecode y un dialecto de Python.
+
+\subsubsection{Arquitectura del sistema}
+ToaruOS adopta una arquitectura que posee un kernel híbrido y modular, denominada Misaka, es una arquitectura híbrida con módulos cargables en tiempo de ejecución. El kernel proporciona servicios esenciales como la gestión de procesos, memoria y sistemas de archivos, mientras que otros componentes del sistema operativo, como el entorno gráfico y las aplicaciones, se ejecutan en espacio de usuario.
+
+\subsubsection{Componentes implementados}
+\begin{itemize}
+	\item \textbf{Gestión de procesos e hilos:} ToaruOS ToaruOS utiliza el kernel Misaka, un núcleo híbrido con soporte para multiprocesamiento simétrico (SMP), que implementa un planificador de procesos, mecanismos de comunicación entre procesos mediante el sistema pex y una arquitectura basada en procesos expuestos a través del sistema de archivos virtual \texttt{/proc}.
+	
+	\item \textbf{Gestión de memoria: } Incorpora un sistema de memoria  con paginación y asignación dinámica dentro del kernel, complementado por una implementación propia de la biblioteca estándar de C (libc) que administra la memoria en espacio de usuario, junto con el uso de un ramdisk comprimido como sistema de archivos raíz inicial.
+	
+	\item \textbf{Sistema de archivos:} ToaruOS emplea un filesystem raíz montado desde un ramdisk e incluye soporte para ISO9660, además de una estructura tipo Unix que integra directorios virtuales como /dev, /proc y /tmp, permitiendo la interacción con dispositivos, procesos y almacenamiento temporal de forma eficiente.
+	
+	\item \textbf{Dispositivos y controladores:} El sistema dispone de un conjunto modular de controladores cargables que gestionan dispositivos gráficos, audio, almacenamiento IDE, red y periféricos de entrada, ofreciendo además integración avanzada con entornos de virtualización como VirtualBox y VMware, mientras continúa el desarrollo de drivers adicionales como AHCI, USB y virtio.
+	
+	\item \textbf{Interfaz gráfica (GUI):}  ToaruOS cuenta con un entorno gráfico completo basado en Yutani, un servidor de ventanas compositado con aceleración por software y un diseño inspirado en interfaces de finales de los años 2000, acompañado por un conjunto de aplicaciones y herramientas gráficas como la Terminal, el editor Bim y el sistema de widgets TTK.
+	
+	\item \textbf{Herramientas de sistema:} Incluye utilidades fundamentales como el shell Esh con soporte para tuberías y redirecciones, el cargador dinámico ld.so, el editor de texto Bim, el lenguaje de programación Kuroko y un conjunto de comandos Unix-like, complementados por herramientas de desarrollo internas como auto-dep.krk.
+	
+	\item \textbf{Soporte de hardware:} ToaruOS funciona principalmente sobre arquitecturas x86-64, con soporte experimental para ARMv8 y compatibilidad comprobada tanto en entornos virtualizados como en hardware real, incorporando funcionalidades específicas para mejorar la experiencia en máquinas virtuales y extendiendo continuamente su compatibilidad mediante el desarrollo de nuevos controladores.
+\end{itemize}
+
+\subsubsection{Herramientas utilizadas}
+ToaruOS utiliza una variedad de herramientas para su desarrollo y compilación, como se detalla a continuación:
+\begin{itemize}
+	\item \textbf{Compilador:} utilidades estándar de GNU, incluyendo GCC para la compilación del código fuente (makefile)
+	\item \textbf{Entorno de prueba:} Compatible con VirtualBox y QEMU para la emulación y prueba del sistema operativo.
+	\item \textbf{Misaka Kernel:} El núcleo híbrido de ToaruOS, que proporciona los servicios esenciales del sistema operativo.
+	\item \textbf{Yutani:} El servidor de ventanas utilizado para la interfaz gráfica del sistema.
+	\item \textbf{Kuroko:}  ToaruOS implementa un lenguaje de scripting propio denominado \textit{Kuroko}, basado en bytecode, que permite a los usuarios escribir scripts dentro del sistema operativo.
+	\item Esh Shell: Admite pipes y redirecciones, variables, etc. Proporcionando una interfaz de línea de comandos funcional.
+	\item \textbf{Bim Editor:} Un editor de texto ligero y eficiente, diseñado para integrarse perfectamente con el entorno gráfico de ToaruOS.
+	\item \textbf{Id.so: } Un cargador dinámico que facilita la ejecución de aplicaciones en el sistema operativo.
+	\item \textbf{Terminal:} Una aplicación de terminal que permite a los usuarios interactuar con el sistema operativo a través de la línea de comandos.
+	\item \textbf{Instalación y configuración sugerida:} Para instalar y configurar ToaruOS, se recomienda clonar el repositorio oficial y utilizar los scripts de construcción proporcionados:
+	    \begin{verbatim}
+
+		git clone https://github.com/klange/toaruos
+		cd toaruos
+		git submodule update --init kuroko
+		docker pull toaruos/build-tools:1.99.x
+		docker run -v `pwd`:/root/misaka -w /root/misaka -e LANG=C.UTF-8 
+		-t toaruos/build-tools:1.99.x util/build-in-docker.sh
+
+		\end{verbatim}
+
+    Si se desea compilar localmente en linux, es necesario tener instaladas las herramientas de docker e ingresar al contenedor de docker e inicializar los anteriores comandos con sudo. r
+\end{itemize}	
+
+% ====== HaikuOS ======
+\subsubsection{HaikuOS}
+\subsubsection{Nombre del proyecto o sistema operativo}
+HaikuOS es un sistema operativo de código abierto inspirado en BeOS, diseñado para ofrecer una experiencia de usuario rápida, eficiente y fácil de usar, especialmente en tareas multimedia y creativas
+\subsubsection{Enlace al repositorio y/o documentación oficial}
+
+Repositorio oficial: \url{https://github.com/haiku/haiku}
+
+Sitio web del proyecto y descargas: \url{https://www.haiku-os.org/}
+
+\subsection{Objetivo del proyecto}
+El objetivo principal de HaikuOS es proporcionar un sistema operativo moderno y eficiente que sea fácil de usar, especialmente para usuarios interesados en aplicaciones multimedia y creativas. HaikuOS busca revivir la filosofía de BeOS, ofreciendo un entorno de escritorio intuitivo y un rendimiento optimizado para tareas que requieren un manejo intensivo de gráficos y multimedia.
+
+\subsubsection{Lenguajes de implementación}
+HaikuOS está principalmente implementado en \textbf{C++}, con algunos componentes escritos en \textbf{C} y otros lenguajes según sea necesario para ciertas funcionalidades específicas.
+
+\subsubsection{Arquitectura del sistema}
+HaikuOS adopta una arquitectura monolítica modular, donde el núcleo del sistema operativo (kernel) maneja las funciones esenciales, mientras que otros componentes del sistema, como controladores de dispositivos y servicios del sistema, están diseñados como módulos que pueden ser cargados y descargados según sea necesario. Esta arquitectura permite un rendimiento eficiente y una fácil extensibilidad del sistema operativo.
+
+\subsubsection{Componentes implementados}
+\begin{itemize}
+	\item \textbf{Gestión de procesos e hilos:} HaikuOS implementa un sistema de gestión de procesos y hilos que permite la multitarea preemptiva, facilitando la ejecución simultánea de múltiples aplicaciones y servicios.
+		
+	\item \textbf{Gestión de memoria: } HaikuOS utiliza un sistema de gestión de memoria que incluye paginación y segmentación, permitiendo una asignación eficiente de memoria a los procesos y protegiendo la memoria entre ellos.
+	
+	\item \textbf{Sistema de archivos:} HaikuOS utiliza el sistema de archivos BFS (Be File System), diseñado para ofrecer un alto rendimiento y soporte para metadatos extensos, facilitando la organización y búsqueda de archivos.
+	
+	\item \textbf{Dispositivos y controladores:} HaikuOS incluye una variedad de controladores para gestionar dispositivos de hardware comunes, como tarjetas gráficas, dispositivos de almacenamiento, y periféricos de entrada.
+	
+	\item \textbf{Interfaz gráfica (GUI):} HaikuOS cuenta con una interfaz gráfica de usuario intuitiva y fácil de usar, basada en el sistema de ventanas BeOS, que ofrece una experiencia de escritorio coherente y atractiva.
+	
+	\item \textbf{Herramientas de sistema:} HaikuOS incluye una serie de herramientas y utilidades del sistema, como un gestor de paquetes, un terminal, y aplicaciones básicas para la gestión del sistema y la administración de archivos.
+	
+	\item \textbf{Soporte de hardware:} HaikuOS está diseñado para ser compatible con una amplia gama de hardware, incluyendo arquitecturas x86 y ARM, y continúa expandiendo su soporte para nuevos dispositivos y tecnologías.
+\end{itemize}
+
+\subsubsection{Herramientas utilizadas}
+HaikuOS utiliza diversas herramientas para su desarrollo y mantenimiento, entre las cuales se incluyen:
+\begin{itemize}
+	\item \textbf{Compilador:} GCC (GNU Compiler Collection) es la herramienta principal utilizada para compilar el código fuente de HaikuOS.
+	\item \textbf{Sistema de construcción:} HaikuOS utiliza un sistema de construcción personalizado basado en Makefiles para gestionar la compilación y el ensamblaje del sistema operativo.
+	\item \textbf{Entorno de desarrollo integrado (IDE):} Los desarrolladores de HaikuOS pueden utilizar varios IDEs, como Eclipse o Visual Studio Code, para facilitar el desarrollo y la depuración del código.
+	
+	\item \textbf{Depuración y pruebas:} HaikuOS utiliza diversas herramientas de depuración y pruebas, incluyendo GDB (GNU Debugger) y herramientas de		 pruebas automatizadas para asegurar la calidad y estabilidad del sistema operativo.
+	
+	\item \textbf{Configuración del proyecto:} HaikuOS proporciona imágenes pre construidas (.ISO) que se descargan desde su sitio web oficial. Donde se pueden arrancar con USB, disco o memoria. También es compatible con máquinas virtuales como VirtualBox, VMware y QEMU para pruebas y desarrollo.
+	\item \textbf{Ejecución: } Al iniciar la ISO, se accederá al entorno de instalación.
+	
+\end{itemize}
+
+\subsubsection{Nivel de complejidad}
+HaikuOS es un sistema operativo de complejidad moderada, debido a su arquitectura modular y su enfoque en la facilidad de uso y el rendimiento. Aunque no es tan complejo como sistemas operativos más grandes como Linux o Windows, HaikuOS ofrece una amplia gama de funcionalidades y características que requieren un conocimiento sólido de los conceptos de sistemas operativos para su desarrollo y mantenimiento. Su diseño modular facilita la comprensión y contribución al proyecto, lo que lo convierte en una opción atractiva para desarrolladores interesados en sistemas operativos.
