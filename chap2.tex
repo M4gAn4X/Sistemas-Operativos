@@ -220,6 +220,252 @@ ToaruOS adopta una arquitectura que posee un kernel híbrido y modular, denomina
 	\item \textbf{Soporte de hardware:} ToaruOS funciona principalmente sobre arquitecturas x86-64, con soporte experimental para ARMv8 y compatibilidad comprobada tanto en entornos virtualizados como en hardware real, incorporando funcionalidades específicas para mejorar la experiencia en máquinas virtuales y extendiendo continuamente su compatibilidad mediante el desarrollo de nuevos controladores.
 \end{itemize}
 
-wasasafsafsdaq
-qeweqwr
-magaña cabro
+% =========================
+% Propuesta 1: xv6
+% =========================
+
+\subsection{xv6}
+
+\subsubsection{Nombre del proyecto o sistema operativo}
+
+xv6 es un sistema operativo educativo desarrollado por el MIT como una reimplementación moderna de UNIX Sixth Edition (V6). Su código está diseñado para ser lo más simple posible, permitiendo a los estudiantes estudiar de manera clara la estructura y funcionamiento interno de un sistema operativo real. Se utiliza ampliamente en cursos universitarios avanzados de sistemas operativos, especialmente en el MIT 6.1810/6.828 \cite{xv6_mit_about, xv6_wiki}.
+
+\subsubsection{Enlace al repositorio y/o documentación oficial}
+
+Repositorio oficial (versión RISC-V, actualmente en uso académico):  
+\url{https://github.com/mit-pdos/xv6-riscv}
+
+Repositorio histórico para x86:  
+\url{https://github.com/mit-pdos/xv6-public}
+
+Documentación del curso MIT 6.1810/6.828:  
+\url{https://pdos.csail.mit.edu/6.1810/2024/xv6.html}
+
+Descripción general en Wikipedia:  
+\url{https://en.wikipedia.org/wiki/Xv6}
+
+\subsubsection{Objetivo del proyecto}
+
+El objetivo principal de xv6 es \textbf{educativo}. Fue desarrollado para enseñar los conceptos esenciales de un sistema operativo desde su diseño hasta su implementación. xv6 proporciona una arquitectura simple y bien organizada que replica los principios de UNIX V6, pero con código en C moderno y herramientas actuales, facilitando la comprensión del funcionamiento del kernel, el manejo de procesos y la interacción con el hardware \cite{xv6_mit_about, xv6_book}.
+
+Su diseño didáctico permite que los estudiantes puedan modificar o extender el sistema, añadiendo nuevas llamadas al sistema, alterando la planificación o mejorando módulos existentes.
+
+\subsubsection{Lenguajes de implementación}
+
+xv6 está programado principalmente en \textbf{ANSI C}, un lenguaje ideal para estudiar estructuras internas de un OS.  
+Incluye también secciones esenciales en \textbf{ensamblador}, utilizadas para:
+
+\begin{itemize}
+    \item inicializar el procesador,
+    \item manejar interrupciones del hardware,
+    \item gestionar el paso al modo protegido (x86) o al modo supervisor (RISC-V).
+\end{itemize}
+
+Esta combinación permite desarrollar un kernel real, pero accesible para estudiantes \cite{xv6_book}.
+
+\subsubsection{Arquitectura del sistema}
+
+xv6 implementa un \textbf{kernel monolítico} inspirado en la filosofía de UNIX.  
+Todas las funcionalidades esenciales —gestión de procesos, memoria, archivos y controladores mínimos— se encuentran integradas dentro del núcleo, lo que facilita su comprensión y seguimiento.
+
+Actualmente, xv6 está diseñado para ejecutarse principalmente en arquitectura \textbf{RISC-V}, aunque existen versiones previas para x86 de 32 bits \cite{xv6_riscv}.
+
+\subsubsection{Componentes implementados}
+
+xv6 posee todos los elementos fundamentales para ilustrar cómo opera un sistema operativo real:
+
+\begin{itemize}
+    \item \textbf{Gestión de procesos:} Implementa \texttt{fork()}, \texttt{exec()}, \texttt{wait()}, señales simples, cambio de contexto y planificación round-robin \cite{xv6_book}.
+    
+    \item \textbf{Gestión de memoria:} Incluye memoria paginada, asignación dinámica y protección por proceso. En RISC-V utiliza tablas de páginas multinivel.
+
+    \item \textbf{Sistema de archivos:} Posee un sistema basado en i-nodos, con soporte para directorios, enlaces y bloques. Permite comandos como \texttt{ls}, \texttt{mkdir}, \texttt{cat} y \texttt{rm}.
+
+    \item \textbf{Interrupciones y excepciones:} Mecanismo de trampas para manejar llamadas al sistema, interrupciones de hardware y fallos de página.
+
+    \item \textbf{Shell integrado:} Un shell simple escrito en C que soporta pipes, redirecciones y ejecución de comandos básicos.
+
+    \item \textbf{Drivers esenciales:} Controlador de consola, disco virtual y reloj, suficientes para soportar la ejecución en QEMU.
+\end{itemize}
+
+Aunque minimalista, xv6 captura la esencia del diseño UNIX y permite extender fácilmente su funcionalidad en entornos educativos.
+
+\subsubsection{Herramientas utilizadas}
+
+El entorno de desarrollo de xv6 se basa en herramientas de sistemas operativos reales:
+
+\begin{itemize}
+    \item \textbf{Compilador cruzado para RISC-V:} \texttt{riscv64-unknown-elf-gcc}, requerido para construir el kernel y los programas de usuario.
+    \item \textbf{Make y Binutils:} Para automatizar la compilación y enlazado.
+    \item \textbf{QEMU:} Emulador recomendado para ejecutar xv6 sin hardware adicional.
+    \item \textbf{GDB:} Integrado mediante \texttt{make qemu-gdb} para depuración a nivel de kernel.
+\end{itemize}
+
+Ejemplo típico de ejecución:
+
+\begin{verbatim}
+make qemu
+make qemu-gdb
+\end{verbatim}
+
+Estas herramientas permiten estudiar el comportamiento del sistema paso por paso.
+
+\subsubsection{Nivel de complejidad y accesibilidad}
+
+El nivel de complejidad de xv6 es \textbf{medio}, pero extremadamente adecuado para fines educativos.
+
+Ventajas:
+
+\begin{itemize}
+    \item código claro y bien organizado,
+    \item manual detallado (el xv6 book),
+    \item tamaño reducido (alrededor de 10,000 líneas de código),
+    \item ampliamente utilizado en universidades,
+    \item fácil de modificar y extender.
+\end{itemize}
+
+Limitaciones:
+
+\begin{itemize}
+    \item no incluye red, GUI ni drivers avanzados;
+    \item carece de multitarea compleja o características modernas.
+\end{itemize}
+
+Aun así, es considerado uno de los sistemas más efectivos para comprender los fundamentos de los sistemas operativos \cite{xv6_wiki}.
+
+\begin{table}[H]
+	\centering
+	\caption{Ficha técnica resumida de xv6.}
+	\vspace{1em}
+	\begin{tabular}{p{4cm}p{10cm}}
+		\hline
+		\textbf{Diseño}            & Kernel monolítico inspirado en UNIX V6                                          \\ \hline
+		\textbf{Lenguajes}         & C y ensamblador                                                                 \\
+		\textbf{Arquitecturas}     & RISC-V (actual), x86 (histórica)                                                \\
+		\textbf{Componentes clave} & Procesos, memoria, sistema de archivos, shell, interrupciones                   \\
+		\textbf{Herramientas}      & GCC RISC-V, Make, QEMU, GDB                                                     \\
+		\textbf{Uso educativo}     & Muy alto: estándar académico internacional                                      \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+% =========================
+% Propuesta 2: HobbyOS
+% =========================
+
+\subsection{HobbyOS}
+
+\subsubsection{Nombre del proyecto o sistema operativo}
+
+HobbyOS es un sistema operativo experimental desarrollado como un proyecto personal para explorar el diseño de kernels, la estructura interna de un sistema operativo y la interacción directa con el hardware. A diferencia de sistemas educativos consolidados como xv6, HobbyOS se encuentra en una fase más temprana, con un enfoque en proveer un entorno minimalista para aprender cómo construir un OS desde cero. Está orientado principalmente a desarrolladores principiantes interesados en comprender los fundamentos del arranque, el manejo básico de memoria y la arquitectura x86\_64 \cite{hobbyos_repo, hobbyos_topics}.
+
+\subsubsection{Enlace al repositorio y/o documentación oficial}
+
+Repositorio oficial del proyecto:  
+\url{https://github.com/ObadiahCrowe/HobbyOS}
+
+Colección de sistemas “hobby OS” relacionados en GitHub (contexto educativo):  
+\url{https://github.com/topics/hobby-os}
+
+\subsubsection{Objetivo del proyecto}
+
+El objetivo principal de HobbyOS es \textbf{experimental y educativo}. El proyecto busca ofrecer un entorno minimalista que permita estudiar el proceso de construcción de un kernel desde su etapa más básica: configuración del compilador cruzado, arranque del sistema, implementación de rutinas en ensamblador y la estructura esencial de un núcleo operativo.
+
+Su propósito es brindar un punto de partida accesible para estudiantes y entusiastas que desean comprender cómo funciona un sistema operativo a nivel interno, sin la complejidad de sistemas avanzados como Linux o BSD \cite{hobbyos_repo}.
+
+\subsubsection{Lenguajes de implementación}
+
+HobbyOS está escrito principalmente en \textbf{C}, con secciones de \textbf{ensamblador x86\_64} necesarias para:
+
+\begin{itemize}
+    \item realizar el proceso de arranque (bootloader),
+    \item manejar interrupciones básicas,
+    \item configurar los registros y el modo protegido o de 64 bits.
+\end{itemize}
+
+Esta combinación de C y ensamblador es típica en sistemas operativos minimalistas, ya que permite interactuar directamente con el hardware al mismo tiempo que se mantiene un código relativamente claro y modular \cite{hobbyos_repo}.
+
+\subsubsection{Arquitectura del sistema}
+
+Aunque la documentación oficial no califica explícitamente su arquitectura como monolítica o microkernel, el diseño mostrado en su repositorio indica un \textbf{kernel monolítico simple}. Es decir, el núcleo contiene la mayor parte de las funcionalidades disponibles: rutinas de memoria, interrupciones básicas y control inicial del hardware.
+
+El sistema está dirigido a la arquitectura \textbf{x86\_64} moderna, lo cual lo diferencia de varios sistemas educativos clásicos que utilizan x86 de 32 bits. Esto permite estudiar una arquitectura actual y ampliamente utilizada \cite{hobbyos_repo}.
+
+\subsubsection{Componentes implementados}
+
+HobbyOS se encuentra en desarrollo activo y por ello sus componentes son básicos, pero suficientes para fines de aprendizaje:
+
+\begin{itemize}
+    \item \textbf{Bootloader personalizado:} Incluye código en ensamblador para realizar el proceso de arranque, cambiar a modo de 64 bits y cargar el kernel en memoria.
+    
+    \item \textbf{Kernel mínimo:} Provee estructuras para inicializar el sistema, configurar la pila, manejar el entorno básico del CPU y ejecutar código C dentro del kernel.
+
+    \item \textbf{Gestión temprana de memoria:} Implementa rutinas simples para administrar memoria, configurar memoria física disponible y organizar el espacio del sistema.
+
+    \item \textbf{Interrupciones básicas:} Define tablas de interrupciones e incluye manejadores mínimos, necesarios para extender funcionalidades en versiones futuras.
+
+    \item \textbf{Interfaz textual:} La salida a consola se realiza mediante rutinas de escritura directa en memoria de video (modo texto), útil para depuración y pruebas.
+
+    \item \textbf{Compatibilidad con QEMU:} Puede iniciarse mediante una imagen de arranque compatible con QEMU, lo cual simplifica las pruebas de kernel sin requerir hardware físico.
+\end{itemize}
+
+Aunque el sistema carece todavía de un conjunto completo de procesos, memoria virtual o sistema de archivos, esto es intencional: busca ser una base de estudio extremadamente clara y progresiva.
+
+\subsubsection{Herramientas utilizadas}
+
+El desarrollo de HobbyOS requiere un conjunto de herramientas específicas para trabajar con kernels de bajo nivel:
+
+\begin{itemize}
+    \item \textbf{Compilador cruzado x86\_64-elf-gcc:} Necesario para producir binarios adecuados a un entorno sin sistema operativo.
+    \item \textbf{Binutils para x86\_64:} Incluye ensambladores como \texttt{as}, enlazadores (\texttt{ld}) y herramientas para manipular binarios.
+    \item \textbf{NASM u otro ensamblador:} Utilizado para el código de arranque.
+    \item \textbf{QEMU:} Emulador recomendado para ejecutar el sistema sin hardware físico.
+    \item \textbf{Make:} Orquestación del proceso de compilación y generación de imágenes de disco.
+\end{itemize}
+
+Ejemplo de compilación típica en el entorno del proyecto:
+
+\begin{verbatim}
+make
+qemu-system-x86_64 -kernel hobbyos.bin
+\end{verbatim}
+
+Estas herramientas permiten a los estudiantes observar cada etapa del proceso de construcción de un sistema operativo.
+
+\subsubsection{Nivel de complejidad y accesibilidad}
+
+El nivel de complejidad de HobbyOS es \textbf{bajo-medio}, lo cual lo hace muy adecuado para estudiantes que desean comprender los primeros principios del diseño de kernels. Sus ventajas principales son:
+
+\begin{itemize}
+    \item código pequeño y fácil de leer,
+    \item estructura simple ideal para extender en trabajos académicos,
+    \item enfoque en arquitectura x86\_64 moderna,
+    \item ausencia de funcionalidades avanzadas que distraigan del núcleo conceptual.
+\end{itemize}
+
+Limitaciones educativas:
+
+\begin{itemize}
+    \item documentación reducida comparada con proyectos grandes,
+    \item carece de multitarea, sistema de archivos, planificación, drivers complejos,
+    \item requiere conocimientos básicos de C y ensamblador para comprender su funcionamiento.
+\end{itemize}
+
+En resumen, HobbyOS es altamente accesible para quienes buscan aprender los fundamentos del diseño de sistemas operativos desde su base más elemental, siendo una excelente plataforma para explorar cómo “arranca” un OS y cómo se construyen sus primeros componentes \cite{hobbyos_topics}.
+
+\begin{table}[H]
+	\centering
+	\caption{Ficha técnica resumida de HobbyOS.}
+	\vspace{1em}
+	\begin{tabular}{p{4cm}p{10cm}}
+		\hline
+		\textbf{Diseño}            & Kernel monolítico minimalista                                   \\ \hline
+		\textbf{Lenguajes}         & C y ensamblador x86\_64                                          \\
+		\textbf{Arquitecturas}     & x86\_64                                                          \\
+		\textbf{Componentes clave} & Bootloader, kernel básico, memoria inicial, interrupciones       \\
+		\textbf{Herramientas}      & GCC cross-compiler, NASM, QEMU, Make                             \\
+		\textbf{Uso educativo}     & Alto: ideal para aprender arranque y estructura básica de un OS  \\
+		\hline
+	\end{tabular}
+\end{table}
