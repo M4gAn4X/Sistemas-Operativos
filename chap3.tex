@@ -1,10 +1,22 @@
-\chapter{Dealing with Errors}
-\label{chap:errors}
+\chapter{Comparación técnica}
 
-\LaTeX{} can produce cryptic error messages at times.
-However, with some experience, it is usually not too
-difficult to determine what the problem is and how to fix it.
+\begin{landscape}
+\begin{table}[H]
+	\centering
+	\caption{Comparación resumida de los sistemas operativos analizados.}
+	\vspace{1em}
+    \scriptsize
+	\begin{tabular}{p{1.8cm}p{2cm}p{2cm}p{2cm}p{2cm}p{2cm}p{2cm}p{2cm}}
+		\hline
+		\textbf{Sistema} & \textbf{Arquitectura} & \textbf{Lenguaje} & \textbf{Tamaño de kernel} & \textbf{Documentación} & \textbf{Comunidad} & \textbf{Tipo de uso} & \textbf{Dificultad estimada} \\ \hline
+		HelenOS & Microkernel multiserver & C, C++, ensamblador & Grande (núcleo y muchos servidores) & Alta: guías, papers y docs oficiales & Pequeña pero activa & Investigación y docencia avanzada & Alta \\
+		Visopsys & Kernel monolítico modular & C y ensamblador x86 & Mediano (núcleo con GUI y VFS propio) & Media: sitio oficial y presentaciones & Muy pequeña (principalmente el autor) & Educativo y demostrativo & Media \\
+		ToaruOS & Kernel híbrido modular (Misaka) & C, Kuroko, ensamblador & Mediano-grande (kernel + GUI completo) & Alta: wiki, blog y código comentado & Pequeña-moderada & Educativo y experimentación de escritorio & Media-alta \\
+		xv6 & Kernel monolítico tipo UNIX V6 & C y ensamblador & Pequeño (\textasciitilde10 KLOC) & Muy alta: libro, guías de laboratorio, wiki & Amplia en el ámbito académico & Docencia universitaria de sistemas operativos & Media \\
+		HobbyOS & Kernel monolítico simple & C y ensamblador x86\_64 & Muy pequeño (< 10 KLOC) & Baja-media: README y comentarios en código & Muy pequeña (proyecto individual) & Aprendizaje personal y prototipado de kernel & Baja-media \\ \hline
+	\end{tabular}
+\end{table}
+\end{landscape}
 
-As mentioned earlier, appropriate search terms in Google
-may help you fix these error messages.
+
 
