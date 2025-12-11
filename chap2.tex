@@ -185,6 +185,130 @@ El nivel de complejidad de Visopsys es \textbf{medio}, ya que su código fuente 
 	\vspace{1mm}
 	\textit{Nota.} Adaptado de “SO Visopsys” (McLaughlin, 2023).
 \end{table}
+
+% =========================
+% Sistema Operativo: SerenityOS
+% =========================
+\subsection{SerenityOS}
+
+\subsubsection{Nombre del proyecto o sistema operativo}
+SerenityOS es un sistema operativo desarrollado completamente desde cero, con un enfoque en la simplicidad, la claridad del código y la recreación de una experiencia clásica de escritorio tipo años 90. A diferencia de muchos sistemas modernos, \textbf{no está basado en Unix}, aunque implementa varias interfaces y utilidades compatibles para facilitar su uso. Su propósito es ofrecer un entorno de desarrollo limpio, coherente y mantenible \cite{serenity_about, serenity_wiki}.
+
+\subsubsection{Enlace al repositorio y/o documentación oficial}
+
+Repositorio oficial (GitHub):  
+\url{https://github.com/SerenityOS/serenity}
+
+Documentación y sitio web del proyecto:  
+\url{https://serenityos.org}
+
+\subsubsection{Objetivo del proyecto}
+El objetivo principal de SerenityOS es construir un sistema operativo y un entorno gráfico escritos desde cero, con énfasis en:
+
+\begin{itemize}
+    \item \textbf{claridad y elegancia del código},
+    \item \textbf{una experiencia retro de escritorio},
+    \item \textbf{diversión y aprendizaje en ingeniería de sistemas},
+    \item \textbf{independencia de cualquier diseño Unix o Linux preexistente}.
+\end{itemize}
+
+El sistema promueve un enfoque artesanal y pedagógico sobre cómo diseñar un kernel, un sistema de archivos, una GUI y un conjunto de aplicaciones coherentes \cite{serenity_philosophy}.
+
+\subsubsection{Lenguajes de implementación}
+SerenityOS está desarrollado principalmente en:
+
+\begin{itemize}
+    \item \textbf{C++ moderno (C++20)}: núcleo, librerías, sistema de ventanas, aplicaciones gráficas.
+    \item \textbf{JavaScript}: parte del navegador web "Ladybird".
+    \item \textbf{Ensamblador}: rutinas específicas de arranque e interacción con el hardware.
+\end{itemize}
+
+Su código en C++ destaca por un estilo extremadamente consistente y orientado a legibilidad.
+
+\subsubsection{Arquitectura del sistema}
+SerenityOS utiliza un diseño \textbf{monolítico modular}, donde el kernel implementa:
+
+\begin{itemize}
+    \item manejo de procesos e hilos,
+    \item memoria virtual con paginación,
+    \item sistema de archivos,
+    \item controladores de dispositivos,
+    \item manejo de interrupciones,
+    \item un modelo simple de IPC basado en mensajes.
+\end{itemize}
+
+El sistema se ejecuta principalmente en \textbf{x86\_64}, con esfuerzos experimentales para otras arquitecturas \cite{serenity_arch}.
+
+\subsubsection{Componentes implementados}
+SerenityOS implementa un conjunto sorprendentemente completo de subsistemas:
+
+\begin{itemize}
+    \item \textbf{Kernel Serenity}: núcleo monolítico con planificación, manejo de memoria y sincronización.
+    \item \textbf{Sistema de archivos}: implementación propia con soporte para inodos, permisos y operaciones típicas del VFS.
+    \item \textbf{Interfaz gráfica}: servidor de ventanas (WindowServer) y un entorno gráfico completo inspirado en Windows 95.
+    \item \textbf{Navegador web Ladybird}: navegador moderno con motor propio, capaz de renderizar HTML, CSS y JS.
+    \item \textbf{Herramientas y utilidades}: shell propio, editor de texto, administrador de archivos, terminal, calculadora, herramientas de desarrollo, etc.
+    \item \textbf{Aplicaciones gráficas}: reproductores, editores, herramientas del sistema, emuladores, etc.
+\end{itemize}
+
+A diferencia de sistemas educativos minimalistas, SerenityOS funciona como un sistema de escritorio completo hecho desde cero.
+
+\subsubsection{Herramientas utilizadas}
+El desarrollo de SerenityOS requiere:
+
+\begin{itemize}
+    \item \textbf{GCC o Clang}: compilador principal para C++20.
+    \item \textbf{CMake y Ninja}: sistema de construcción moderno.
+    \item \textbf{Toolchain cruzado}: scripts incluidos permiten crear un toolchain independiente llamado \texttt{serenity-toolchain}.
+\end{itemize}
+
+Ejemplo de ejecución:
+
+\begin{verbatim}
+git clone https://github.com/SerenityOS/serenity.git
+cd serenity
+Meta/serenity.sh run
+\end{verbatim}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/serenityos_desktop.png}
+    \caption{Pantalla principal de SerenityOS ejecutado}
+    \label{fig:serenityos_desktop}
+\end{figure}
+
+
+\subsubsection{Nivel de complejidad y accesibilidad}
+El nivel de complejidad de SerenityOS es \textbf{medio-alto}. No es tan simple como xv6 o MikeOS, pero tampoco tan complejo como Linux. Su código está muy bien organizado, lo que facilita el estudio de:
+
+\begin{itemize}
+    \item kernels monolíticos,
+    \item sistemas de archivos simples,
+    \item manejo de GUI desde cero,
+    \item construcción de aplicaciones con un mismo estilo arquitectónico,
+    \item desarrollo moderno en C++.
+\end{itemize}
+
+Es accesible para estudiantes intermedios o avanzados que desean trabajar con un sistema real en construcción activa.
+
+\begin{table}[H]
+    \centering
+    \caption{Ficha técnica resumida de SerenityOS.}
+    \vspace{1em}
+    \begin{tabular}{p{4cm}p{10cm}}
+        \hline
+        \textbf{Diseño}            & Kernel monolítico escrito desde cero (no basado en Unix) \\ \hline
+        \textbf{Lenguajes}         & C++20 (principal), ensamblador, JavaScript                \\
+        \textbf{Arquitecturas}     & x86\_64                                                    \\
+        \textbf{Componentes clave} & Kernel, GUI, WindowServer, VFS propio, navegador Ladybird \\
+        \textbf{Herramientas}      & CMake, Ninja, GCC/Clang, QEMU                             \\
+        \textbf{Uso educativo}     & Alto: arquitectura completa, código claro y moderno       \\
+        \hline
+    \end{tabular}\\
+    \vspace{1mm}
+    \textit{Nota.} Adaptado de la documentación oficial y repositorio de SerenityOS (2020--2025).
+\end{table}
+
 % =======================================
 % Investigación de Toarus y otro SO extra - Rosy
 % =======================================
@@ -200,7 +324,7 @@ Repositorio oficial: \url{https://github.com/klange/toaruos}
 
 Sitio web del proyecto: \url{http://toaruos.org/}
 
-\subsection{Objetivo del proyecto}
+\subsubsection{Objetivo del proyecto}
 ToarusOS esta diseñado para servir como recurso educativo que permita estudiar y comprender el funcionamiento de un sistema operativo completo. Pretendiendo ser una representación compacta y funcional de los componentes que forman parte de un sistema operativo de escritorio moderno.
 
 \subsubsection{Lenguajes de implementación}
@@ -466,6 +590,194 @@ En resumen, HobbyOS es altamente accesible para quienes buscan aprender los fund
 		\textbf{Componentes clave} & Bootloader, kernel básico, memoria inicial, interrupciones       \\
 		\textbf{Herramientas}      & GCC cross-compiler, NASM, QEMU, Make                             \\
 		\textbf{Uso educativo}     & Alto: ideal para aprender arranque y estructura básica de un OS  \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+% =========================
+% Sistema Operativo 1: MikeOS
+% =========================
+\subsection{MikeOS}
+
+\subsubsection{Nombre del proyecto o sistema operativo}
+MikeOS es un sistema operativo didáctico de 16 bits, minimalista y de código abierto. Fue creado con el objetivo de demostrar los fundamentos de un sistema operativo simple, operando en modo real de la arquitectura x86. Su principal fortaleza reside en la claridad y la exhaustiva documentación de su código fuente \cite{mikeos_about}.
+
+\subsubsection{Enlace al repositorio y/o documentación oficial}
+Sitio web oficial y descargas: \url{https://mikeos.sourceforge.net/}
+
+Repositorio de código fuente: \url{https://github.com/mig-hub/mikeOS}
+
+Manual para desarrolladores de aplicaciones: \url{https://mikeos.sourceforge.net/app-development.html}
+
+\subsubsection{Objetivo del proyecto}
+El objetivo principal de MikeOS es \textbf{educativo y didáctico}. Está diseñado específicamente para estudiantes y entusiastas que desean aprender a programar en \textbf{ensamblador x86 de 16 bits} y entender cómo se implementan las llamadas al sistema y los componentes básicos de un kernel. Su simplicidad lo hace ideal como primer contacto con la programación de sistemas operativos \cite{mikeos_purpose}.
+
+\subsubsection{Lenguaje(s) de implementación}
+El sistema está implementado casi en su totalidad en \textbf{Ensamblador x86 de 16 bits} (utilizando el \textbf{NASM} - Netwide Assembler). Incluye un intérprete de \textbf{BASIC} con 46 instrucciones, lo que permite la creación de programas de alto nivel dentro del entorno \cite{mikeos_source}.
+
+\subsubsection{Arquitectura del sistema}
+MikeOS presenta una arquitectura \textbf{monolítica} extremadamente simple. El núcleo, el shell y todos los programas de usuario se ejecutan en un único espacio de memoria de \textbf{64 KB} (dentro del modo real x86). Esto evita la complejidad de la gestión de memoria y la protección del hardware, lo que simplifica su estudio \cite{mikeos_architecture}.
+
+\subsubsection{Componentes implementados}
+\begin{itemize}
+	\item \textbf{Kernel (Núcleo):} Responsable de la inicialización del hardware, la gestión de interrupciones y la carga de programas.
+	\item \textbf{Gestor de Arranque (Bootloader):} Carga el núcleo en memoria.
+	\item \textbf{Llamadas al sistema:} Proporciona más de 60 funciones para que las aplicaciones accedan a servicios del sistema, como E/S de pantalla, teclado y disco.
+	\item \textbf{Shell (CLI):} Un intérprete de línea de comandos básico para la interacción con el usuario.
+	\item \textbf{Intérprete de BASIC:} Permite la ejecución de programas de ejemplo o creados por el usuario en BASIC.
+	\item \textbf{Utilidades:} Incluye un editor de texto, gestor de archivos simple, y programas de demostración.
+\end{itemize}
+
+\subsubsection{Herramientas utilizadas}
+Las herramientas esenciales para el desarrollo y prueba de MikeOS son:
+\begin{itemize}
+	\item \textbf{Ensamblador:} \textbf{NASM} (\texttt{Netwide Assembler}) para compilar el código fuente.
+	\item \textbf{Emuladores:} Se recomienda altamente el uso de emuladores de PC como \textbf{QEMU} o \textbf{Bochs} para la ejecución y depuración.
+	\item \textbf{Herramientas de disco:} Utilidades para crear la imagen de disquete o CD ejecutable.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/mikeos_interface.png}
+	\caption{Editor de texto de MikeOS mostrando un programa de demostración en BASIC.}
+\end{figure}
+
+\subsubsection{Nivel de complejidad y accesibilidad para estudiantes}
+El nivel de complejidad es \textbf{Bajo a Medio-Bajo}. MikeOS es uno de los sistemas operativos didácticos \textbf{más accesibles} para principiantes debido a su enfoque de 16 bits en modo real, el cual elimina las complejidades modernas de la memoria virtual y la protección. El código está muy comentado, lo que facilita enormemente su estudio.
+
+\begin{table}[H]
+	\centering
+	\caption{Ficha técnica resumida de MikeOS.}
+	\vspace{1em}
+	\begin{tabular}{p{4cm}p{10cm}}
+		\hline
+		\textbf{Diseño} & Monolítico simple, modo real de 16 bits \\ \hline
+		\textbf{Lenguajes} & Ensamblador x86 (NASM), BASIC \\
+		\textbf{Arquitecturas} & x86 (16-bit) \\
+		\textbf{Componentes clave} & Kernel, Bootloader, 60+ Llamadas al Sistema, Intérprete BASIC \\
+		\textbf{Herramientas} & NASM, QEMU/Bochs \\
+		\textbf{Uso educativo} & Excelente para introducción a Ensamblador y Fundamentos de SO \\
+		\hline
+	\end{tabular}
+\end{table}
+
+% =========================
+% Sistema Operativo 2: BareMetal OS
+% =========================
+\subsection{BareMetal OS}
+
+\subsubsection{Nombre del proyecto o sistema operativo}
+BareMetal OS (BMOS) es un sistema operativo de fuente abierta, desarrollado para ejecutarse directamente en el hardware (\textit{bare metal}) de arquitecturas de 64 bits. Se caracteriza por ser extremadamente minimalista, sin ninguna capa de abstracción del kernel de un sistema operativo tradicional, cargándose directamente en la CPU \cite{bmos_wiki}.
+
+\subsubsection{Enlace al repositorio y/o documentación oficial}
+La actividad principal y el sitio web original del proyecto (\url{http://www.returninfinity.com}) están \textbf{descontinuados}. Información histórica se encuentra en:
+\url{https://github.com/ReturnInfinity/BareMetal-OS}
+
+\subsubsection{Objetivo del proyecto}
+El objetivo principal de BareMetal OS era \textbf{experimental} y de nicho. Buscaba proporcionar un entorno para ejecutar aplicaciones "bare metal" directamente sobre el hardware x86-64. Su enfoque era demostrar la computación de alto rendimiento aprovechando el soporte \textbf{multiprocesador} sin la sobrecarga de un kernel complejo \cite{bmos_purpose}.
+
+\subsubsection{Lenguaje(s) de implementación}
+El sistema está implementado casi en su totalidad en \textbf{Ensamblador x86-64} de bajo nivel. Esto garantiza un tamaño mínimo del núcleo y una ejecución directa y rápida sobre el hardware \cite{bmos_source}.
+
+\subsubsection{Arquitectura del sistema}
+Presenta una arquitectura \textbf{monolítica} y \textbf{monotarea}, diseñada para la arquitectura \textbf{x86-64}. Su característica distintiva es la ejecución en modo "bare metal", donde el código de la aplicación se ejecuta esencialmente como parte del kernel, minimizando las capas de abstracción. Aunque monotarea, soporta múltiples procesadores (\textbf{multiprocesador}) \cite{bmos_architecture}.
+
+\subsubsection{Componentes implementados}
+\begin{itemize}
+	\item \textbf{Kernel Minimalista:} Un núcleo extremadamente pequeño (aproximadamente 16 KB) que realiza las funciones de inicialización y carga.
+	\item \textbf{Soporte Multiprocesador:} Capacidad para gestionar y utilizar hasta 128 procesadores, aunque como plataforma monotarea.
+	\item \textbf{Entrada/Salida Básica:} Funcionalidades mínimas de E/S.
+	\item \textbf{Aplicaciones Bare Metal:} Entorno para que las aplicaciones se ejecuten directamente en el hardware sin la necesidad de un sistema operativo intermedio.
+\end{itemize}
+
+\subsubsection{Herramientas utilizadas}
+El desarrollo requirió el uso de herramientas de desarrollo de muy bajo nivel para x86-64.
+\begin{itemize}
+	\item \textbf{Ensamblador:} Herramientas de ensamblador x86-64 (a menudo NASM o similar).
+	\item \textbf{Emuladores:} Para pruebas, se utilizaban comúnmente \textbf{QEMU} y \textbf{Bochs} en modo de 64 bits.
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{figures/bmos_interface.png}
+	\caption{BareMetal OS ejecutándose en QEMU, mostrando el listado de archivos (dir) y la ejecución de una aplicación}
+\end{figure}
+
+\subsubsection{Nivel de complejidad y accesibilidad para estudiantes}
+El nivel de complejidad es \textbf{Medio-Alto}. Aunque el concepto es minimalista, la implementación en Ensamblador x86-64 y su naturaleza "bare metal" requiere un conocimiento profundo de la arquitectura de la computadora. La falta de desarrollo y soporte activo lo hace menos accesible como proyecto educativo estructurado en la actualidad.
+
+\begin{table}[H]
+	\centering
+	\caption{Ficha técnica resumida de BareMetal OS.}
+	\vspace{1em}
+	\begin{tabular}{p{4cm}p{10cm}}
+		\hline
+		\textbf{Diseño} & Monolítico minimalista, bare metal, monotarea/multiprocesador \\ \hline
+		\textbf{Lenguajes} & Ensamblador x86-64 \\
+		\textbf{Arquitecturas} & x86-64 \\
+		\textbf{Componentes clave} & Kernel muy pequeño, Soporte APIC/SMP (Multiprocesador) \\
+		\textbf{Herramientas} & Ensambladores de 64-bit, QEMU/Bochs \\
+		\textbf{Uso educativo} & Avanzado: para estudio de arquitecturas x86-64 y programación bare metal \\
+		\hline
+	\end{tabular}
+\end{table}
+
+% =========================
+% Sistema Operativo 3: PintOS
+% =========================
+\subsection{PintOS}
+
+\subsubsection{Nombre del proyecto o sistema operativo}
+PintOS es un \textit{framework} de sistema operativo minimalista diseñado para la arquitectura x86. Es utilizado primariamente en cursos universitarios de sistemas operativos, siendo desarrollado originalmente en la \textbf{Universidad de Stanford}. Se presenta como un código base incompleto que los estudiantes deben extender mediante la implementación de funcionalidades clave \cite{pintos_stanford}.
+
+\subsubsection{Enlace al repositorio y/o documentación oficial}
+Documentación oficial (Ejemplo de Stanford): \url{https://web.stanford.edu/class/cs140/projects/pintos/pintos_1.html}
+
+Guías de desarrollo (GitHub): \url{https://github.com/SajedHassan/CSEx61-pintos}
+
+\subsubsection{Objetivo del proyecto}
+El objetivo es puramente \textbf{educativo y académico}. PintOS sirve como una plataforma de aprendizaje práctica donde los estudiantes implementan módulos esenciales de un sistema operativo moderno, tales como la gestión de hilos, la implementación de llamadas al sistema, la memoria virtual y el sistema de archivos \cite{pintos_purpose}.
+
+\subsubsection{Lenguaje(s) de implementación}
+El código base está escrito mayoritariamente en \textbf{C} (aproximadamente 69\%). Las rutinas de bajo nivel para la interacción con el hardware y los cambios de contexto están implementadas en \textbf{Ensamblador x86} \cite{pintos_source}.
+
+\subsubsection{Arquitectura del sistema}
+PintOS sigue una arquitectura \textbf{monolítica} simple, diseñada para la arquitectura \textbf{80x86} de 32 bits. Se ejecuta en modo kernel y su código base proporciona el marco inicial para que los estudiantes construyan sobre él los siguientes componentes: hilos, programas de usuario, memoria virtual y el sistema de archivos.
+
+\subsubsection{Componentes implementados}
+PintOS está estructurado en cuatro proyectos principales que los estudiantes deben completar:
+\begin{itemize}
+	\item \textbf{Threads (Hilos):} Implementación de hilos (threads), exclusión mutua, semáforos, bloqueos y planificación de hilos (scheduler).
+	\item \textbf{User Programs (Programas de Usuario):} Implementación de la carga de ejecutables, el paso de argumentos y la capa de \textbf{llamadas al sistema} (syscalls) entre el espacio de usuario y el kernel.
+	\item \textbf{Virtual Memory (Memoria Virtual):} Implementación de paginación, manejo de fallos de página y asignación de memoria virtual.
+	\item \textbf{File System (Sistema de Archivos):} Implementación de un sistema de archivos funcional, incluyendo directorios, archivos, y manejo de la estructura de disco.
+\end{itemize}
+
+\subsubsection{Herramientas utilizadas}
+El entorno de desarrollo de PintOS es robusto y se basa en las herramientas estándar de GNU/Linux:
+\begin{itemize}
+	\item \textbf{Compilador:} \textbf{GCC} (GNU Compiler Collection).
+	\item \textbf{Utilidades:} \texttt{make} y \texttt{binutils}. Los scripts de compilación suelen estar escritos en \textbf{Perl}.
+	\item \textbf{Depuración:} Se utiliza \textbf{GDB} (GNU Debugger).
+	\item \textbf{Entorno de prueba:} Principalmente el emulador de hardware \textbf{QEMU} o \textbf{Bochs}.
+\end{itemize}
+
+\subsubsection{Nivel de complejidad y accesibilidad para estudiantes}
+El nivel de complejidad es \textbf{Medio-Alto}. Aunque es un proyecto académico bien estructurado, requiere que los estudiantes implementen conceptos avanzados y críticos como la sincronización de hilos y la memoria virtual. Su alta accesibilidad se debe a su uso generalizado en universidades y a la existencia de abundante documentación y guías de estudio.
+
+\begin{table}[H]
+	\centering
+	\caption{Ficha técnica resumida de PintOS.}
+	\vspace{1em}
+	\begin{tabular}{p{4cm}p{10cm}}
+		\hline
+		\textbf{Diseño} & Monolítico, Framework académico, x86 32-bit \\ \hline
+		\textbf{Lenguajes} & C, Ensamblador x86, Perl (scripts) \\
+		\textbf{Arquitecturas} & x86 (32-bit) \\
+		\textbf{Componentes clave} & Hilos (Threads), Llamadas al Sistema, Memoria Virtual (Paginación), Sistema de Archivos \\
+		\textbf{Herramientas} & GCC, Make, Perl, QEMU/Bochs, GDB \\
+		\textbf{Uso educativo} & Muy Alto: esencial en cursos de Sistemas Operativos a nivel de grado/posgrado \\
 		\hline
 	\end{tabular}
 \end{table}
