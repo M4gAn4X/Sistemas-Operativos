@@ -16,90 +16,59 @@ Sitio web del proyecto: \url{https://www.helenos.org}.
 Documentación técnica (PDF): \url{https://www.helenos.org/doc/prjdoc.pdf}
 
 \subsubsection{Objetivo del proyecto}
-El objetivo de HelenOS es principalmente \textbf{educativo y experimental}. Su propósito es servir como plataforma de estudio de sistemas operativos modernos, promoviendo un enfoque modular donde cada servicio (sistema de archivos, red, controladores o interfaz gráfica) se implementa como un servidor independiente en espacio de usuario. Este diseño fomenta el análisis de conceptos avanzados como la comunicación entre procesos (IPC) y la separación entre el núcleo y los servicios de usuario \cite{helenos_about}.
+El objetivo de HelenOS es principalmente educativo y experimental. Su propósito es servir como plataforma de estudio de sistemas operativos modernos, promoviendo un enfoque modular donde cada servicio (sistema de archivos, red, controladores o interfaz gráfica) se implementa como un servidor independiente en espacio de usuario. Este diseño fomenta el análisis de conceptos avanzados como la comunicación entre procesos (IPC) y la separación entre el núcleo y los servicios de usuario \cite{helenos_about, helenos_prjdoc}.
 
-\subsubsection{Lenguaje de implementación}
-El proyecto está desarrollado principalmente en el lenguaje \textbf{C}, con partes críticas escritas en \textbf{ensamblador} (para el arranque del sistema y la gestión de interrupciones). Se mantiene compatibilidad con los estándares \textbf{C11} y \textbf{C++14}, facilitando la portabilidad y la integración de nuevos componentes \cite{helenos_prjdoc}.
+\subsubsection{Lenguajes de implementación}
+El proyecto está desarrollado principalmente en el lenguaje C, con partes críticas escritas en ensamblador (para el arranque del sistema y la gestión de interrupciones). Se mantiene compatibilidad con los estándares C11 y C++14, lo que facilita la portabilidad y la integración de nuevos componentes \cite{helenos_prjdoc}.
 
 \subsubsection{Arquitectura del sistema}
-HelenOS adopta una arquitectura \textbf{microkernel multiserver}. El microkernel proporciona únicamente los servicios esenciales —planificación, gestión de memoria, interrupciones e IPC— mientras que todos los demás servicios (como el sistema de archivos, la red o la interfaz gráfica) se ejecutan como procesos de usuario independientes que se comunican mediante paso de mensajes (\emph{message passing}) \cite{helenos_prjdoc}.
+HelenOS adopta una arquitectura de microkernel multiserver. El microkernel proporciona únicamente los servicios esenciales —planificación, gestión de memoria, interrupciones e IPC— mientras que todos los demás servicios (como el sistema de archivos, la red o la interfaz gráfica) se ejecutan como procesos de usuario independientes que se comunican mediante paso de mensajes (\textit{message passing}) \cite{helenos_prjdoc}.
 
 \subsubsection{Componentes implementados}
 \begin{itemize}
-	\item \textbf{Gestión de procesos e hilos:} Soporta multitarea con planificación por prioridades y aislamiento entre procesos. El modelo de ejecución permite múltiples hilos por proceso y comunicación sincronizada entre ellos mediante IPC.
-
-	\item \textbf{Gestión de memoria:} Implementa un sistema de memoria virtual con paginación y protección por espacio de direcciones. El kernel se encarga de la asignación básica y los servidores de usuario gestionan asignadores dinámicos (\textit{slab allocators}) y regiones compartidas.
-
-	\item \textbf{Sistema de archivos (VFS):} Se basa en una arquitectura de VFS (Virtual File System) donde cada tipo de sistema de archivos (por ejemplo, FAT, EXT2) se implementa como un servidor separado en espacio de usuario. Esto permite montar y desmontar sistemas de archivos sin reiniciar el núcleo.
-
-	\item \textbf{Dispositivos y controladores:} Los \textit{drivers} se ejecutan fuera del núcleo (user-space drivers), lo que evita que los errores en controladores afecten la estabilidad general del sistema. Hay soporte para dispositivos de almacenamiento, red, USB, video, teclado y mouse.
-
-	\item \textbf{Sistema de red:} Incluye una pila TCP/IP modular con soporte para IPv4, interfaces Ethernet virtuales, y utilidades de diagnóstico como \texttt{ping}, \texttt{netstat}, \texttt{inet list-addr} y \texttt{arp}.
-
-	\item \textbf{Sistema gráfico:} Dispone de un entorno gráfico de ventanas (GUI) que corre completamente en espacio de usuario. Proporciona aplicaciones nativas como \textit{Terminal}, \textit{Text Editor}, \textit{Navigator}, \textit{Calculator}, \textit{GFX Demo} y \textit{Tetris}. El gestor de ventanas se comunica con el servidor gráfico a través del protocolo \texttt{display-server}.
-
-	\item \textbf{Comunicación e IPC:} El núcleo ofrece un sistema de comunicación entre procesos mediante intercambio de mensajes (\textit{message passing}) orientado a puertos. Este mecanismo es la base de toda interacción entre servidores y aplicaciones.
-
-	\item \textbf{Seguridad y aislamiento:} Cada componente ejecuta con privilegios mínimos. Si un servidor falla, el kernel lo aísla y otros componentes pueden seguir ejecutándose, lo que mejora la tolerancia a fallos.
-
-	\item \textbf{Portabilidad:} El código fuente está diseñado para ser independiente de la arquitectura. Actualmente soporta múltiples plataformas: \texttt{ia32}, \texttt{amd64}, \texttt{arm32}, \texttt{mips32}, \texttt{ppc32}, \texttt{sparc64} e incluso \texttt{ia64} (Itanium).
+    \item \textbf{Gestión de procesos e hilos:} soporte de multitarea con planificación por prioridades y aislamiento entre procesos. El modelo de ejecución permite múltiples hilos por proceso y comunicación sincronizada entre ellos mediante IPC.
+    \item \textbf{Gestión de memoria:} sistema de memoria virtual con paginación y protección por espacio de direcciones. El kernel se encarga de la asignación básica y los servidores de usuario gestionan asignadores dinámicos (\textit{slab allocators}) y regiones compartidas.
+    \item \textbf{Sistema de archivos (VFS):} arquitectura de VFS donde cada tipo de sistema de archivos (por ejemplo, FAT, EXT2) se implementa como un servidor separado en espacio de usuario, permitiendo montar y desmontar sistemas de archivos sin reiniciar el núcleo.
+    \item \textbf{Dispositivos y controladores:} \textit{drivers} en espacio de usuario, lo que evita que errores en controladores afecten la estabilidad general del sistema. Hay soporte para dispositivos de almacenamiento, red, USB, vídeo, teclado y ratón.
+    \item \textbf{Sistema de red:} pila TCP/IP modular con soporte para IPv4, interfaces Ethernet virtuales y utilidades de diagnóstico como \texttt{ping}, \texttt{netstat}, \texttt{inet list-addr} y \texttt{arp}.
+    \item \textbf{Sistema gráfico:} entorno gráfico de ventanas (GUI) que corre completamente en espacio de usuario, con aplicaciones como \textit{Terminal}, \textit{Text Editor}, \textit{Navigator}, \textit{Calculator}, \textit{GFX Demo} y \textit{Tetris}.
+    \item \textbf{Comunicación e IPC:} sistema de comunicación entre procesos mediante intercambio de mensajes orientado a puertos.
+    \item \textbf{Seguridad y aislamiento:} cada componente ejecuta con privilegios mínimos, lo que mejora la tolerancia a fallos.
+    \item \textbf{Portabilidad:} soporte para \texttt{ia32}, \texttt{amd64}, \texttt{arm32}, \texttt{mips32}, \texttt{ppc32}, \texttt{sparc64} e \texttt{ia64}.
 \end{itemize}
 
 \subsubsection{Herramientas utilizadas}
-
-El proceso de compilación y prueba de HelenOS requiere la preparación de un entorno de desarrollo cruzado (\emph{cross-compiling}) que permite generar imágenes del sistema para múltiples arquitecturas. A continuación se detallan las principales herramientas utilizadas:
-
 \begin{itemize}
-	\item \textbf{Toolchain cruzado:} Se genera mediante el script \texttt{tools/toolchain.sh}, que compila una cadena completa de herramientas \texttt{gcc}, \texttt{binutils} y \texttt{gdb} adaptadas para la arquitectura destino (por ejemplo, \texttt{ia64-helenos-gcc}). El entorno de compilación se instala por defecto en el directorio \texttt{/usr/local/cross} y puede personalizarse mediante la variable \texttt{CROSS\_PREFIX}.
-
-	\item \textbf{Meson y Ninja:} HelenOS utiliza el sistema de construcción \textbf{Meson} junto al generador \textbf{Ninja}, lo que permite una configuración modular y compilaciones rápidas e incrementales.
-
-	\item \textbf{Dependencias del entorno:} Para distribuciones basadas en Debian/Ubuntu, se necesitan los paquetes \texttt{build-essential}, \texttt{wget}, \texttt{texinfo}, \texttt{flex}, \texttt{bison}, \texttt{dialog}, \texttt{python3-yaml} y \texttt{genisoimage}.
-
-	\item \textbf{Configuración del proyecto:} El script \texttt{configure.sh} permite definir perfiles preestablecidos de compilación. Por ejemplo, para la arquitectura \texttt{amd64}:
-	      \begin{verbatim}
-  git clone https://github.com/HelenOS/helenos.git
-  mkdir -p build/amd64
-  cd build/amd64
-  ../../helenos/configure.sh amd64
-  ninja
-  ninja image_path
-  \end{verbatim}
-
-	\item \textbf{Emulación y prueba:} HelenOS puede ejecutarse en \textbf{QEMU} o \textbf{VirtualBox}. Para iniciar el sistema en QEMU se recomienda:
-	      \begin{verbatim}
-  qemu-system-x86_64 -m 512 -cdrom image.iso \
-  -usb -device usb-tablet -serial mon:stdio -display sdl
-  \end{verbatim}
+    \item \textbf{Toolchain cruzado:} generado mediante \texttt{tools/toolchain.sh}, que compila \texttt{gcc}, \texttt{binutils} y \texttt{gdb} adaptados a HelenOS.
+    \item \textbf{Meson y Ninja:} sistema de construcción y generador de compilaciones incrementales.
+    \item \textbf{Dependencias:} paquetes como \texttt{build-essential}, \texttt{wget}, \texttt{texinfo}, \texttt{flex}, \texttt{bison}, \texttt{dialog}, \texttt{python3-yaml} y \texttt{genisoimage}.
+    \item \textbf{Emulación y prueba:} ejecución en \textit{QEMU} o \textit{VirtualBox}.
 \end{itemize}
 
-Además, el repositorio incluye scripts auxiliares en \texttt{tools/ew.py} que automatizan el proceso de arranque en QEMU, y configuraciones predefinidas en \texttt{tools/conf} para ajustar parámetros de memoria o dispositivos virtuales.
-
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=1\linewidth]{figures/helenos_toolchain.png}
-	\caption{Elaboración Propia. Compilación cruzada del toolchain.sh}
+    \centering
+    \includegraphics[width=1\linewidth]{figures/helenos_toolchain.png}
+    \caption{Elaboración propia. Compilación cruzada del script \texttt{toolchain.sh} del proyecto HelenOS.}
 \end{figure}
 
 \subsubsection{Nivel de complejidad y accesibilidad}
-El nivel de complejidad de HelenOS es alto, ya que su comprensión requiere conocimientos de compilación cruzada, IPC y gestión de memoria. Sin embargo, su estructura modular y bien documentada lo convierte en una excelente herramienta didáctica donde se pueden analizar de manera aislada servicios específicos como el sistema de archivos o el entorno gráfico \cite{helenos_docs}.
+El nivel de complejidad de HelenOS es alto, ya que su comprensión requiere conocimientos de compilación cruzada, IPC y gestión de memoria. Sin embargo, su estructura modular y la documentación disponible lo convierten en una herramienta didáctica sólida \cite{helenos_docs, manek2018}.
 
 \begin{table}[H]
-	\centering
-	\caption{Ficha técnica resumida de HelenOS.}
-	\vspace{1em}
-	\begin{tabular}{p{4cm}p{10cm}}
-		\hline
-		\textbf{Diseño}            & Microkernel multiserver modular                                     \\ \hline
-		\textbf{Lenguajes}         & C (principal) y ensamblador (arranque y bajo nivel)                 \\
-		\textbf{Arquitecturas}     & ia32, amd64, arm32, mips32, ppc32, sparc64                          \\
-		\textbf{Componentes clave} & Kernel mínimo, VFS, red, GUI, drivers en espacio de usuario         \\
-		\textbf{Herramientas}      & GCC (toolchain cruzado), Meson, Ninja, QEMU/VirtualBox              \\
-		\textbf{Uso educativo}     & Alto: análisis modular de componentes y comunicación entre procesos \\
-		\hline
-	\end{tabular}\\
-	\vspace{1mm}
-	\textit{Nota.} Adaptado de “About HelenOS” (HelenOS Project, 2024)
+    \centering
+    \begin{tabular}{p{4cm}p{10cm}}
+        \hline
+        \textbf{Diseño}            & Microkernel multiserver modular                                     \\ \hline
+        \textbf{Lenguajes}         & C (principal) y ensamblador                                         \\
+        \textbf{Arquitecturas}     & ia32, amd64, arm32, mips32, ppc32, sparc64                          \\
+        \textbf{Componentes clave} & Kernel mínimo, VFS, red, GUI, controladores en espacio de usuario   \\
+        \textbf{Herramientas}      & GCC (toolchain cruzado), Meson, Ninja, QEMU/VirtualBox              \\
+        \textbf{Uso educativo}     & Alto: análisis modular de componentes e IPC                         \\
+        \hline
+    \end{tabular}
+    \caption{Ficha técnica resumida de HelenOS.}
+    \vspace{1mm}
+    \textit{Nota. Adaptado de ``About HelenOS'' \cite{helenos_about}.}
 \end{table}
 
 % =========================
@@ -108,82 +77,63 @@ El nivel de complejidad de HelenOS es alto, ya que su comprensión requiere cono
 \subsection{Visopsys}
 
 \subsubsection{Nombre del proyecto o sistema operativo}
-Visopsys (\textit{Visual Operating System}) es un sistema operativo alternativo, gratuito y desarrollado desde cero por Andy McLaughlin desde 1997. A diferencia de otros sistemas, no está basado en Unix ni Linux, sino que implementa su propio kernel, gestor de archivos y entorno gráfico. Está diseñado para ser compacto, rápido y con una interfaz visual moderna, integrando tanto funcionalidades de línea de comandos como de entorno gráfico \cite{visopsys_about, visopsys_scribd}.
+Visopsys (\textit{Visual Operating System}) es un sistema operativo alternativo, gratuito y desarrollado desde cero por Andy McLaughlin desde 1997. No está basado en Unix ni en Linux, sino que implementa su propio kernel, gestor de archivos y entorno gráfico \cite{visopsys_about}.
 
 \subsubsection{Enlace al repositorio y/o documentación oficial}
-Repositorio oficial y descargas: \url{https://sourceforge.net/projects/visopsys/files/}
+Repositorio y descargas: \url{https://sourceforge.net/projects/visopsys/files/} \cite{visopsys_sourceforge}.
 
-Sitio web del proyecto: \url{https://visopsys.org}
+Sitio web del proyecto: \url{https://visopsys.org} \cite{visopsys_about}.
 
-Presentación técnica (Scribd): \url{https://es.scribd.com/presentation/619552414/SO-visopsys}
+Presentación técnica: \url{https://es.scribd.com/presentation/619552414/SO-visopsys} \cite{visopsys_scribd}.
 
-\subsubsection{Objetivo del proyecto }
-El objetivo de Visopsys es \textbf{educativo y experimental}. Busca proporcionar una plataforma funcional que demuestre los principios fundamentales del diseño de sistemas operativos, la gestión de procesos, la memoria y los sistemas de archivos. Está enfocado en ser simple, visual y completamente entendible, lo que lo hace ideal para el estudio de arquitecturas operativas en cursos de ingeniería de sistemas o informática \cite{visopsys_scribd}.
+\subsubsection{Objetivo del proyecto}
+Visopsys tiene un objetivo principalmente educativo y experimental. Proporciona una plataforma funcional para demostrar principios de diseño de sistemas operativos, gestión de procesos, memoria y sistemas de archivos \cite{visopsys_scribd}.
 
 \subsubsection{Lenguajes de implementación}
-El sistema está implementado principalmente en el lenguaje \textbf{C}, con secciones críticas escritas en \textbf{ensamblador x86}. Esta combinación le permite optimizar la comunicación con el hardware y mantener un tamaño reducido del núcleo y del sistema base \cite{visopsys_sourceforge}.
+Está implementado principalmente en C, con secciones críticas en ensamblador x86 \cite{visopsys_sourceforge}.
 
 \subsubsection{Arquitectura del sistema}
-Visopsys implementa una arquitectura \textbf{monolítica modular}. Su núcleo controla directamente los procesos, la gestión de memoria, el sistema de archivos y los controladores de dispositivos, aunque permite la carga dinámica de módulos y extensiones en tiempo de ejecución. Esto le otorga un balance entre rendimiento, simplicidad y capacidad de expansión \cite{visopsys_about}.
+Visopsys implementa una arquitectura monolítica modular: el núcleo controla procesos, memoria, sistema de archivos y controladores, pero permite carga dinámica de módulos \cite{visopsys_about}.
 
 \subsubsection{Componentes implementados}
 \begin{itemize}
-	\item \textbf{Gestión de procesos e hilos:} Visopsys soporta multitarea cooperativa y por prioridades, con un planificador de procesos básico implementado en su núcleo. Cada tarea dispone de su propio contexto de ejecución y control de interrupciones.
-
-	\item \textbf{Gestión de memoria:} Implementa un sistema de memoria virtual simple con asignación dinámica y control directo del espacio de direcciones. El sistema garantiza aislamiento básico entre tareas activas.
-
-	\item \textbf{Sistema de archivos:} Integra su propio sistema VFS con soporte para FAT12, FAT16 y FAT32, además de detección de tablas de particiones MBR y GPT. Incluye herramientas gráficas para formateo, copia, borrado y verificación de discos.
-
-	\item \textbf{Dispositivos y controladores:} Dispone de controladores nativos para discos IDE y SATA, tarjetas gráficas básicas (modo VESA), teclado, mouse y almacenamiento USB. Los drivers se integran directamente en el kernel.
-
-	\item \textbf{Interfaz gráfica (GUI):} Ofrece un entorno gráfico funcional con ventanas, menús y una barra de herramientas principal. Incluye aplicaciones integradas como un administrador de archivos, visor hexadecimal, editor de texto y panel de control del sistema.
-
-	\item \textbf{Herramientas del sistema:} Contiene utilidades para crear, copiar o gestionar particiones, visualizar la memoria y monitorear el rendimiento del CPU en tiempo real.
-
-	\item \textbf{Soporte de hardware:} El sistema está diseñado para funcionar en procesadores x86 y x86-64, aunque se ejecuta principalmente en entornos de 32 bits para mantener compatibilidad amplia.
+    \item \textbf{Gestión de procesos e hilos:} multitarea cooperativa y por prioridades.
+    \item \textbf{Gestión de memoria:} memoria virtual simple con asignación dinámica y aislamiento básico.
+    \item \textbf{Sistema de archivos:} soporte para FAT12, FAT16 y FAT32, con detección de particiones MBR y GPT.
+    \item \textbf{Dispositivos y controladores:} controladores para discos IDE/SATA, vídeo en modo VESA, teclado, ratón y USB.
+    \item \textbf{Interfaz gráfica:} entorno con ventanas, menús y barra de herramientas, con administrador de archivos, editor de texto y visor hexadecimal.
 \end{itemize}
 
 \subsubsection{Herramientas utilizadas}
-Visopsys puede compilarse con \textbf{GCC} en sistemas Linux, BSD o Windows mediante entornos cruzados. También se distribuye como una \textbf{ISO ejecutable} que puede probarse directamente sin instalación.
-
 \begin{itemize}
-	\item \textbf{Compilador:} GCC y utilidades estándar de GNU (\texttt{make}, \texttt{binutils}).
-	\item \textbf{Entorno de prueba:} Compatible con \textbf{VirtualBox} y \textbf{QEMU}.
-	\item \textbf{Configuración sugerida:}
-	      \begin{verbatim}
-Sistema: Other/Unknown (32-bit)
-Memoria: 256 MB
-Arranque: visopsys-0.92.iso
-Desactivar EFI y habilitar CD-ROM
-  \end{verbatim}
-	\item \textbf{Ejecución:} Al iniciar desde la ISO, carga automáticamente el entorno gráfico sin requerir instalación.
+    \item \textbf{Compilador:} GCC y utilidades GNU (\texttt{make}, \texttt{binutils}).
+    \item \textbf{Entorno de prueba:} \textit{VirtualBox} y \textit{QEMU}.
 \end{itemize}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=0.9\linewidth]{figures/visopsys_gui.png}
-	\caption{Implementación de Visopsys en VirtualBox.}
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/visopsys_gui.png}
+    \caption{Entorno de escritorio de Visopsys ejecutado en máquina virtual. Extraído del sitio oficial del proyecto.}
 \end{figure}
 
 \subsubsection{Nivel de complejidad y accesibilidad}
-El nivel de complejidad de Visopsys es \textbf{medio}, ya que su código fuente es legible y su estructura modular facilita el aprendizaje. Permite explorar los conceptos fundamentales de sistemas operativos, como la planificación, memoria, drivers y GUI, dentro de un único entorno funcional y visual \cite{visopsys_scribd}.
+El nivel de complejidad de Visopsys es medio. Su estructura modular permite estudiar planificación, memoria, controladores y GUI en un único entorno funcional \cite{visopsys_scribd}.
 
 \begin{table}[H]
-	\centering
-	\caption{Ficha técnica resumida de Visopsys.}
-	\vspace{1em}
-	\begin{tabular}{p{4cm}p{10cm}}
-		\hline
-		\textbf{Diseño}            & Monolítico modular con GUI integrada                                                \\ \hline
-		\textbf{Lenguajes}         & C y ensamblador (x86)                                                               \\
-		\textbf{Arquitecturas}     & x86 (32 bits)                                                                       \\
-		\textbf{Componentes clave} & Kernel, VFS, GUI, gestor de procesos, controladores IDE/SATA, herramientas gráficas \\
-		\textbf{Herramientas}      & GCC, Make, VirtualBox/QEMU                                                          \\
-		\textbf{Uso educativo}     & Medio: análisis de kernel, GUI y gestión de memoria                                 \\
-		\hline
-	\end{tabular}\\
-	\vspace{1mm}
-	\textit{Nota.} Adaptado de “SO Visopsys” (McLaughlin, 2023).
+    \centering
+    \begin{tabular}{p{4cm}p{10cm}}
+        \hline
+        \textbf{Diseño}            & Kernel monolítico modular con GUI integrada                         \\ \hline
+        \textbf{Lenguajes}         & C y ensamblador x86                                                  \\
+        \textbf{Arquitecturas}     & x86 (32 bits)                                                        \\
+        \textbf{Componentes clave} & Kernel, VFS, GUI, gestor de procesos, controladores IDE/SATA        \\
+        \textbf{Herramientas}      & GCC, Make, VirtualBox/QEMU                                           \\
+        \textbf{Uso educativo}     & Medio: análisis de kernel, GUI y gestión de memoria                  \\
+        \hline
+    \end{tabular}
+    \caption{Ficha técnica resumida de Visopsys.}
+    \vspace{1mm}
+    \textit{Nota. Adaptado de la documentación del sistema Visopsys \cite{visopsys_about, visopsys_scribd}.}
 \end{table}
 
 % =========================
@@ -192,689 +142,510 @@ El nivel de complejidad de Visopsys es \textbf{medio}, ya que su código fuente 
 \subsection{SerenityOS}
 
 \subsubsection{Nombre del proyecto o sistema operativo}
-SerenityOS es un sistema operativo desarrollado completamente desde cero, con un enfoque en la simplicidad, la claridad del código y la recreación de una experiencia clásica de escritorio tipo años 90. A diferencia de muchos sistemas modernos, \textbf{no está basado en Unix}, aunque implementa varias interfaces y utilidades compatibles para facilitar su uso. Su propósito es ofrecer un entorno de desarrollo limpio, coherente y mantenible \cite{serenity_about, serenity_wiki}.
+SerenityOS es un sistema operativo desarrollado desde cero, con énfasis en la claridad del código y en la recreación de una experiencia de escritorio similar a los entornos clásicos de los años noventa \cite{serenity_about, serenity_wiki}.
 
 \subsubsection{Enlace al repositorio y/o documentación oficial}
+Repositorio oficial (GitHub): \url{https://github.com/SerenityOS/serenity} \cite{serenity_github}.
 
-Repositorio oficial (GitHub):  
-\url{https://github.com/SerenityOS/serenity}
-
-Documentación y sitio web del proyecto:  
-\url{https://serenityos.org}
+Sitio web del proyecto: \url{https://serenityos.org} \cite{serenity_about}.
 
 \subsubsection{Objetivo del proyecto}
-El objetivo principal de SerenityOS es construir un sistema operativo y un entorno gráfico escritos desde cero, con énfasis en:
+El proyecto busca construir un sistema operativo y entorno gráfico coherente, con:
 
 \begin{itemize}
-    \item \textbf{claridad y elegancia del código},
-    \item \textbf{una experiencia retro de escritorio},
-    \item \textbf{diversión y aprendizaje en ingeniería de sistemas},
-    \item \textbf{independencia de cualquier diseño Unix o Linux preexistente}.
+    \item código claro y consistente,
+    \item entorno de escritorio completo,
+    \item enfoque en el aprendizaje de ingeniería de sistemas,
+    \item independencia de bases de código Unix o Linux \cite{serenity_philosophy}.
 \end{itemize}
-
-El sistema promueve un enfoque artesanal y pedagógico sobre cómo diseñar un kernel, un sistema de archivos, una GUI y un conjunto de aplicaciones coherentes \cite{serenity_philosophy}.
 
 \subsubsection{Lenguajes de implementación}
-SerenityOS está desarrollado principalmente en:
-
-\begin{itemize}
-    \item \textbf{C++ moderno (C++20)}: núcleo, librerías, sistema de ventanas, aplicaciones gráficas.
-    \item \textbf{JavaScript}: parte del navegador web "Ladybird".
-    \item \textbf{Ensamblador}: rutinas específicas de arranque e interacción con el hardware.
-\end{itemize}
-
-Su código en C++ destaca por un estilo extremadamente consistente y orientado a legibilidad.
+SerenityOS está desarrollado principalmente en C++20; utiliza además ensamblador para rutinas de bajo nivel y JavaScript en el navegador \textit{Ladybird} \cite{serenity_arch}.
 
 \subsubsection{Arquitectura del sistema}
-SerenityOS utiliza un diseño \textbf{monolítico modular}, donde el kernel implementa:
-
-\begin{itemize}
-    \item manejo de procesos e hilos,
-    \item memoria virtual con paginación,
-    \item sistema de archivos,
-    \item controladores de dispositivos,
-    \item manejo de interrupciones,
-    \item un modelo simple de IPC basado en mensajes.
-\end{itemize}
-
-El sistema se ejecuta principalmente en \textbf{x86\_64}, con esfuerzos experimentales para otras arquitecturas \cite{serenity_arch}.
+Adopta un kernel monolítico modular que implementa procesos, hilos, memoria virtual, sistema de archivos, controladores de dispositivos, interrupciones y mecanismos sencillos de IPC \cite{serenity_arch}.
 
 \subsubsection{Componentes implementados}
-SerenityOS implementa un conjunto sorprendentemente completo de subsistemas:
-
 \begin{itemize}
-    \item \textbf{Kernel Serenity}: núcleo monolítico con planificación, manejo de memoria y sincronización.
-    \item \textbf{Sistema de archivos}: implementación propia con soporte para inodos, permisos y operaciones típicas del VFS.
-    \item \textbf{Interfaz gráfica}: servidor de ventanas (WindowServer) y un entorno gráfico completo inspirado en Windows 95.
-    \item \textbf{Navegador web Ladybird}: navegador moderno con motor propio, capaz de renderizar HTML, CSS y JS.
-    \item \textbf{Herramientas y utilidades}: shell propio, editor de texto, administrador de archivos, terminal, calculadora, herramientas de desarrollo, etc.
-    \item \textbf{Aplicaciones gráficas}: reproductores, editores, herramientas del sistema, emuladores, etc.
+    \item \textbf{Kernel Serenity:} núcleo monolítico con planificación y memoria virtual.
+    \item \textbf{Sistema de archivos:} VFS con soporte para permisos e inodos.
+    \item \textbf{Interfaz gráfica:} servidor de ventanas \textit{WindowServer} y escritorio completo.
+    \item \textbf{Navegador Ladybird:} motor propio para HTML, CSS y JavaScript.
+    \item \textbf{Aplicaciones:} editor de texto, administrador de archivos, terminal, calculadora y herramientas de desarrollo.
 \end{itemize}
-
-A diferencia de sistemas educativos minimalistas, SerenityOS funciona como un sistema de escritorio completo hecho desde cero.
 
 \subsubsection{Herramientas utilizadas}
-El desarrollo de SerenityOS requiere:
-
 \begin{itemize}
-    \item \textbf{GCC o Clang}: compilador principal para C++20.
-    \item \textbf{CMake y Ninja}: sistema de construcción moderno.
-    \item \textbf{Toolchain cruzado}: scripts incluidos permiten crear un toolchain independiente llamado \texttt{serenity-toolchain}.
+    \item \textbf{Compiladores:} GCC o Clang.
+    \item \textbf{Construcción:} CMake y \textit{Ninja}.
+    \item \textbf{Toolchain propio:} \texttt{serenity-toolchain}.
+    \item \textbf{Pruebas:} ejecución en \textit{QEMU}.
 \end{itemize}
-
-Ejemplo de ejecución:
-
-\begin{verbatim}
-git clone https://github.com/SerenityOS/serenity.git
-cd serenity
-Meta/serenity.sh run
-\end{verbatim}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/serenityos_desktop.png}
-    \caption{Pantalla principal de SerenityOS ejecutado}
+    \caption{Escritorio principal de SerenityOS ejecutado en QEMU. Extraído del repositorio oficial del proyecto}
     \label{fig:serenityos_desktop}
 \end{figure}
 
-
 \subsubsection{Nivel de complejidad y accesibilidad}
-El nivel de complejidad de SerenityOS es \textbf{medio-alto}. No es tan simple como xv6 o MikeOS, pero tampoco tan complejo como Linux. Su código está muy bien organizado, lo que facilita el estudio de:
-
-\begin{itemize}
-    \item kernels monolíticos,
-    \item sistemas de archivos simples,
-    \item manejo de GUI desde cero,
-    \item construcción de aplicaciones con un mismo estilo arquitectónico,
-    \item desarrollo moderno en C++.
-\end{itemize}
-
-Es accesible para estudiantes intermedios o avanzados que desean trabajar con un sistema real en construcción activa.
+El nivel de complejidad de SerenityOS es medio-alto. Su organización y estilo de código permiten estudiar kernels monolíticos modernos, sistemas de archivos y construcción de una GUI desde cero \cite{serenity_philosophy, serenity_arch}.
 
 \begin{table}[H]
     \centering
-    \caption{Ficha técnica resumida de SerenityOS.}
-    \vspace{1em}
     \begin{tabular}{p{4cm}p{10cm}}
         \hline
-        \textbf{Diseño}            & Kernel monolítico escrito desde cero (no basado en Unix) \\ \hline
-        \textbf{Lenguajes}         & C++20 (principal), ensamblador, JavaScript                \\
-        \textbf{Arquitecturas}     & x86\_64                                                    \\
-        \textbf{Componentes clave} & Kernel, GUI, WindowServer, VFS propio, navegador Ladybird \\
-        \textbf{Herramientas}      & CMake, Ninja, GCC/Clang, QEMU                             \\
-        \textbf{Uso educativo}     & Alto: arquitectura completa, código claro y moderno       \\
+        \textbf{Diseño}            & Kernel monolítico escrito desde cero                                \\ \hline
+        \textbf{Lenguajes}         & C++20 (principal), ensamblador, JavaScript                          \\
+        \textbf{Arquitecturas}     & x86\_64                                                              \\
+        \textbf{Componentes clave} & Kernel, GUI, WindowServer, VFS propio, navegador Ladybird           \\
+        \textbf{Herramientas}      & CMake, Ninja, GCC/Clang, QEMU                                       \\
+        \textbf{Uso educativo}     & Alto: estudio de kernel, GUI y C++ moderno                          \\
         \hline
-    \end{tabular}\\
+    \end{tabular}
+    \caption{Ficha técnica resumida de SerenityOS.}
     \vspace{1mm}
-    \textit{Nota.} Adaptado de la documentación oficial y repositorio de SerenityOS (2020--2025).
+    \textit{Nota. Adaptado de la documentación oficial de SerenityOS \cite{serenity_about, serenity_arch}.}
 \end{table}
 
-% =======================================
-% Investigación de Toarus y otro SO extra - Rosy
-% =======================================
+% =========================
+% Sistema Operativo: ToaruOS
+% =========================
+\subsection{ToaruOS}
 
-\subsection{ToarusOS}
 \subsubsection{Nombre del proyecto o sistema operativo}
-ToaruOS es un sistema operativo independiente, escrito casi completamente desde cero, diseñado como un recurso educativo que ofrece una implementación completa de un SO moderno.
-
+ToaruOS es un sistema operativo independiente, escrito casi por completo desde cero, que ofrece una implementación compacta pero funcional de un sistema de escritorio moderno.
 
 \subsubsection{Enlace al repositorio y/o documentación oficial}
-
 Repositorio oficial: \url{https://github.com/klange/toaruos}
 
 Sitio web del proyecto: \url{http://toaruos.org/}
 
 \subsubsection{Objetivo del proyecto}
-ToarusOS esta diseñado para servir como recurso educativo que permita estudiar y comprender el funcionamiento de un sistema operativo completo. Pretendiendo ser una representación compacta y funcional de los componentes que forman parte de un sistema operativo de escritorio moderno.
+ToaruOS está orientado a facilitar el estudio de un sistema operativo completo, desde el kernel hasta la interfaz de usuario gráfica.
 
 \subsubsection{Lenguajes de implementación}
-ToaruOS está implementado principalmente en el lenguaje de programación \textbf{C}, además de ello, se encuentra implementado con el lenguaje de programación de Kuroko, un lenguaje propio, un lenguaje de programación dinámico, compilado a bytecode y un dialecto de Python.
+ToaruOS está implementado principalmente en C e integra el lenguaje \textit{Kuroko}, un lenguaje dinámico compilado a \textit{bytecode} usado para scripting y herramientas internas.
 
 \subsubsection{Arquitectura del sistema}
-ToaruOS adopta una arquitectura que posee un kernel híbrido y modular, denominada Misaka, es una arquitectura híbrida con módulos cargables en tiempo de ejecución. El kernel proporciona servicios esenciales como la gestión de procesos, memoria y sistemas de archivos, mientras que otros componentes del sistema operativo, como el entorno gráfico y las aplicaciones, se ejecutan en espacio de usuario.
+El sistema adopta una arquitectura con kernel híbrido y modular denominada \textit{Misaka}, con soporte para multiprocesamiento simétrico y módulos cargables.
 
 \subsubsection{Componentes implementados}
 \begin{itemize}
-	\item \textbf{Gestión de procesos e hilos:} ToaruOS ToaruOS utiliza el kernel Misaka, un núcleo híbrido con soporte para multiprocesamiento simétrico (SMP), que implementa un planificador de procesos, mecanismos de comunicación entre procesos mediante el sistema pex y una arquitectura basada en procesos expuestos a través del sistema de archivos virtual \texttt{/proc}.
-
-	\item \textbf{Gestión de memoria: } Incorpora un sistema de memoria  con paginación y asignación dinámica dentro del kernel, complementado por una implementación propia de la biblioteca estándar de C (libc) que administra la memoria en espacio de usuario, junto con el uso de un ramdisk comprimido como sistema de archivos raíz inicial.
-
-	\item \textbf{Sistema de archivos:} ToaruOS emplea un filesystem raíz montado desde un ramdisk e incluye soporte para ISO9660, además de una estructura tipo Unix que integra directorios virtuales como /dev, /proc y /tmp, permitiendo la interacción con dispositivos, procesos y almacenamiento temporal de forma eficiente.
-
-	\item \textbf{Dispositivos y controladores:} El sistema dispone de un conjunto modular de controladores cargables que gestionan dispositivos gráficos, audio, almacenamiento IDE, red y periféricos de entrada, ofreciendo además integración avanzada con entornos de virtualización como VirtualBox y VMware, mientras continúa el desarrollo de drivers adicionales como AHCI, USB y virtio.
-
-	\item \textbf{Interfaz gráfica (GUI):}  ToaruOS cuenta con un entorno gráfico completo basado en Yutani, un servidor de ventanas compositado con aceleración por software y un diseño inspirado en interfaces de finales de los años 2000, acompañado por un conjunto de aplicaciones y herramientas gráficas como la Terminal, el editor Bim y el sistema de widgets TTK.
-
-	\item \textbf{Herramientas de sistema:} Incluye utilidades fundamentales como el shell Esh con soporte para tuberías y redirecciones, el cargador dinámico ld.so, el editor de texto Bim, el lenguaje de programación Kuroko y un conjunto de comandos Unix-like, complementados por herramientas de desarrollo internas como auto-dep.krk.
-
-	\item \textbf{Soporte de hardware:} ToaruOS funciona principalmente sobre arquitecturas x86-64, con soporte experimental para ARMv8 y compatibilidad comprobada tanto en entornos virtualizados como en hardware real, incorporando funcionalidades específicas para mejorar la experiencia en máquinas virtuales y extendiendo continuamente su compatibilidad mediante el desarrollo de nuevos controladores.
+    \item \textbf{Gestión de procesos e hilos:} kernel \textit{Misaka} con SMP y mecanismos de IPC.
+    \item \textbf{Gestión de memoria:} paginación y asignación dinámica, más un \textit{ramdisk} comprimido como sistema raíz.
+    \item \textbf{Sistema de archivos:} estructura tipo Unix con directorios virtuales como \texttt{/dev}, \texttt{/proc} y \texttt{/tmp}.
+    \item \textbf{Interfaz gráfica:} servidor de ventanas \textit{Yutani}, con aplicaciones como la Terminal, el editor \textit{Bim} y el sistema de widgets \textit{TTK}.
 \end{itemize}
 
 \subsubsection{Herramientas utilizadas}
-ToaruOS utiliza una variedad de herramientas para su desarrollo y compilación, como se detalla a continuación:
 \begin{itemize}
-	\item \textbf{Compilador:} utilidades estándar de GNU, incluyendo GCC para la compilación del código fuente (makefile)
-	\item \textbf{Entorno de prueba:} Compatible con VirtualBox y QEMU para la emulación y prueba del sistema operativo.
-	\item \textbf{Misaka Kernel:} El núcleo híbrido de ToaruOS, que proporciona los servicios esenciales del sistema operativo.
-	\item \textbf{Yutani:} El servidor de ventanas utilizado para la interfaz gráfica del sistema.
-	\item \textbf{Kuroko:}  ToaruOS implementa un lenguaje de scripting propio denominado \textit{Kuroko}, basado en bytecode, que permite a los usuarios escribir scripts dentro del sistema operativo.
-	\item Esh Shell: Admite pipes y redirecciones, variables, etc. Proporcionando una interfaz de línea de comandos funcional.
-	\item \textbf{Bim Editor:} Un editor de texto ligero y eficiente, diseñado para integrarse perfectamente con el entorno gráfico de ToaruOS.
-	\item \textbf{Id.so: } Un cargador dinámico que facilita la ejecución de aplicaciones en el sistema operativo.
-	\item \textbf{Terminal:} Una aplicación de terminal que permite a los usuarios interactuar con el sistema operativo a través de la línea de comandos.
-	\item \textbf{Instalación y configuración sugerida:} Para instalar y configurar ToaruOS, se recomienda clonar el repositorio oficial y utilizar los scripts de construcción proporcionados:
-	    \begin{verbatim}
-		git clone https://github.com/klange/toaruos
-		cd toaruos
-		git submodule update --init kuroko
-		docker pull toaruos/build-tools:1.99.x
-		docker run -v `pwd`:/root/misaka -w /root/misaka -e LANG=C.UTF-8 
-		-t toaruos/build-tools:1.99.x util/build-in-docker.sh
-		\end{verbatim}
+    \item \textbf{Compilador:} herramientas GNU, incluyendo GCC y \texttt{make}.
+    \item \textbf{Entorno de prueba:} \textit{VirtualBox} y \textit{QEMU}.
+    \item \textbf{Construcción en contenedor:} uso habitual de \textit{Docker} para compilar el sistema.
+\end{itemize}
 
-    Si se desea compilar localmente en linux, es necesario tener instaladas las herramientas de docker e ingresar al contenedor de docker e inicializar los anteriores comandos con sudo. r
-\end{itemize}	
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/toaruos_desktop.png}
+    \caption{Escritorio de ToaruOS con el servidor de ventanas \textit{Yutani}. Extraído de la documentación visual del proyecto.}
+\end{figure}
 
-% ====== HaikuOS ======
+\subsubsection{Nivel de complejidad y accesibilidad}
+ToaruOS presenta una complejidad media-alta, adecuada para estudiantes que ya dominan los fundamentos de C y de sistemas operativos y desean estudiar un sistema de escritorio funcional.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{p{4cm}p{10cm}}
+        \hline
+        \textbf{Diseño}            & Kernel híbrido modular con entorno de escritorio propio          \\ \hline
+        \textbf{Lenguajes}         & C (principal), lenguaje de scripting Kuroko                      \\
+        \textbf{Arquitecturas}     & x86\_64 (principal), ARMv8 experimental                          \\
+        \textbf{Componentes clave} & Kernel Misaka, VFS, servidor de ventanas Yutani, shell Esh, Bim  \\
+        \textbf{Herramientas}      & GCC, Make, Docker, VirtualBox/QEMU                               \\
+        \textbf{Uso educativo}     & Alto: estudio de un sistema de escritorio completo               \\
+        \hline
+    \end{tabular}
+    \caption{Ficha técnica resumida de ToaruOS.}
+    \vspace{1mm}
+    \textit{Nota. Adaptado de la documentación oficial del proyecto ToaruOS.}
+\end{table}
+
+% =========================
+% Sistema Operativo: HaikuOS
+% =========================
 \subsection{HaikuOS}
-\subsubsection{Nombre del proyecto o sistema operativo}
-HaikuOS es un sistema operativo de código abierto inspirado en BeOS, diseñado para ofrecer una experiencia de usuario rápida, eficiente y fácil de usar, especialmente en tareas multimedia y creativas
-\subsubsection{Enlace al repositorio y/o documentación oficial}
 
+\subsubsection{Nombre del proyecto o sistema operativo}
+HaikuOS es un sistema operativo de código abierto inspirado en BeOS, diseñado para ofrecer una experiencia rápida, eficiente y orientada a tareas multimedia y creativas.
+
+\subsubsection{Enlace al repositorio y/o documentación oficial}
 Repositorio oficial: \url{https://github.com/haiku/haiku}
 
-Sitio web del proyecto y descargas: \url{https://www.haiku-os.org/}
+Sitio web del proyecto: \url{https://www.haiku-os.org/}
 
 \subsubsection{Objetivo del proyecto}
-El objetivo principal de HaikuOS es proporcionar un sistema operativo moderno y eficiente que sea fácil de usar, especialmente para usuarios interesados en aplicaciones multimedia y creativas. HaikuOS busca revivir la filosofía de BeOS, ofreciendo un entorno de escritorio intuitivo y un rendimiento optimizado para tareas que requieren un manejo intensivo de gráficos y multimedia.
+HaikuOS busca revivir la filosofía de BeOS, proporcionando un entorno de escritorio moderno y sencillo de usar con buen rendimiento en aplicaciones multimedia.
 
 \subsubsection{Lenguajes de implementación}
-HaikuOS está principalmente implementado en \textbf{C++}, con algunos componentes escritos en \textbf{C} y otros lenguajes según sea necesario para ciertas funcionalidades específicas.
+HaikuOS está implementado principalmente en C++, con partes en C y otros lenguajes para componentes específicos.
 
 \subsubsection{Arquitectura del sistema}
-HaikuOS adopta una arquitectura monolítica modular, donde el núcleo del sistema operativo (kernel) maneja las funciones esenciales, mientras que otros componentes del sistema, como controladores de dispositivos y servicios del sistema, están diseñados como módulos que pueden ser cargados y descargados según sea necesario. Esta arquitectura permite un rendimiento eficiente y una fácil extensibilidad del sistema operativo.
+Adopta una arquitectura monolítica modular: el kernel gestiona procesos, memoria e interrupciones, mientras que servicios y controladores se implementan como módulos cargables.
 
 \subsubsection{Componentes implementados}
 \begin{itemize}
-	\item \textbf{Gestión de procesos e hilos:} HaikuOS implementa un sistema de gestión de procesos y hilos que permite la multitarea preemptiva, facilitando la ejecución simultánea de múltiples aplicaciones y servicios.
-
-	\item \textbf{Gestión de memoria: } HaikuOS utiliza un sistema de gestión de memoria que incluye paginación y segmentación, permitiendo una asignación eficiente de memoria a los procesos y protegiendo la memoria entre ellos.
-
-	\item \textbf{Sistema de archivos:} HaikuOS utiliza el sistema de archivos BFS (Be File System), diseñado para ofrecer un alto rendimiento y soporte para metadatos extensos, facilitando la organización y búsqueda de archivos.
-
-	\item \textbf{Dispositivos y controladores:} HaikuOS incluye una variedad de controladores para gestionar dispositivos de hardware comunes, como tarjetas gráficas, dispositivos de almacenamiento, y periféricos de entrada.
-
-	\item \textbf{Interfaz gráfica (GUI):} HaikuOS cuenta con una interfaz gráfica de usuario intuitiva y fácil de usar, basada en el sistema de ventanas BeOS, que ofrece una experiencia de escritorio coherente y atractiva.
-
-	\item \textbf{Herramientas de sistema:} HaikuOS incluye una serie de herramientas y utilidades del sistema, como un gestor de paquetes, un terminal, y aplicaciones básicas para la gestión del sistema y la administración de archivos.
-
-	\item \textbf{Soporte de hardware:} HaikuOS está diseñado para ser compatible con una amplia gama de hardware, incluyendo arquitecturas x86 y ARM, y continúa expandiendo su soporte para nuevos dispositivos y tecnologías.
+    \item \textbf{Gestión de procesos e hilos:} multitarea con hilos ligeros y planificación preemptiva.
+    \item \textbf{Gestión de memoria:} paginación y protección entre procesos.
+    \item \textbf{Sistema de archivos:} Be File System (BFS) con metadatos extensos e índices.
+    \item \textbf{Interfaz gráfica:} escritorio inspirado en BeOS con un conjunto de aplicaciones integradas.
 \end{itemize}
 
 \subsubsection{Herramientas utilizadas}
-HaikuOS utiliza diversas herramientas para su desarrollo y mantenimiento, entre las cuales se incluyen:
 \begin{itemize}
-	\item \textbf{Compilador:} GCC (GNU Compiler Collection) es la herramienta principal utilizada para compilar el código fuente de HaikuOS.
-	\item \textbf{Sistema de construcción:} HaikuOS utiliza un sistema de construcción personalizado basado en Makefiles para gestionar la compilación y el ensamblaje del sistema operativo.
-	\item \textbf{Entorno de desarrollo integrado (IDE):} Los desarrolladores de HaikuOS pueden utilizar varios IDEs, como Eclipse o Visual Studio Code, para facilitar el desarrollo y la depuración del código.
-
-	\item \textbf{Depuración y pruebas:} HaikuOS utiliza diversas herramientas de depuración y pruebas, incluyendo GDB (GNU Debugger) y herramientas de		 pruebas automatizadas para asegurar la calidad y estabilidad del sistema operativo.
-
-	\item \textbf{Configuración del proyecto:} HaikuOS proporciona imágenes pre construidas (.ISO) que se descargan desde su sitio web oficial. Donde se pueden arrancar con USB, disco o memoria. También es compatible con máquinas virtuales como VirtualBox, VMware y QEMU para pruebas y desarrollo.
-	\item \textbf{Ejecución: } Al iniciar la ISO, se accederá al entorno de instalación.
-
+    \item \textbf{Compilador:} GCC.
+    \item \textbf{Sistema de construcción:} \texttt{Makefiles} y herramientas propias.
+    \item \textbf{Entornos de prueba:} \textit{VirtualBox}, \textit{VMware} y \textit{QEMU}.
 \end{itemize}
 
-\subsubsection{Nivel de complejidad}
-HaikuOS es un sistema operativo de complejidad moderada, debido a su arquitectura modular y su enfoque en la facilidad de uso y el rendimiento. Aunque no es tan complejo como sistemas operativos más grandes como Linux o Windows, HaikuOS ofrece una amplia gama de funcionalidades y características que requieren un conocimiento sólido de los conceptos de sistemas operativos para su desarrollo y mantenimiento. Su diseño modular facilita la comprensión y contribución al proyecto, lo que lo convierte en una opción atractiva para desarrolladores interesados en sistemas operativos.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figures/haikuos_desktop.png}
+    \caption{Escritorio de HaikuOS con el explorador de archivos y aplicaciones multimedia.}
+\end{figure}
+
+\subsubsection{Nivel de complejidad y accesibilidad}
+HaikuOS presenta una complejidad moderada y es útil para estudiar el diseño de un entorno de escritorio ligero orientado a multimedia.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{p{4cm}p{10cm}}
+        \hline
+        \textbf{Diseño}            & Kernel monolítico modular inspirado en BeOS        \\ \hline
+        \textbf{Lenguajes}         & C++ (principal), C                                  \\
+        \textbf{Arquitecturas}     & x86 (principal), ARM en desarrollo                  \\
+        \textbf{Componentes clave} & Kernel, BFS, GUI de escritorio, gestor de paquetes  \\
+        \textbf{Herramientas}      & GCC, Make, GDB, VirtualBox/VMware/QEMU             \\
+        \textbf{Uso educativo}     & Medio: estudio de un escritorio ligero              \\
+        \hline
+    \end{tabular}
+    \caption{Ficha técnica resumida de HaikuOS.}
+    \vspace{1mm}
+    \textit{Nota. Adaptado de la documentación oficial de HaikuOS.}
+\end{table}
 
 % =========================
-% Propuesta 1: xv6
+% Sistema Operativo: xv6
 % =========================
-
 \subsection{xv6}
 
 \subsubsection{Nombre del proyecto o sistema operativo}
-
-xv6 es un sistema operativo educativo desarrollado por el MIT como una reimplementación moderna de UNIX Sixth Edition (V6). Su código está diseñado para ser lo más simple posible, permitiendo a los estudiantes estudiar de manera clara la estructura y funcionamiento interno de un sistema operativo real. Se utiliza ampliamente en cursos universitarios avanzados de sistemas operativos, especialmente en el MIT 6.1810/6.828 \cite{xv6_mit_about, xv6_wiki}.
+xv6 es un sistema operativo educativo desarrollado por el MIT como una reimplementación moderna de Unix Sixth Edition (V6). Se utiliza ampliamente en cursos universitarios avanzados de sistemas operativos \cite{xv6_mit_about, xv6_wiki}.
 
 \subsubsection{Enlace al repositorio y/o documentación oficial}
+Repositorio principal (RISC-V): \url{https://github.com/mit-pdos/xv6-riscv} \cite{xv6_riscv}.
 
-Repositorio oficial (versión RISC-V, actualmente en uso académico):  
-\url{https://github.com/mit-pdos/xv6-riscv}
+Repositorio histórico x86: \url{https://github.com/mit-pdos/xv6-public}.
 
-Repositorio histórico para x86:  
-\url{https://github.com/mit-pdos/xv6-public}
-
-Documentación del curso MIT 6.1810/6.828:  
-\url{https://pdos.csail.mit.edu/6.1810/2024/xv6.html}
-
-Descripción general en Wikipedia:  
-\url{https://en.wikipedia.org/wiki/Xv6}
+Documentación del curso MIT 6.1810/6.828: \url{https://pdos.csail.mit.edu/6.1810/2024/xv6.html} \cite{xv6_mit_about}.
 
 \subsubsection{Objetivo del proyecto}
-
-El objetivo principal de xv6 es \textbf{educativo}. Fue desarrollado para enseñar los conceptos esenciales de un sistema operativo desde su diseño hasta su implementación. xv6 proporciona una arquitectura simple y bien organizada que replica los principios de UNIX V6, pero con código en C moderno y herramientas actuales, facilitando la comprensión del funcionamiento del kernel, el manejo de procesos y la interacción con el hardware \cite{xv6_mit_about, xv6_book}.
-
-Su diseño didáctico permite que los estudiantes puedan modificar o extender el sistema, añadiendo nuevas llamadas al sistema, alterando la planificación o mejorando módulos existentes.
+El objetivo de xv6 es educativo: explicar los conceptos esenciales de un sistema operativo mediante un kernel pequeño y legible \cite{xv6_book}.
 
 \subsubsection{Lenguajes de implementación}
-
-xv6 está programado principalmente en \textbf{ANSI C}, un lenguaje ideal para estudiar estructuras internas de un OS.  
-Incluye también secciones esenciales en \textbf{ensamblador}, utilizadas para:
-
-\begin{itemize}
-    \item inicializar el procesador,
-    \item manejar interrupciones del hardware,
-    \item gestionar el paso al modo protegido (x86) o al modo supervisor (RISC-V).
-\end{itemize}
-
-Esta combinación permite desarrollar un kernel real, pero accesible para estudiantes \cite{xv6_book}.
+xv6 está escrito principalmente en C, con partes en ensamblador para inicialización de procesador, interrupciones y cambio de modo \cite{xv6_book}.
 
 \subsubsection{Arquitectura del sistema}
-
-xv6 implementa un \textbf{kernel monolítico} inspirado en la filosofía de UNIX.  
-Todas las funcionalidades esenciales —gestión de procesos, memoria, archivos y controladores mínimos— se encuentran integradas dentro del núcleo, lo que facilita su comprensión y seguimiento.
-
-Actualmente, xv6 está diseñado para ejecutarse principalmente en arquitectura \textbf{RISC-V}, aunque existen versiones previas para x86 de 32 bits \cite{xv6_riscv}.
+Implementa un kernel monolítico inspirado en Unix. Actualmente se enfoca en arquitectura RISC-V, con versiones previas para x86 \cite{xv6_riscv}.
 
 \subsubsection{Componentes implementados}
-
-xv6 posee todos los elementos fundamentales para ilustrar cómo opera un sistema operativo real:
-
 \begin{itemize}
-    \item \textbf{Gestión de procesos:} Implementa \texttt{fork()}, \texttt{exec()}, \texttt{wait()}, señales simples, cambio de contexto y planificación round-robin \cite{xv6_book}.
-    
-    \item \textbf{Gestión de memoria:} Incluye memoria paginada, asignación dinámica y protección por proceso. En RISC-V utiliza tablas de páginas multinivel.
-
-    \item \textbf{Sistema de archivos:} Posee un sistema basado en i-nodos, con soporte para directorios, enlaces y bloques. Permite comandos como \texttt{ls}, \texttt{mkdir}, \texttt{cat} y \texttt{rm}.
-
-    \item \textbf{Interrupciones y excepciones:} Mecanismo de trampas para manejar llamadas al sistema, interrupciones de hardware y fallos de página.
-
-    \item \textbf{Shell integrado:} Un shell simple escrito en C que soporta pipes, redirecciones y ejecución de comandos básicos.
-
-    \item \textbf{Drivers esenciales:} Controlador de consola, disco virtual y reloj, suficientes para soportar la ejecución en QEMU.
+    \item \textbf{Gestión de procesos:} \texttt{fork()}, \texttt{exec()}, \texttt{wait()} y planificación \textit{round-robin}.
+    \item \textbf{Gestión de memoria:} memoria paginada con tablas de páginas multinivel.
+    \item \textbf{Sistema de archivos:} sistema con i-nodos, directorios, enlaces y comandos básicos.
+    \item \textbf{Shell:} shell simple con tuberías y redirecciones.
 \end{itemize}
-
-Aunque minimalista, xv6 captura la esencia del diseño UNIX y permite extender fácilmente su funcionalidad en entornos educativos.
 
 \subsubsection{Herramientas utilizadas}
-
-El entorno de desarrollo de xv6 se basa en herramientas de sistemas operativos reales:
-
 \begin{itemize}
-    \item \textbf{Compilador cruzado para RISC-V:} \texttt{riscv64-unknown-elf-gcc}, requerido para construir el kernel y los programas de usuario.
-    \item \textbf{Make y Binutils:} Para automatizar la compilación y enlazado.
-    \item \textbf{QEMU:} Emulador recomendado para ejecutar xv6 sin hardware adicional.
-    \item \textbf{GDB:} Integrado mediante \texttt{make qemu-gdb} para depuración a nivel de kernel.
+    \item \textbf{Compilador:} \texttt{riscv64-unknown-elf-gcc}.
+    \item \textbf{Construcción:} \texttt{make} y \textit{binutils}.
+    \item \textbf{Pruebas:} \textit{QEMU} y \textit{GDB}.
 \end{itemize}
 
-Ejemplo típico de ejecución:
-
-\begin{verbatim}
-make qemu
-make qemu-gdb
-\end{verbatim}
-
-Estas herramientas permiten estudiar el comportamiento del sistema paso por paso.
-
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=1\linewidth]{figures/xv6}
-	\caption{Interfaz de la terminal del sistema operativo xv6, ejecutándose en el emulador QEMU.}
+    \centering
+    \includegraphics[width=1\linewidth]{figures/xv6}
+    \caption{Interfaz de la terminal del sistema operativo xv6 ejecutándose en el emulador \textit{QEMU}. Extraído de la documentación del curso MIT 6.1810/6.828}
 \end{figure}
 
 \subsubsection{Nivel de complejidad y accesibilidad}
-
-El nivel de complejidad de xv6 es \textbf{medio}, pero extremadamente adecuado para fines educativos.
-
-Ventajas:
-
-\begin{itemize}
-    \item código claro y bien organizado,
-    \item manual detallado (el xv6 book),
-    \item tamaño reducido (alrededor de 10,000 líneas de código),
-    \item ampliamente utilizado en universidades,
-    \item fácil de modificar y extender.
-\end{itemize}
-
-Limitaciones:
-
-\begin{itemize}
-    \item no incluye red, GUI ni drivers avanzados;
-    \item carece de multitarea compleja o características modernas.
-\end{itemize}
-
-Aun así, es considerado uno de los sistemas más efectivos para comprender los fundamentos de los sistemas operativos \cite{xv6_wiki}.
+El nivel de complejidad de xv6 es medio. Su código es compacto y muy usado como base de laboratorio en universidades \cite{xv6_book, xv6_wiki}.
 
 \begin{table}[H]
-	\centering
-	\caption{Ficha técnica resumida de xv6.}
-	\vspace{1em}
-	\begin{tabular}{p{4cm}p{10cm}}
-		\hline
-		\textbf{Diseño}            & Kernel monolítico inspirado en UNIX V6                                          \\ \hline
-		\textbf{Lenguajes}         & C y ensamblador                                                                 \\
-		\textbf{Arquitecturas}     & RISC-V (actual), x86 (histórica)                                                \\
-		\textbf{Componentes clave} & Procesos, memoria, sistema de archivos, shell, interrupciones                   \\
-		\textbf{Herramientas}      & GCC RISC-V, Make, QEMU, GDB                                                     \\
-		\textbf{Uso educativo}     & Muy alto: estándar académico internacional                                      \\
-		\hline
-	\end{tabular}
+    \centering
+    \begin{tabular}{p{4cm}p{10cm}}
+        \hline
+        \textbf{Diseño}            & Kernel monolítico inspirado en Unix V6                               \\ \hline
+        \textbf{Lenguajes}         & C y ensamblador                                                      \\
+        \textbf{Arquitecturas}     & RISC-V (actual), x86 (histórica)                                     \\
+        \textbf{Componentes clave} & Procesos, memoria, sistema de archivos, shell, interrupciones        \\
+        \textbf{Herramientas}      & GCC RISC-V, Make, QEMU, GDB                                          \\
+        \textbf{Uso educativo}     & Muy alto: referencia académica internacional                         \\
+        \hline
+    \end{tabular}
+    \caption{Ficha técnica resumida de xv6.}
+    \vspace{1mm}
+    \textit{Nota. Adaptado de la documentación de xv6 y del curso MIT 6.1810/6.828 \cite{xv6_mit_about, xv6_book}.}
 \end{table}
 
-
 % =========================
-% Propuesta 2: HobbyOS
+% Sistema Operativo: HobbyOS
 % =========================
-
 \subsection{HobbyOS}
 
 \subsubsection{Nombre del proyecto o sistema operativo}
-
-HobbyOS es un sistema operativo experimental desarrollado como un proyecto personal para explorar el diseño de kernels, la estructura interna de un sistema operativo y la interacción directa con el hardware. A diferencia de sistemas educativos consolidados como xv6, HobbyOS se encuentra en una fase más temprana, con un enfoque en proveer un entorno minimalista para aprender cómo construir un OS desde cero. Está orientado principalmente a desarrolladores principiantes interesados en comprender los fundamentos del arranque, el manejo básico de memoria y la arquitectura x86\_64 \cite{hobbyos_repo, hobbyos_topics}.
+HobbyOS es un sistema operativo experimental desarrollado como proyecto personal para explorar el diseño de kernels y la interacción directa con el hardware \cite{hobbyos_repo, hobbyos_topics}.
 
 \subsubsection{Enlace al repositorio y/o documentación oficial}
+Repositorio oficial: \url{https://github.com/ObadiahCrowe/HobbyOS} \cite{hobbyos_repo}.
 
-Repositorio oficial del proyecto:  
-\url{https://github.com/ObadiahCrowe/HobbyOS}
-
-Colección de sistemas “hobby OS” relacionados en GitHub (contexto educativo):  
-\url{https://github.com/topics/hobby-os}
+Colección de proyectos afines: \url{https://github.com/topics/hobby-os} \cite{hobbyos_topics}.
 
 \subsubsection{Objetivo del proyecto}
-
-El objetivo principal de HobbyOS es \textbf{experimental y educativo}. El proyecto busca ofrecer un entorno minimalista que permita estudiar el proceso de construcción de un kernel desde su etapa más básica: configuración del compilador cruzado, arranque del sistema, implementación de rutinas en ensamblador y la estructura esencial de un núcleo operativo.
-
-Su propósito es brindar un punto de partida accesible para estudiantes y entusiastas que desean comprender cómo funciona un sistema operativo a nivel interno, sin la complejidad de sistemas avanzados como Linux o BSD \cite{hobbyos_repo}.
+Su objetivo es experimental y educativo: servir como base sencilla para estudiar el proceso de construcción de un kernel desde sus primeras etapas.
 
 \subsubsection{Lenguajes de implementación}
-
-HobbyOS está escrito principalmente en \textbf{C}, con secciones de \textbf{ensamblador x86\_64} necesarias para:
-
-\begin{itemize}
-    \item realizar el proceso de arranque (bootloader),
-    \item manejar interrupciones básicas,
-    \item configurar los registros y el modo protegido o de 64 bits.
-\end{itemize}
-
-Esta combinación de C y ensamblador es típica en sistemas operativos minimalistas, ya que permite interactuar directamente con el hardware al mismo tiempo que se mantiene un código relativamente claro y modular \cite{hobbyos_repo}.
+HobbyOS está escrito principalmente en C, con secciones en ensamblador x86\_64 para el \textit{bootloader}, interrupciones y configuración inicial \cite{hobbyos_repo}.
 
 \subsubsection{Arquitectura del sistema}
-
-Aunque la documentación oficial no califica explícitamente su arquitectura como monolítica o microkernel, el diseño mostrado en su repositorio indica un \textbf{kernel monolítico simple}. Es decir, el núcleo contiene la mayor parte de las funcionalidades disponibles: rutinas de memoria, interrupciones básicas y control inicial del hardware.
-
-El sistema está dirigido a la arquitectura \textbf{x86\_64} moderna, lo cual lo diferencia de varios sistemas educativos clásicos que utilizan x86 de 32 bits. Esto permite estudiar una arquitectura actual y ampliamente utilizada \cite{hobbyos_repo}.
+El diseño corresponde a un kernel monolítico simple orientado a arquitectura x86\_64.
 
 \subsubsection{Componentes implementados}
-
-HobbyOS se encuentra en desarrollo activo y por ello sus componentes son básicos, pero suficientes para fines de aprendizaje:
-
 \begin{itemize}
-    \item \textbf{Bootloader personalizado:} Incluye código en ensamblador para realizar el proceso de arranque, cambiar a modo de 64 bits y cargar el kernel en memoria.
-    
-    \item \textbf{Kernel mínimo:} Provee estructuras para inicializar el sistema, configurar la pila, manejar el entorno básico del CPU y ejecutar código C dentro del kernel.
-
-    \item \textbf{Gestión temprana de memoria:} Implementa rutinas simples para administrar memoria, configurar memoria física disponible y organizar el espacio del sistema.
-
-    \item \textbf{Interrupciones básicas:} Define tablas de interrupciones e incluye manejadores mínimos, necesarios para extender funcionalidades en versiones futuras.
-
-    \item \textbf{Interfaz textual:} La salida a consola se realiza mediante rutinas de escritura directa en memoria de video (modo texto), útil para depuración y pruebas.
-
-    \item \textbf{Compatibilidad con QEMU:} Puede iniciarse mediante una imagen de arranque compatible con QEMU, lo cual simplifica las pruebas de kernel sin requerir hardware físico.
+    \item \textbf{Bootloader:} código en ensamblador que prepara el entorno de 64 bits y carga el kernel.
+    \item \textbf{Kernel mínimo:} inicialización del sistema, pila y ejecución de código C.
+    \item \textbf{Memoria temprana:} rutinas simples para administrar memoria física.
+    \item \textbf{Interrupciones:} tablas y manejadores iniciales.
+    \item \textbf{Salida de texto:} escritura directa en memoria de vídeo en modo texto.
 \end{itemize}
-
-Aunque el sistema carece todavía de un conjunto completo de procesos, memoria virtual o sistema de archivos, esto es intencional: busca ser una base de estudio extremadamente clara y progresiva.
 
 \subsubsection{Herramientas utilizadas}
-
-El desarrollo de HobbyOS requiere un conjunto de herramientas específicas para trabajar con kernels de bajo nivel:
-
 \begin{itemize}
-    \item \textbf{Compilador cruzado x86\_64-elf-gcc:} Necesario para producir binarios adecuados a un entorno sin sistema operativo.
-    \item \textbf{Binutils para x86\_64:} Incluye ensambladores como \texttt{as}, enlazadores (\texttt{ld}) y herramientas para manipular binarios.
-    \item \textbf{NASM u otro ensamblador:} Utilizado para el código de arranque.
-    \item \textbf{QEMU:} Emulador recomendado para ejecutar el sistema sin hardware físico.
-    \item \textbf{Make:} Orquestación del proceso de compilación y generación de imágenes de disco.
+    \item \textbf{Compilador cruzado:} \texttt{x86\_64-elf-gcc}.
+    \item \textbf{Ensamblador:} NASM.
+    \item \textbf{Pruebas:} \textit{QEMU} y \texttt{make}.
 \end{itemize}
-
-Ejemplo de compilación típica en el entorno del proyecto:
-
-\begin{verbatim}
-make
-qemu-system-x86_64 -kernel hobbyos.bin
-\end{verbatim}
-
-Estas herramientas permiten a los estudiantes observar cada etapa del proceso de construcción de un sistema operativo.
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=0.75\linewidth]{figures/HobbyOSbasiccmd.png}
-	\caption{Sesión de terminal de prueba en el desarrollo de HobbyOS v0.0.2, mostrando comandos básicos del kernel.}
+    \centering
+    \includegraphics[width=0.75\linewidth]{figures/HobbyOSbasiccmd.png}
+    \caption{Sesión de consola de HobbyOS mostrando comandos básicos del kernel. Extraído del repositorio oficial del proyecto}
 \end{figure}
 
-
 \subsubsection{Nivel de complejidad y accesibilidad}
-
-El nivel de complejidad de HobbyOS es \textbf{bajo-medio}, lo cual lo hace muy adecuado para estudiantes que desean comprender los primeros principios del diseño de kernels. Sus ventajas principales son:
-
-\begin{itemize}
-    \item código pequeño y fácil de leer,
-    \item estructura simple ideal para extender en trabajos académicos,
-    \item enfoque en arquitectura x86\_64 moderna,
-    \item ausencia de funcionalidades avanzadas que distraigan del núcleo conceptual.
-\end{itemize}
-
-Limitaciones educativas:
-
-\begin{itemize}
-    \item documentación reducida comparada con proyectos grandes,
-    \item carece de multitarea, sistema de archivos, planificación, drivers complejos,
-    \item requiere conocimientos básicos de C y ensamblador para comprender su funcionamiento.
-\end{itemize}
-
-En resumen, HobbyOS es altamente accesible para quienes buscan aprender los fundamentos del diseño de sistemas operativos desde su base más elemental, siendo una excelente plataforma para explorar cómo “arranca” un OS y cómo se construyen sus primeros componentes \cite{hobbyos_topics}.
+El nivel de complejidad de HobbyOS es bajo-medio, ideal para quienes desean comprender los primeros pasos en el diseño de kernels \cite{hobbyos_topics}.
 
 \begin{table}[H]
-	\centering
-	\caption{Ficha técnica resumida de HobbyOS.}
-	\vspace{1em}
-	\begin{tabular}{p{4cm}p{10cm}}
-		\hline
-		\textbf{Diseño}            & Kernel monolítico minimalista                                   \\ \hline
-		\textbf{Lenguajes}         & C y ensamblador x86\_64                                          \\
-		\textbf{Arquitecturas}     & x86\_64                                                          \\
-		\textbf{Componentes clave} & Bootloader, kernel básico, memoria inicial, interrupciones       \\
-		\textbf{Herramientas}      & GCC cross-compiler, NASM, QEMU, Make                             \\
-		\textbf{Uso educativo}     & Alto: ideal para aprender arranque y estructura básica de un OS  \\
-		\hline
-	\end{tabular}
+    \centering
+    \begin{tabular}{p{4cm}p{10cm}}
+        \hline
+        \textbf{Diseño}            & Kernel monolítico minimalista                             \\ \hline
+        \textbf{Lenguajes}         & C y ensamblador x86\_64                                   \\
+        \textbf{Arquitecturas}     & x86\_64                                                   \\
+        \textbf{Componentes clave} & Bootloader, kernel básico, memoria inicial, interrupciones \\
+        \textbf{Herramientas}      & GCC cruzado, NASM, QEMU, Make                             \\
+        \textbf{Uso educativo}     & Alto: estudio de arranque y estructura básica             \\
+        \hline
+    \end{tabular}
+    \caption{Ficha técnica resumida de HobbyOS.}
+    \vspace{1mm}
+    \textit{Nota. Adaptado de la descripción del proyecto HobbyOS en GitHub \cite{hobbyos_repo, hobbyos_topics}.}
 \end{table}
 
-
 % =========================
-% Sistema Operativo 1: MikeOS
+% Sistema Operativo: MikeOS
 % =========================
 \subsection{MikeOS}
 
 \subsubsection{Nombre del proyecto o sistema operativo}
-MikeOS es un sistema operativo didáctico de 16 bits, minimalista y de código abierto. Fue creado con el objetivo de demostrar los fundamentos de un sistema operativo simple, operando en modo real de la arquitectura x86. Su principal fortaleza reside en la claridad y la exhaustiva documentación de su código fuente \cite{mikeos_about}.
+MikeOS es un sistema operativo didáctico de 16 bits, minimalista y de código abierto, creado para demostrar los fundamentos de un sistema operativo sencillo en modo real \cite{mikeos_about}.
 
 \subsubsection{Enlace al repositorio y/o documentación oficial}
-Sitio web oficial y descargas: \url{https://mikeos.sourceforge.net/}
+Sitio web oficial y descargas: \url{https://mikeos.sourceforge.net/} \cite{mikeos_about}.
 
-Repositorio de código fuente: \url{https://github.com/mig-hub/mikeOS}
-
-Manual para desarrolladores de aplicaciones: \url{https://mikeos.sourceforge.net/app-development.html}
+Documentación y manuales: \url{https://mikeos.sourceforge.net/doc.html} \cite{mikeos_purpose}.
 
 \subsubsection{Objetivo del proyecto}
-El objetivo principal de MikeOS es \textbf{educativo y didáctico}. Está diseñado específicamente para estudiantes y entusiastas que desean aprender a programar en \textbf{ensamblador x86 de 16 bits} y entender cómo se implementan las llamadas al sistema y los componentes básicos de un kernel. Su simplicidad lo hace ideal como primer contacto con la programación de sistemas operativos \cite{mikeos_purpose}.
+Su objetivo es educativo: enseñar ensamblador x86 de 16 bits y la implementación de llamadas al sistema en un kernel simple \cite{mikeos_purpose}.
 
-\subsubsection{Lenguaje(s) de implementación}
-El sistema está implementado casi en su totalidad en \textbf{Ensamblador x86 de 16 bits} (utilizando el \textbf{NASM} - Netwide Assembler). Incluye un intérprete de \textbf{BASIC} con 46 instrucciones, lo que permite la creación de programas de alto nivel dentro del entorno \cite{mikeos_source}.
+\subsubsection{Lenguajes de implementación}
+MikeOS está implementado casi por completo en ensamblador x86 de 16 bits (NASM), e incluye un intérprete de BASIC \cite{mikeos_source, mikeos_architecture}.
 
 \subsubsection{Arquitectura del sistema}
-MikeOS presenta una arquitectura \textbf{monolítica} extremadamente simple. El núcleo, el shell y todos los programas de usuario se ejecutan en un único espacio de memoria de \textbf{64 KB} (dentro del modo real x86). Esto evita la complejidad de la gestión de memoria y la protección del hardware, lo que simplifica su estudio \cite{mikeos_architecture}.
+Presenta una arquitectura monolítica en modo real, donde kernel, shell y programas comparten un espacio de memoria de 64 KB \cite{mikeos_architecture}.
 
 \subsubsection{Componentes implementados}
 \begin{itemize}
-	\item \textbf{Kernel (Núcleo):} Responsable de la inicialización del hardware, la gestión de interrupciones y la carga de programas.
-	\item \textbf{Gestor de Arranque (Bootloader):} Carga el núcleo en memoria.
-	\item \textbf{Llamadas al sistema:} Proporciona más de 60 funciones para que las aplicaciones accedan a servicios del sistema, como E/S de pantalla, teclado y disco.
-	\item \textbf{Shell (CLI):} Un intérprete de línea de comandos básico para la interacción con el usuario.
-	\item \textbf{Intérprete de BASIC:} Permite la ejecución de programas de ejemplo o creados por el usuario en BASIC.
-	\item \textbf{Utilidades:} Incluye un editor de texto, gestor de archivos simple, y programas de demostración.
+    \item \textbf{Kernel:} inicialización, interrupciones y carga de programas.
+    \item \textbf{Bootloader:} carga del núcleo desde disquete o imagen.
+    \item \textbf{Llamadas al sistema:} más de 60 funciones de E/S.
+    \item \textbf{Shell:} intérprete de línea de comandos.
+    \item \textbf{Intérprete de BASIC:} ejecución de programas básicos.
 \end{itemize}
 
 \subsubsection{Herramientas utilizadas}
-Las herramientas esenciales para el desarrollo y prueba de MikeOS son:
 \begin{itemize}
-	\item \textbf{Ensamblador:} \textbf{NASM} (\texttt{Netwide Assembler}) para compilar el código fuente.
-	\item \textbf{Emuladores:} Se recomienda altamente el uso de emuladores de PC como \textbf{QEMU} o \textbf{Bochs} para la ejecución y depuración.
-	\item \textbf{Herramientas de disco:} Utilidades para crear la imagen de disquete o CD ejecutable.
+    \item \textbf{Ensamblador:} NASM.
+    \item \textbf{Pruebas:} QEMU o Bochs.
 \end{itemize}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=0.9\linewidth]{figures/mikeos_interface.png}
-	\caption{Editor de texto de MikeOS mostrando un programa de demostración en BASIC.}
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/mikeos_interface.png}
+    \caption{Editor de texto de MikeOS mostrando un programa de demostración en BASIC. Extraído del sitio oficial del proyecto}
 \end{figure}
 
-\subsubsection{Nivel de complejidad y accesibilidad para estudiantes}
-El nivel de complejidad es \textbf{Bajo a Medio-Bajo}. MikeOS es uno de los sistemas operativos didácticos \textbf{más accesibles} para principiantes debido a su enfoque de 16 bits en modo real, el cual elimina las complejidades modernas de la memoria virtual y la protección. El código está muy comentado, lo que facilita enormemente su estudio.
+\subsubsection{Nivel de complejidad y accesibilidad}
+El nivel de complejidad es bajo a medio-bajo, y es uno de los sistemas más accesibles para introducirse en ensamblador y fundamentos de sistemas operativos \cite{mikeos_purpose}.
 
 \begin{table}[H]
-	\centering
-	\caption{Ficha técnica resumida de MikeOS.}
-	\vspace{1em}
-	\begin{tabular}{p{4cm}p{10cm}}
-		\hline
-		\textbf{Diseño} & Monolítico simple, modo real de 16 bits \\ \hline
-		\textbf{Lenguajes} & Ensamblador x86 (NASM), BASIC \\
-		\textbf{Arquitecturas} & x86 (16-bit) \\
-		\textbf{Componentes clave} & Kernel, Bootloader, 60+ Llamadas al Sistema, Intérprete BASIC \\
-		\textbf{Herramientas} & NASM, QEMU/Bochs \\
-		\textbf{Uso educativo} & Excelente para introducción a Ensamblador y Fundamentos de SO \\
-		\hline
-	\end{tabular}
+    \centering
+    \begin{tabular}{p{4cm}p{10cm}}
+        \hline
+        \textbf{Diseño}            & Kernel monolítico simple en modo real de 16 bits   \\ \hline
+        \textbf{Lenguajes}         & Ensamblador x86 (NASM), BASIC                      \\
+        \textbf{Arquitecturas}     & x86 (16 bits)                                      \\
+        \textbf{Componentes clave} & Kernel, bootloader, llamadas al sistema, BASIC     \\
+        \textbf{Herramientas}      & NASM, QEMU/Bochs                                   \\
+        \textbf{Uso educativo}     & Muy alto: introducción a ensamblador y SO simples  \\
+        \hline
+    \end{tabular}
+    \caption{Ficha técnica resumida de MikeOS.}
+    \vspace{1mm}
+    \textit{Nota. Adaptado de la documentación oficial de MikeOS \cite{mikeos_about, mikeos_purpose, mikeos_architecture}.}
 \end{table}
 
 % =========================
-% Sistema Operativo 2: BareMetal OS
+% Sistema Operativo: BareMetal OS
 % =========================
 \subsection{BareMetal OS}
 
 \subsubsection{Nombre del proyecto o sistema operativo}
-BareMetal OS (BMOS) es un sistema operativo de fuente abierta, desarrollado para ejecutarse directamente en el hardware (\textit{bare metal}) de arquitecturas de 64 bits. Se caracteriza por ser extremadamente minimalista, sin ninguna capa de abstracción del kernel de un sistema operativo tradicional, cargándose directamente en la CPU \cite{bmos_wiki}.
+BareMetal OS (BMOS) es un sistema operativo de código abierto diseñado para ejecutarse directamente sobre el hardware (\textit{bare metal}) en arquitecturas x86-64 \cite{bmos_wiki}.
 
 \subsubsection{Enlace al repositorio y/o documentación oficial}
-La actividad principal y el sitio web original del proyecto (\url{http://www.returninfinity.com}) están \textbf{descontinuados}. Información histórica se encuentra en:
-\url{https://github.com/ReturnInfinity/BareMetal-OS}
+Repositorio histórico: \url{https://github.com/ReturnInfinity/BareMetal-OS} \cite{bmos_purpose, bmos_source, bmos_architecture}.
 
 \subsubsection{Objetivo del proyecto}
-El objetivo principal de BareMetal OS era \textbf{experimental} y de nicho. Buscaba proporcionar un entorno para ejecutar aplicaciones "bare metal" directamente sobre el hardware x86-64. Su enfoque era demostrar la computación de alto rendimiento aprovechando el soporte \textbf{multiprocesador} sin la sobrecarga de un kernel complejo \cite{bmos_purpose}.
+Su objetivo es experimental y de nicho: proporcionar un entorno para ejecutar aplicaciones \textit{bare metal} de alto rendimiento sin la sobrecarga de un sistema operativo completo \cite{bmos_purpose}.
 
-\subsubsection{Lenguaje(s) de implementación}
-El sistema está implementado casi en su totalidad en \textbf{Ensamblador x86-64} de bajo nivel. Esto garantiza un tamaño mínimo del núcleo y una ejecución directa y rápida sobre el hardware \cite{bmos_source}.
+\subsubsection{Lenguajes de implementación}
+BareMetal OS está implementado casi en su totalidad en ensamblador x86-64 \cite{bmos_source}.
 
 \subsubsection{Arquitectura del sistema}
-Presenta una arquitectura \textbf{monolítica} y \textbf{monotarea}, diseñada para la arquitectura \textbf{x86-64}. Su característica distintiva es la ejecución en modo "bare metal", donde el código de la aplicación se ejecuta esencialmente como parte del kernel, minimizando las capas de abstracción. Aunque monotarea, soporta múltiples procesadores (\textbf{multiprocesador}) \cite{bmos_architecture}.
+Presenta una arquitectura monolítica y monotarea para x86-64, con soporte multiprocesador \cite{bmos_architecture}.
 
 \subsubsection{Componentes implementados}
 \begin{itemize}
-	\item \textbf{Kernel Minimalista:} Un núcleo extremadamente pequeño (aproximadamente 16 KB) que realiza las funciones de inicialización y carga.
-	\item \textbf{Soporte Multiprocesador:} Capacidad para gestionar y utilizar hasta 128 procesadores, aunque como plataforma monotarea.
-	\item \textbf{Entrada/Salida Básica:} Funcionalidades mínimas de E/S.
-	\item \textbf{Aplicaciones Bare Metal:} Entorno para que las aplicaciones se ejecuten directamente en el hardware sin la necesidad de un sistema operativo intermedio.
+    \item \textbf{Kernel minimalista:} núcleo muy pequeño que inicializa hardware y carga aplicaciones.
+    \item \textbf{Soporte multiprocesador:} capacidad de aprovechar múltiples CPU.
+    \item \textbf{Primitivas de E/S:} funciones básicas para entrada y salida.
 \end{itemize}
 
 \subsubsection{Herramientas utilizadas}
-El desarrollo requirió el uso de herramientas de desarrollo de muy bajo nivel para x86-64.
 \begin{itemize}
-	\item \textbf{Ensamblador:} Herramientas de ensamblador x86-64 (a menudo NASM o similar).
-	\item \textbf{Emuladores:} Para pruebas, se utilizaban comúnmente \textbf{QEMU} y \textbf{Bochs} en modo de 64 bits.
+    \item \textbf{Ensambladores x86-64:} como NASM.
+    \item \textbf{Pruebas:} QEMU y Bochs.
 \end{itemize}
 
 \begin{figure}[H]
-	\centering
-	\includegraphics[width=0.9\linewidth]{figures/bmos_interface.png}
-	\caption{BareMetal OS ejecutándose en QEMU, mostrando el listado de archivos (dir) y la ejecución de una aplicación}
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/bmos_interface.png}
+    \caption{BareMetal OS ejecutándose en QEMU con una aplicación tipo consola. Extraído del repositorio histórico del proyecto}
 \end{figure}
 
-\subsubsection{Nivel de complejidad y accesibilidad para estudiantes}
-El nivel de complejidad es \textbf{Medio-Alto}. Aunque el concepto es minimalista, la implementación en Ensamblador x86-64 y su naturaleza "bare metal" requiere un conocimiento profundo de la arquitectura de la computadora. La falta de desarrollo y soporte activo lo hace menos accesible como proyecto educativo estructurado en la actualidad.
+\subsubsection{Nivel de complejidad y accesibilidad}
+El nivel de complejidad es medio-alto, adecuado para estudios avanzados de programación \textit{bare metal} \cite{bmos_wiki}.
 
 \begin{table}[H]
-	\centering
-	\caption{Ficha técnica resumida de BareMetal OS.}
-	\vspace{1em}
-	\begin{tabular}{p{4cm}p{10cm}}
-		\hline
-		\textbf{Diseño} & Monolítico minimalista, bare metal, monotarea/multiprocesador \\ \hline
-		\textbf{Lenguajes} & Ensamblador x86-64 \\
-		\textbf{Arquitecturas} & x86-64 \\
-		\textbf{Componentes clave} & Kernel muy pequeño, Soporte APIC/SMP (Multiprocesador) \\
-		\textbf{Herramientas} & Ensambladores de 64-bit, QEMU/Bochs \\
-		\textbf{Uso educativo} & Avanzado: para estudio de arquitecturas x86-64 y programación bare metal \\
-		\hline
-	\end{tabular}
+    \centering
+    \begin{tabular}{p{4cm}p{10cm}}
+        \hline
+        \textbf{Diseño}            & Kernel monolítico minimalista, bare metal, monotarea/multiprocesador \\ \hline
+        \textbf{Lenguajes}         & Ensamblador x86-64                                                   \\
+        \textbf{Arquitecturas}     & x86-64                                                               \\
+        \textbf{Componentes clave} & Kernel pequeño, soporte APIC/SMP, E/S básica                         \\
+        \textbf{Herramientas}      & Ensambladores 64 bits, QEMU/Bochs                                    \\
+        \textbf{Uso educativo}     & Avanzado: estudio de x86-64 y programación bare metal                \\
+        \hline
+    \end{tabular}
+    \caption{Ficha técnica resumida de BareMetal OS.}
+    \vspace{1mm}
+    \textit{Nota. Adaptado de la documentación y repositorio de BareMetal OS \cite{bmos_wiki, bmos_purpose, bmos_architecture}.}
 \end{table}
 
 % =========================
-% Sistema Operativo 3: PintOS
+% Sistema Operativo: PintOS
 % =========================
 \subsection{PintOS}
 
 \subsubsection{Nombre del proyecto o sistema operativo}
-PintOS es un \textit{framework} de sistema operativo minimalista diseñado para la arquitectura x86. Es utilizado primariamente en cursos universitarios de sistemas operativos, siendo desarrollado originalmente en la \textbf{Universidad de Stanford}. Se presenta como un código base incompleto que los estudiantes deben extender mediante la implementación de funcionalidades clave \cite{pintos_stanford}.
+PintOS es un framework de sistema operativo minimalista diseñado para la arquitectura x86, utilizado principalmente en cursos universitarios de sistemas operativos \cite{pintos_stanford, pintos_source}.
 
 \subsubsection{Enlace al repositorio y/o documentación oficial}
-Documentación oficial (Ejemplo de Stanford): \url{https://web.stanford.edu/class/cs140/projects/pintos/pintos_1.html}
+Documentación del proyecto: \url{https://web.stanford.edu/class/cs140/projects/pintos/pintos_1.html} \cite{pintos_stanford, pintos_source}.
 
-Guías de desarrollo (GitHub): \url{https://github.com/SajedHassan/CSEx61-pintos}
+Guía de desarrollo: \url{https://github.com/SajedHassan/CSEx61-pintos} \cite{pintos_purpose}.
 
 \subsubsection{Objetivo del proyecto}
-El objetivo es puramente \textbf{educativo y académico}. PintOS sirve como una plataforma de aprendizaje práctica donde los estudiantes implementan módulos esenciales de un sistema operativo moderno, tales como la gestión de hilos, la implementación de llamadas al sistema, la memoria virtual y el sistema de archivos \cite{pintos_purpose}.
+El objetivo de PintOS es educativo: proporcionar una base incompleta que los estudiantes deben extender implementando hilos, llamadas al sistema, memoria virtual y sistema de archivos \cite{pintos_purpose}.
 
-\subsubsection{Lenguaje(s) de implementación}
-El código base está escrito mayoritariamente en \textbf{C} (aproximadamente 69\%). Las rutinas de bajo nivel para la interacción con el hardware y los cambios de contexto están implementadas en \textbf{Ensamblador x86} \cite{pintos_source}.
+\subsubsection{Lenguajes de implementación}
+El código base está escrito principalmente en C, con rutinas de bajo nivel en ensamblador x86 \cite{pintos_source}. Algunos scripts auxiliares utilizan Perl.
 
 \subsubsection{Arquitectura del sistema}
-PintOS sigue una arquitectura \textbf{monolítica} simple, diseñada para la arquitectura \textbf{80x86} de 32 bits. Se ejecuta en modo kernel y su código base proporciona el marco inicial para que los estudiantes construyan sobre él los siguientes componentes: hilos, programas de usuario, memoria virtual y el sistema de archivos.
+PintOS adopta una arquitectura monolítica simple para x86 de 32 bits. Se ejecuta en modo kernel y sirve como marco para cuatro grandes proyectos académicos \cite{pintos_stanford}.
 
 \subsubsection{Componentes implementados}
-PintOS está estructurado en cuatro proyectos principales que los estudiantes deben completar:
 \begin{itemize}
-	\item \textbf{Threads (Hilos):} Implementación de hilos (threads), exclusión mutua, semáforos, bloqueos y planificación de hilos (scheduler).
-	\item \textbf{User Programs (Programas de Usuario):} Implementación de la carga de ejecutables, el paso de argumentos y la capa de \textbf{llamadas al sistema} (syscalls) entre el espacio de usuario y el kernel.
-	\item \textbf{Virtual Memory (Memoria Virtual):} Implementación de paginación, manejo de fallos de página y asignación de memoria virtual.
-	\item \textbf{File System (Sistema de Archivos):} Implementación de un sistema de archivos funcional, incluyendo directorios, archivos, y manejo de la estructura de disco.
+    \item \textbf{Threads:} hilos, sincronización y planificación.
+    \item \textbf{User Programs:} carga de ejecutables y capa de llamadas al sistema.
+    \item \textbf{Virtual Memory:} paginación y manejo de fallos de página.
+    \item \textbf{File System:} sistema de archivos con directorios y manejo de disco.
 \end{itemize}
 
 \subsubsection{Herramientas utilizadas}
-El entorno de desarrollo de PintOS es robusto y se basa en las herramientas estándar de GNU/Linux:
 \begin{itemize}
-	\item \textbf{Compilador:} \textbf{GCC} (GNU Compiler Collection).
-	\item \textbf{Utilidades:} \texttt{make} y \texttt{binutils}. Los scripts de compilación suelen estar escritos en \textbf{Perl}.
-	\item \textbf{Depuración:} Se utiliza \textbf{GDB} (GNU Debugger).
-	\item \textbf{Entorno de prueba:} Principalmente el emulador de hardware \textbf{QEMU} o \textbf{Bochs}.
+    \item \textbf{Compilador:} GCC.
+    \item \textbf{Construcción:} \texttt{make} y \texttt{binutils}.
+    \item \textbf{Depuración:} GDB.
+    \item \textbf{Pruebas:} QEMU o Bochs.
 \end{itemize}
 
-\subsubsection{Nivel de complejidad y accesibilidad para estudiantes}
-El nivel de complejidad es \textbf{Medio-Alto}. Aunque es un proyecto académico bien estructurado, requiere que los estudiantes implementen conceptos avanzados y críticos como la sincronización de hilos y la memoria virtual. Su alta accesibilidad se debe a su uso generalizado en universidades y a la existencia de abundante documentación y guías de estudio.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/pintos_qemu.png}
+    \caption{PintOS ejecutándose en QEMU durante una práctica de laboratorio. Extraído de la documentación académica del proyecto}
+\end{figure}
+
+\subsubsection{Nivel de complejidad y accesibilidad}
+El nivel de complejidad es medio-alto. PintOS obliga a implementar conceptos críticos como sincronización, memoria virtual y sistema de archivos, y cuenta con abundante documentación y soporte académico \cite{pintos_stanford, pintos_purpose}.
 
 \begin{table}[H]
-	\centering
-	\caption{Ficha técnica resumida de PintOS.}
-	\vspace{1em}
-	\begin{tabular}{p{4cm}p{10cm}}
-		\hline
-		\textbf{Diseño} & Monolítico, Framework académico, x86 32-bit \\ \hline
-		\textbf{Lenguajes} & C, Ensamblador x86, Perl (scripts) \\
-		\textbf{Arquitecturas} & x86 (32-bit) \\
-		\textbf{Componentes clave} & Hilos (Threads), Llamadas al Sistema, Memoria Virtual (Paginación), Sistema de Archivos \\
-		\textbf{Herramientas} & GCC, Make, Perl, QEMU/Bochs, GDB \\
-		\textbf{Uso educativo} & Muy Alto: esencial en cursos de Sistemas Operativos a nivel de grado/posgrado \\
-		\hline
-	\end{tabular}
+    \centering
+    \begin{tabular}{p{4cm}p{10cm}}
+        \hline
+        \textbf{Diseño}            & Kernel monolítico académico para x86 de 32 bits       \\ \hline
+        \textbf{Lenguajes}         & C, ensamblador x86, Perl (scripts)                    \\
+        \textbf{Arquitecturas}     & x86 (32 bits)                                         \\
+        \textbf{Componentes clave} & Hilos, llamadas al sistema, memoria virtual, sistema de archivos \\
+        \textbf{Herramientas}      & GCC, Make, Perl, QEMU/Bochs, GDB                      \\
+        \textbf{Uso educativo}     & Muy alto: base en cursos de sistemas operativos       \\
+        \hline
+    \end{tabular}
+    \caption{Ficha técnica resumida de PintOS.}
+    \vspace{1mm}
+    \textit{Nota. Adaptado de la documentación oficial del proyecto PintOS \cite{pintos_stanford, pintos_purpose}.}
 \end{table}
