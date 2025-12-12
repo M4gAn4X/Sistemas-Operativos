@@ -336,43 +336,85 @@ HaikuOS presenta una complejidad moderada y es útil para estudiar el diseño de
 \end{table}
 
 % =========================
-% Sistema Operativo: xv6
+% Propuesta 1: xv6
 % =========================
+
 \subsection{xv6}
 
 \subsubsection{Nombre del proyecto o sistema operativo}
-xv6 es un sistema operativo educativo desarrollado por el MIT como una reimplementación moderna de Unix Sixth Edition (V6). Se utiliza ampliamente en cursos universitarios avanzados de sistemas operativos \cite{xv6_mit_about, xv6_wiki}.
+
+xv6 es un sistema operativo educativo desarrollado por el MIT como una reimplementación moderna de UNIX Sixth Edition (V6). Su código está diseñado para ser lo más simple posible, permitiendo a los estudiantes estudiar de manera clara la estructura y funcionamiento interno de un sistema operativo real. Se utiliza ampliamente en cursos universitarios avanzados de sistemas operativos, especialmente en el MIT 6.1810/6.828 \cite{xv6_mit_about, xv6_wiki}.
 
 \subsubsection{Enlace al repositorio y/o documentación oficial}
-Repositorio principal (RISC-V): \url{https://github.com/mit-pdos/xv6-riscv} \cite{xv6_riscv}.
 
-Repositorio histórico x86: \url{https://github.com/mit-pdos/xv6-public}.
+Repositorio oficial (versión RISC-V, actualmente en uso académico):  
+\url{https://github.com/mit-pdos/xv6-riscv}
 
-Documentación del curso MIT 6.1810/6.828: \url{https://pdos.csail.mit.edu/6.1810/2024/xv6.html} \cite{xv6_mit_about}.
+Repositorio histórico para x86:  
+\url{https://github.com/mit-pdos/xv6-public}
+
+Documentación del curso MIT 6.1810/6.828:  
+\url{https://pdos.csail.mit.edu/6.1810/2024/xv6.html}
+
+Descripción general en Wikipedia:  
+\url{https://en.wikipedia.org/wiki/Xv6}
 
 \subsubsection{Objetivo del proyecto}
-El objetivo de xv6 es educativo: explicar los conceptos esenciales de un sistema operativo mediante un kernel pequeño y legible \cite{xv6_book}.
+
+El objetivo principal de xv6 es \textbf{educativo}. Fue desarrollado para enseñar los conceptos esenciales de un sistema operativo desde su diseño hasta su implementación. xv6 proporciona una arquitectura simple y bien organizada que replica los principios de UNIX V6, pero con código en C moderno y herramientas actuales, facilitando la comprensión del funcionamiento del kernel, el manejo de procesos y la interacción con el hardware \cite{xv6_mit_about, xv6_book}.
+
+Su diseño didáctico permite que los estudiantes puedan modificar o extender el sistema, añadiendo nuevas llamadas al sistema, alterando la planificación o mejorando módulos existentes.
 
 \subsubsection{Lenguajes de implementación}
-xv6 está escrito principalmente en C, con partes en ensamblador para inicialización de procesador, interrupciones y cambio de modo \cite{xv6_book}.
+
+xv6 está programado principalmente en \textbf{ANSI C}, un lenguaje ideal para estudiar estructuras internas de un OS. Incluye también secciones esenciales en \textbf{ensamblador}, utilizadas para inicializar el procesador, manejar interrupciones del hardware y gestionar el paso al modo protegido (x86) o al modo supervisor (RISC-V). Esta combinación permite desarrollar un kernel real, pero accesible para estudiantes \cite{xv6_book}.
 
 \subsubsection{Arquitectura del sistema}
-Implementa un kernel monolítico inspirado en Unix. Actualmente se enfoca en arquitectura RISC-V, con versiones previas para x86 \cite{xv6_riscv}.
+
+xv6 implementa un \textbf{kernel monolítico} inspirado en la filosofía de UNIX.  
+Todas las funcionalidades esenciales —gestión de procesos, memoria, archivos y controladores mínimos— se encuentran integradas dentro del núcleo, lo que facilita su comprensión y seguimiento.
+
+Actualmente, xv6 está diseñado para ejecutarse principalmente en arquitectura \textbf{RISC-V}, aunque existen versiones previas para x86 de 32 bits \cite{xv6_riscv}.
 
 \subsubsection{Componentes implementados}
+
+xv6 posee todos los elementos fundamentales para ilustrar cómo opera un sistema operativo real:
+
 \begin{itemize}
-    \item \textbf{Gestión de procesos:} \texttt{fork()}, \texttt{exec()}, \texttt{wait()} y planificación \textit{round-robin}.
-    \item \textbf{Gestión de memoria:} memoria paginada con tablas de páginas multinivel.
-    \item \textbf{Sistema de archivos:} sistema con i-nodos, directorios, enlaces y comandos básicos.
-    \item \textbf{Shell:} shell simple con tuberías y redirecciones.
+    \item \textbf{Gestión de procesos:} Implementa \texttt{fork()}, \texttt{exec()}, \texttt{wait()}, señales simples, cambio de contexto y planificación round-robin \cite{xv6_book}.
+    
+    \item \textbf{Gestión de memoria:} Incluye memoria paginada, asignación dinámica y protección por proceso. En RISC-V utiliza tablas de páginas multinivel.
+
+    \item \textbf{Sistema de archivos:} Posee un sistema basado en i-nodos, con soporte para directorios, enlaces y bloques. Permite comandos como \texttt{ls}, \texttt{mkdir}, \texttt{cat} y \texttt{rm}.
+
+    \item \textbf{Interrupciones y excepciones:} Mecanismo de trampas para manejar llamadas al sistema, interrupciones de hardware y fallos de página.
+
+    \item \textbf{Shell integrado:} Un shell simple escrito en C que soporta pipes, redirecciones y ejecución de comandos básicos.
+
+    \item \textbf{Drivers esenciales:} Controlador de consola, disco virtual y reloj, suficientes para soportar la ejecución en QEMU.
 \end{itemize}
 
+Aunque minimalista, xv6 captura la esencia del diseño UNIX y permite extender fácilmente su funcionalidad en entornos educativos.
+
 \subsubsection{Herramientas utilizadas}
+
+El entorno de desarrollo de xv6 se basa en herramientas de sistemas operativos reales:
+
 \begin{itemize}
-    \item \textbf{Compilador:} \texttt{riscv64-unknown-elf-gcc}.
-    \item \textbf{Construcción:} \texttt{make} y \textit{binutils}.
-    \item \textbf{Pruebas:} \textit{QEMU} y \textit{GDB}.
+    \item \textbf{Compilador cruzado para RISC-V:} \texttt{riscv64-unknown-elf-gcc}, requerido para construir el kernel y los programas de usuario.
+    \item \textbf{Make y Binutils:} Para automatizar la compilación y enlazado.
+    \item \textbf{QEMU:} Emulador recomendado para ejecutar xv6 sin hardware adicional.
+    \item \textbf{GDB:} Integrado mediante \texttt{make qemu-gdb} para depuración a nivel de kernel.
 \end{itemize}
+
+Ejemplo típico de ejecución:
+
+\begin{verbatim}
+make qemu
+make qemu-gdb
+\end{verbatim}
+
+Estas herramientas permiten estudiar el comportamiento del sistema paso por paso.
 
 \begin{figure}[H]
     \centering
@@ -381,8 +423,7 @@ Implementa un kernel monolítico inspirado en Unix. Actualmente se enfoca en arq
 \end{figure}
 
 \subsubsection{Nivel de complejidad y accesibilidad}
-El nivel de complejidad de xv6 es medio. Su código es compacto y muy usado como base de laboratorio en universidades \cite{xv6_book, xv6_wiki}.
-
+El nivel de complejidad de xv6 es medio. Su código es compacto y muy usado como base de laboratorio en universidades \cite{xv6_book, xv6_wiki}. Esto permite a los estudiantes comprender e implementar mecanismos críticos, como la paginación y la planificación de procesos, en un entorno controlado y manejable sin la sobrecarga de un sistema operativo comercial.
 \begin{table}[H]
     \centering
     \begin{tabular}{p{4cm}p{10cm}}
@@ -401,42 +442,79 @@ El nivel de complejidad de xv6 es medio. Su código es compacto y muy usado como
 \end{table}
 
 % =========================
-% Sistema Operativo: HobbyOS
+% Propuesta 2: HobbyOS
 % =========================
+
 \subsection{HobbyOS}
 
 \subsubsection{Nombre del proyecto o sistema operativo}
-HobbyOS es un sistema operativo experimental desarrollado como proyecto personal para explorar el diseño de kernels y la interacción directa con el hardware \cite{hobbyos_repo, hobbyos_topics}.
+
+HobbyOS es un sistema operativo experimental desarrollado como un proyecto personal para explorar el diseño de kernels, la estructura interna de un sistema operativo y la interacción directa con el hardware. A diferencia de sistemas educativos consolidados como xv6, HobbyOS se encuentra en una fase más temprana, con un enfoque en proveer un entorno minimalista para aprender cómo construir un OS desde cero. Está orientado principalmente a desarrolladores principiantes interesados en comprender los fundamentos del arranque, el manejo básico de memoria y la arquitectura x86\_64 \cite{hobbyos_repo, hobbyos_topics}.
 
 \subsubsection{Enlace al repositorio y/o documentación oficial}
-Repositorio oficial: \url{https://github.com/ObadiahCrowe/HobbyOS} \cite{hobbyos_repo}.
 
-Colección de proyectos afines: \url{https://github.com/topics/hobby-os} \cite{hobbyos_topics}.
+Repositorio oficial del proyecto:  
+\url{https://github.com/ObadiahCrowe/HobbyOS}
+
+Colección de sistemas “hobby OS” relacionados en GitHub (contexto educativo):  
+\url{https://github.com/topics/hobby-os}
 
 \subsubsection{Objetivo del proyecto}
-Su objetivo es experimental y educativo: servir como base sencilla para estudiar el proceso de construcción de un kernel desde sus primeras etapas.
+
+El objetivo principal de HobbyOS es \textbf{experimental y educativo}. El proyecto busca ofrecer un entorno minimalista que permita estudiar el proceso de construcción de un kernel desde su etapa más básica: configuración del compilador cruzado, arranque del sistema, implementación de rutinas en ensamblador y la estructura esencial de un núcleo operativo.
+
+Su propósito es brindar un punto de partida accesible para estudiantes y entusiastas que desean comprender cómo funciona un sistema operativo a nivel interno, sin la complejidad de sistemas avanzados como Linux o BSD \cite{hobbyos_repo}.
 
 \subsubsection{Lenguajes de implementación}
-HobbyOS está escrito principalmente en C, con secciones en ensamblador x86\_64 para el \textit{bootloader}, interrupciones y configuración inicial \cite{hobbyos_repo}.
+
+HobbyOS está escrito principalmente en \textbf{C}, con secciones de \textbf{ensamblador x86\_64} necesarias para realizar el proceso de arranque (bootloader), manejar interrupciones básicas y configurar los registros y el modo protegido o de 64 bits. Esta combinación de C y ensamblador es típica en sistemas operativos minimalistas, ya que permite interactuar directamente con el hardware al mismo tiempo que se mantiene un código relativamente claro y modular \cite{hobbyos_repo}.
 
 \subsubsection{Arquitectura del sistema}
-El diseño corresponde a un kernel monolítico simple orientado a arquitectura x86\_64.
+
+Aunque la documentación oficial no califica explícitamente su arquitectura como monolítica o microkernel, el diseño mostrado en su repositorio indica un \textbf{kernel monolítico simple}. Es decir, el núcleo contiene la mayor parte de las funcionalidades disponibles: rutinas de memoria, interrupciones básicas y control inicial del hardware.
+
+El sistema está dirigido a la arquitectura \textbf{x86\_64} moderna, lo cual lo diferencia de varios sistemas educativos clásicos que utilizan x86 de 32 bits. Esto permite estudiar una arquitectura actual y ampliamente utilizada \cite{hobbyos_repo}.
 
 \subsubsection{Componentes implementados}
+
+HobbyOS se encuentra en desarrollo activo y por ello sus componentes son básicos, pero suficientes para fines de aprendizaje:
+
 \begin{itemize}
-    \item \textbf{Bootloader:} código en ensamblador que prepara el entorno de 64 bits y carga el kernel.
-    \item \textbf{Kernel mínimo:} inicialización del sistema, pila y ejecución de código C.
-    \item \textbf{Memoria temprana:} rutinas simples para administrar memoria física.
-    \item \textbf{Interrupciones:} tablas y manejadores iniciales.
-    \item \textbf{Salida de texto:} escritura directa en memoria de vídeo en modo texto.
+    \item \textbf{Bootloader personalizado:} Incluye código en ensamblador para realizar el proceso de arranque, cambiar a modo de 64 bits y cargar el kernel en memoria.
+    
+    \item \textbf{Kernel mínimo:} Provee estructuras para inicializar el sistema, configurar la pila, manejar el entorno básico del CPU y ejecutar código C dentro del kernel.
+
+    \item \textbf{Gestión temprana de memoria:} Implementa rutinas simples para administrar memoria, configurar memoria física disponible y organizar el espacio del sistema.
+
+    \item \textbf{Interrupciones básicas:} Define tablas de interrupciones e incluye manejadores mínimos, necesarios para extender funcionalidades en versiones futuras.
+
+    \item \textbf{Interfaz textual:} La salida a consola se realiza mediante rutinas de escritura directa en memoria de video (modo texto), útil para depuración y pruebas.
+
+    \item \textbf{Compatibilidad con QEMU:} Puede iniciarse mediante una imagen de arranque compatible con QEMU, lo cual simplifica las pruebas de kernel sin requerir hardware físico.
 \end{itemize}
 
+Aunque el sistema carece todavía de un conjunto completo de procesos, memoria virtual o sistema de archivos, esto es intencional: busca ser una base de estudio extremadamente clara y progresiva.
+
 \subsubsection{Herramientas utilizadas}
+
+El desarrollo de HobbyOS requiere un conjunto de herramientas específicas para trabajar con kernels de bajo nivel:
+
 \begin{itemize}
-    \item \textbf{Compilador cruzado:} \texttt{x86\_64-elf-gcc}.
-    \item \textbf{Ensamblador:} NASM.
-    \item \textbf{Pruebas:} \textit{QEMU} y \texttt{make}.
+    \item \textbf{Compilador cruzado x86\_64-elf-gcc:} Necesario para producir binarios adecuados a un entorno sin sistema operativo.
+    \item \textbf{Binutils para x86\_64:} Incluye ensambladores como \texttt{as}, enlazadores (\texttt{ld}) y herramientas para manipular binarios.
+    \item \textbf{NASM u otro ensamblador:} Utilizado para el código de arranque.
+    \item \textbf{QEMU:} Emulador recomendado para ejecutar el sistema sin hardware físico.
+    \item \textbf{Make:} Orquestación del proceso de compilación y generación de imágenes de disco.
 \end{itemize}
+
+Ejemplo de compilación típica en el entorno del proyecto:
+
+\begin{verbatim}
+make
+qemu-system-x86_64 -kernel hobbyos.bin
+\end{verbatim}
+
+Estas herramientas permiten a los estudiantes observar cada etapa del proceso de construcción de un sistema operativo.
 
 \begin{figure}[H]
     \centering
@@ -445,7 +523,7 @@ El diseño corresponde a un kernel monolítico simple orientado a arquitectura x
 \end{figure}
 
 \subsubsection{Nivel de complejidad y accesibilidad}
-El nivel de complejidad de HobbyOS es bajo-medio, ideal para quienes desean comprender los primeros pasos en el diseño de kernels \cite{hobbyos_topics}.
+El nivel de complejidad de HobbyOS es bajo-medio, ideal para quienes desean comprender los primeros pasos en el diseño de kernels \cite{hobbyos_topics}. Al carecer de la vasta infraestructura de los sistemas operativos comerciales, permite a los desarrolladores centrarse en entender cómo el software toma control inicial del hardware sin distraerse con abstracciones complejas.
 
 \begin{table}[H]
     \centering
@@ -470,36 +548,70 @@ El nivel de complejidad de HobbyOS es bajo-medio, ideal para quienes desean comp
 \subsection{MikeOS}
 
 \subsubsection{Nombre del proyecto o sistema operativo}
-MikeOS es un sistema operativo didáctico de 16 bits, minimalista y de código abierto, creado para demostrar los fundamentos de un sistema operativo sencillo en modo real \cite{mikeos_about}.
+
+MikeOS es un sistema operativo didáctico de 16 bits, minimalista y de código abierto, creado expresamente para demostrar los fundamentos de un sistema operativo sencillo operando en modo real. A diferencia de los núcleos modernos que buscan abstraer el hardware mediante capas complejas, MikeOS expone deliberadamente la arquitectura subyacente del PC, permitiendo a los estudiantes interactuar directamente con la BIOS y los registros del procesador. Es un proyecto maduro y bien documentado que sirve como una introducción ideal para quienes desean aprender lenguaje ensamblador x86 y entender cómo una computadora arranca y ejecuta programas sin la ayuda de bibliotecas estándar o sistemas operativos anfitriones \cite{mikeos_about}.
 
 \subsubsection{Enlace al repositorio y/o documentación oficial}
-Sitio web oficial y descargas: \url{https://mikeos.sourceforge.net/} \cite{mikeos_about}.
 
-Documentación y manuales: \url{https://mikeos.sourceforge.net/doc.html} \cite{mikeos_purpose}.
+Sitio web oficial y descargas:  
+\url{https://mikeos.sourceforge.net/} \cite{mikeos_about}
+
+Documentación y manuales técnicos:  
+\url{https://mikeos.sourceforge.net/doc.html} \cite{mikeos_purpose}
 
 \subsubsection{Objetivo del proyecto}
-Su objetivo es educativo: enseñar ensamblador x86 de 16 bits y la implementación de llamadas al sistema en un kernel simple \cite{mikeos_purpose}.
+
+El objetivo principal de MikeOS es **educativo y de demostración**. El proyecto busca desmitificar el funcionamiento de bajo nivel de las computadoras personales enseñando ensamblador x86 de 16 bits y la implementación de llamadas al sistema en un kernel simple y comprensible.
+
+Su propósito no es competir con sistemas operativos de escritorio, sino proporcionar un "cajón de arena" (sandbox) donde los desarrolladores noveles puedan escribir código que controle la máquina directamente, aprendiendo sobre interrupciones, manejo de memoria y E/S de disco de una forma que los sistemas operativos protegidos modernos no permiten \cite{mikeos_purpose}.
 
 \subsubsection{Lenguajes de implementación}
-MikeOS está implementado casi por completo en ensamblador x86 de 16 bits (NASM), e incluye un intérprete de BASIC \cite{mikeos_source, mikeos_architecture}.
+
+MikeOS está implementado casi por completo en **ensamblador x86 de 16 bits (NASM)**, una elección de diseño fundamental para garantizar el control total sobre el hardware y el tamaño reducido del código. Además, el sistema incluye un intérprete de **BASIC** integrado, el cual permite a los usuarios escribir y ejecutar programas sencillos sin necesidad de reensamblar el kernel. Esta dualidad ofrece dos niveles de aprendizaje: la crudeza del ensamblador para el desarrollo del sistema y la simplicidad de BASIC para la creación rápida de aplicaciones \cite{mikeos_source, mikeos_architecture}.
 
 \subsubsection{Arquitectura del sistema}
-Presenta una arquitectura monolítica en modo real, donde kernel, shell y programas comparten un espacio de memoria de 64 KB \cite{mikeos_architecture}.
+
+El sistema presenta una arquitectura **monolítica en modo real**, lo que significa que no existe distinción entre el espacio del núcleo y el del usuario, ni protección de memoria. El kernel, el shell y los programas de usuario comparten un único espacio de memoria direccionable de 64 KB (segmento único).
+
+Aunque esta arquitectura es obsoleta para la computación comercial moderna, es perfecta para el aprendizaje, ya que elimina la complejidad de la gestión de memoria virtual, la paginación y los anillos de protección, permitiendo al estudiante visualizar todo el mapa de memoria del sistema de un solo vistazo \cite{mikeos_architecture}.
 
 \subsubsection{Componentes implementados}
+
+MikeOS, a pesar de su tamaño reducido, cuenta con un conjunto robusto de componentes que emulan la funcionalidad de sistemas más grandes:
+
 \begin{itemize}
-    \item \textbf{Kernel:} inicialización, interrupciones y carga de programas.
-    \item \textbf{Bootloader:} carga del núcleo desde disquete o imagen.
-    \item \textbf{Llamadas al sistema:} más de 60 funciones de E/S.
-    \item \textbf{Shell:} intérprete de línea de comandos.
-    \item \textbf{Intérprete de BASIC:} ejecución de programas básicos.
+    \item \textbf{Kernel Monolítico:} Es el núcleo del sistema, encargado de la inicialización del hardware, la gestión de vectores de interrupción y la provisión de una API para los programas.
+    
+    \item \textbf{Bootloader (Cargador de arranque):} Un pequeño programa en el sector de arranque encargado de cargar el núcleo desde un disquete (o imagen de disco) a la memoria RAM y transferirle el control.
+
+    \item \textbf{API de Llamadas al sistema:} El kernel expone más de 60 funciones documentadas para manejo de cadenas, operaciones matemáticas, gráficos básicos y acceso a disco, facilitando la vida al programador de aplicaciones.
+
+    \item \textbf{Shell (Intérprete de comandos):} Una interfaz de línea de comandos (CLI) que permite al usuario navegar por el disco, ejecutar programas y gestionar archivos de manera interactiva.
+
+    \item \textbf{Intérprete de BASIC:} Un componente distintivo que permite la ejecución de scripts en tiempo real, similar a las computadoras hogareñas de los años 80.
 \end{itemize}
 
+Esta estructura modular permite a los estudiantes modificar una parte específica, como el cargador de arranque o un comando del shell, sin romper necesariamente el resto del sistema.
+
 \subsubsection{Herramientas utilizadas}
+
+Para compilar, probar y desarrollar sobre MikeOS se utiliza un conjunto estándar de herramientas de código abierto, accesibles tanto en Linux como en Windows:
+
 \begin{itemize}
-    \item \textbf{Ensamblador:} NASM.
-    \item \textbf{Pruebas:} QEMU o Bochs.
+    \item \textbf{Ensamblador NASM:} Es la herramienta principal utilizada para convertir el código fuente `.asm` en código máquina binario crudo.
+    \item \textbf{Emuladores (QEMU o Bochs):} Permiten ejecutar y depurar el sistema operativo en una ventana virtual, simulando el hardware de un PC x86 antiguo.
+    \item \textbf{Herramientas de imagen de disco:} Utilidades como `dd` o `mkisofs` para crear las imágenes de disquete o CD booteables.
+    \item \textbf{Editor de texto simple:} Al no requerir un IDE complejo, cualquier editor de código es suficiente para trabajar con los archivos fuente.
 \end{itemize}
+
+Ejemplo de cómo se ensambla y ejecuta típicamente el kernel:
+
+\begin{verbatim}
+nasm -f bin -o mikeos.flp source/bootload/bootload.asm
+qemu-system-i386 -fda mikeos.flp
+\end{verbatim}
+
+Estas herramientas son ligeras y enseñan al estudiante el flujo de trabajo clásico del desarrollo de sistemas embebidos o de bajo nivel.
 
 \begin{figure}[H]
     \centering
@@ -508,7 +620,7 @@ Presenta una arquitectura monolítica en modo real, donde kernel, shell y progra
 \end{figure}
 
 \subsubsection{Nivel de complejidad y accesibilidad}
-El nivel de complejidad es bajo a medio-bajo, y es uno de los sistemas más accesibles para introducirse en ensamblador y fundamentos de sistemas operativos \cite{mikeos_purpose}.
+El nivel de complejidad es **bajo a medio-bajo**, lo que convierte a MikeOS en uno de los sistemas más accesibles para introducirse en el mundo del ensamblador y los fundamentos de los sistemas operativos \cite{mikeos_purpose}. Al operar en modo real y evitar abstracciones modernas, la curva de aprendizaje se centra puramente en la lógica del hardware y el flujo de control, sin las barreras que imponen sistemas más avanzados. Es, en esencia, la puerta de entrada perfecta antes de saltar a arquitecturas de 32 o 64 bits.
 
 \begin{table}[H]
     \centering
