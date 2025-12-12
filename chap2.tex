@@ -56,6 +56,8 @@ El nivel de complejidad de HelenOS es alto, ya que su comprensión requiere cono
 
 \begin{table}[H]
     \centering
+    \caption{Ficha técnica resumida de HelenOS.}
+    \vspace{2mm}
     \begin{tabular}{p{4cm}p{10cm}}
         \hline
         \textbf{Diseño}            & Microkernel multiserver modular                                     \\ \hline
@@ -66,8 +68,7 @@ El nivel de complejidad de HelenOS es alto, ya que su comprensión requiere cono
         \textbf{Uso educativo}     & Alto: análisis modular de componentes e IPC                         \\
         \hline
     \end{tabular}
-    \caption{Ficha técnica resumida de HelenOS.}
-    \vspace{1mm}
+    \vspace{1mm}\\
     \textit{Nota. Adaptado de ``About HelenOS'' \cite{helenos_about}.}
 \end{table}
 
@@ -121,6 +122,8 @@ El nivel de complejidad de Visopsys es medio. Su estructura modular permite estu
 
 \begin{table}[H]
     \centering
+    \caption{Ficha técnica resumida de Visopsys.}
+    \vspace{2mm}
     \begin{tabular}{p{4cm}p{10cm}}
         \hline
         \textbf{Diseño}            & Kernel monolítico modular con GUI integrada                         \\ \hline
@@ -131,8 +134,7 @@ El nivel de complejidad de Visopsys es medio. Su estructura modular permite estu
         \textbf{Uso educativo}     & Medio: análisis de kernel, GUI y gestión de memoria                  \\
         \hline
     \end{tabular}
-    \caption{Ficha técnica resumida de Visopsys.}
-    \vspace{1mm}
+    \vspace{1mm} \\
     \textit{Nota. Adaptado de la documentación del sistema Visopsys \cite{visopsys_about, visopsys_scribd}.}
 \end{table}
 
@@ -142,109 +144,146 @@ El nivel de complejidad de Visopsys es medio. Su estructura modular permite estu
 \subsection{SerenityOS}
 
 \subsubsection{Nombre del proyecto o sistema operativo}
-SerenityOS es un sistema operativo desarrollado desde cero, con énfasis en la claridad del código y en la recreación de una experiencia de escritorio similar a los entornos clásicos de los años noventa \cite{serenity_about, serenity_wiki}.
+SerenityOS es un sistema operativo desarrollado desde cero, orientado a la claridad y consistencia del código, y a ofrecer una experiencia de escritorio con estética retro. Aunque implementa varias interfaces tipo Unix para facilitar el desarrollo y el uso, no deriva de Linux ni de una base Unix existente \cite{serenity_about, serenity_wiki}.
 
 \subsubsection{Enlace al repositorio y/o documentación oficial}
-Repositorio oficial (GitHub): \url{https://github.com/SerenityOS/serenity} \cite{serenity_github}.
-
-Sitio web del proyecto: \url{https://serenityos.org} \cite{serenity_about}.
+Repositorio oficial (GitHub): \url{https://github.com/SerenityOS/serenity} \cite{serenity_github}.\\
+Sitio web del proyecto: \url{https://serenityos.org} \cite{serenity_about}.\\
+Notas y documentación técnica: \url{https://github.com/SerenityOS/serenity/tree/master/Documentation} \cite{serenity_arch}.
 
 \subsubsection{Objetivo del proyecto}
-El proyecto busca construir un sistema operativo y entorno gráfico coherente, con:
-
-\begin{itemize}
-    \item código claro y consistente,
-    \item entorno de escritorio completo,
-    \item enfoque en el aprendizaje de ingeniería de sistemas,
-    \item independencia de bases de código Unix o Linux \cite{serenity_philosophy}.
-\end{itemize}
+El objetivo de SerenityOS es construir un sistema operativo completo (kernel, librerías, entorno gráfico y aplicaciones) con énfasis en la mantenibilidad y el aprendizaje práctico de ingeniería de sistemas. Además, busca mantener una identidad propia, sin depender de una base de código previa, lo que lo convierte en un entorno útil para estudiar cómo se integra un sistema real desde sus componentes fundamentales \cite{serenity_philosophy, serenity_arch}.
 
 \subsubsection{Lenguajes de implementación}
-SerenityOS está desarrollado principalmente en C++20; utiliza además ensamblador para rutinas de bajo nivel y JavaScript en el navegador \textit{Ladybird} \cite{serenity_arch}.
+SerenityOS está desarrollado principalmente en C++ moderno (para kernel, librerías y aplicaciones), además de ensamblador para rutinas de arranque y bajo nivel. El sistema también incluye componentes con JavaScript para partes del stack web y herramientas asociadas \cite{serenity_arch, serenity_github}.
 
 \subsubsection{Arquitectura del sistema}
-Adopta un kernel monolítico modular que implementa procesos, hilos, memoria virtual, sistema de archivos, controladores de dispositivos, interrupciones y mecanismos sencillos de IPC \cite{serenity_arch}.
+SerenityOS adopta un diseño de kernel monolítico modular. El núcleo integra los servicios esenciales (planificación, gestión de memoria, interrupciones, controladores y sistema de archivos), manteniendo una organización interna por subsistemas y librerías propias para el espacio de usuario \cite{serenity_arch}.
 
 \subsubsection{Componentes implementados}
 \begin{itemize}
-    \item \textbf{Kernel Serenity:} núcleo monolítico con planificación y memoria virtual.
-    \item \textbf{Sistema de archivos:} VFS con soporte para permisos e inodos.
-    \item \textbf{Interfaz gráfica:} servidor de ventanas \textit{WindowServer} y escritorio completo.
-    \item \textbf{Navegador Ladybird:} motor propio para HTML, CSS y JavaScript.
-    \item \textbf{Aplicaciones:} editor de texto, administrador de archivos, terminal, calculadora y herramientas de desarrollo.
+    \item Gestión de procesos e hilos: multitarea con planificación y primitivas de sincronización en el kernel \cite{serenity_arch}.
+    \item Gestión de memoria: memoria virtual con paginación y mecanismos de asignación en kernel y espacio de usuario \cite{serenity_arch}.
+    \item Sistema de archivos: capa VFS y utilidades del sistema; el entorno integra herramientas de administración y navegación de archivos \cite{serenity_arch}.
+    \item Interfaz gráfica: servidor de ventanas (\textit{WindowServer}) y entorno de escritorio con aplicaciones integradas \cite{serenity_arch}.
+    \item Stack web: librerías y herramientas para navegación y renderizado web dentro del ecosistema del proyecto \cite{serenity_github, serenity_arch}.
 \end{itemize}
 
 \subsubsection{Herramientas utilizadas}
+SerenityOS provee scripts y un flujo de construcción pensado para desarrollo y pruebas en máquina virtual \cite{serenity_arch}.
+
 \begin{itemize}
-    \item \textbf{Compiladores:} GCC o Clang.
-    \item \textbf{Construcción:} CMake y \textit{Ninja}.
-    \item \textbf{Toolchain propio:} \texttt{serenity-toolchain}.
-    \item \textbf{Pruebas:} ejecución en \textit{QEMU}.
+    \item Compilación y construcción: CMake y Ninja, junto con un toolchain propio generado por el proyecto \cite{serenity_arch}.
+    \item Pruebas: ejecución típica sobre QEMU \cite{serenity_arch}.
 \end{itemize}
+
+Ejemplo de construcción y ejecución (flujo recomendado):
+\begin{verbatim}
+git clone https://github.com/SerenityOS/serenity.git
+cd serenity
+Meta/serenity.sh run
+\end{verbatim}
+
+Construcción sin iniciar la VM:
+\begin{verbatim}
+Meta/serenity.sh build
+\end{verbatim}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.95\linewidth]{figures/serenityos_desktop.png}
-    \caption{Escritorio principal de SerenityOS ejecutado en QEMU. Extraído del repositorio oficial del proyecto}
+    \caption{Escritorio principal de SerenityOS en ejecución.}
     \label{fig:serenityos_desktop}
+    \vspace{1mm}
+    \textit{Nota. Adaptado de la documentación y repositorio oficial de SerenityOS \cite{serenity_github, serenity_about}.}
 \end{figure}
 
 \subsubsection{Nivel de complejidad y accesibilidad}
-El nivel de complejidad de SerenityOS es medio-alto. Su organización y estilo de código permiten estudiar kernels monolíticos modernos, sistemas de archivos y construcción de una GUI desde cero \cite{serenity_philosophy, serenity_arch}.
+El nivel de complejidad de SerenityOS es medio-alto. Es accesible para estudiantes con base sólida en C/C++ y conceptos de sistemas operativos, porque el proyecto mantiene documentación y una estructura de repositorio que facilita ubicar subsistemas (kernel, librerías, GUI y utilidades) y estudiar su integración \cite{serenity_philosophy, serenity_arch}.
 
 \begin{table}[H]
     \centering
+    \caption{Ficha técnica resumida de SerenityOS.}
+    \vspace{2mm}
     \begin{tabular}{p{4cm}p{10cm}}
         \hline
-        \textbf{Diseño}            & Kernel monolítico escrito desde cero                                \\ \hline
-        \textbf{Lenguajes}         & C++20 (principal), ensamblador, JavaScript                          \\
-        \textbf{Arquitecturas}     & x86\_64                                                              \\
-        \textbf{Componentes clave} & Kernel, GUI, WindowServer, VFS propio, navegador Ladybird           \\
-        \textbf{Herramientas}      & CMake, Ninja, GCC/Clang, QEMU                                       \\
-        \textbf{Uso educativo}     & Alto: estudio de kernel, GUI y C++ moderno                          \\
+        Diseño & Kernel monolítico modular, desarrollado desde cero \\ \hline
+        Lenguajes & C++ (principal), ensamblador, JavaScript \\
+        Arquitecturas & x86\_64 (principal), soporte adicional según toolchain del proyecto \\
+        Componentes clave & Kernel, VFS, entorno gráfico, \textit{WindowServer}, herramientas del sistema \\
+        Herramientas & CMake, Ninja, toolchain del proyecto, QEMU \\
+        Uso educativo & Alto: estudio de arquitectura completa y componentes integrados \\
         \hline
     \end{tabular}
-    \caption{Ficha técnica resumida de SerenityOS.}
-    \vspace{1mm}
-    \textit{Nota. Adaptado de la documentación oficial de SerenityOS \cite{serenity_about, serenity_arch}.}
+    \vspace{1mm} \\
+    \textit{Nota. Adaptado de la documentación oficial de SerenityOS \cite{serenity_about, serenity_arch, serenity_github}.}
 \end{table}
 
 % =========================
 % Sistema Operativo: ToaruOS
 % =========================
-\subsection{ToaruOS}
 
+\subsection{ToarusOS}
 \subsubsection{Nombre del proyecto o sistema operativo}
-ToaruOS es un sistema operativo independiente, escrito casi por completo desde cero, que ofrece una implementación compacta pero funcional de un sistema de escritorio moderno.
+ToaruOS es un sistema operativo independiente, escrito casi completamente desde cero, diseñado como un recurso educativo que ofrece una implementación completa de un SO moderno.
+
 
 \subsubsection{Enlace al repositorio y/o documentación oficial}
+
 Repositorio oficial: \url{https://github.com/klange/toaruos}
 
 Sitio web del proyecto: \url{http://toaruos.org/}
 
 \subsubsection{Objetivo del proyecto}
-ToaruOS está orientado a facilitar el estudio de un sistema operativo completo, desde el kernel hasta la interfaz de usuario gráfica.
+ToarusOS esta diseñado para servir como recurso educativo que permita estudiar y comprender el funcionamiento de un sistema operativo completo. Pretendiendo ser una representación compacta y funcional de los componentes que forman parte de un sistema operativo de escritorio moderno.
 
 \subsubsection{Lenguajes de implementación}
-ToaruOS está implementado principalmente en C e integra el lenguaje \textit{Kuroko}, un lenguaje dinámico compilado a \textit{bytecode} usado para scripting y herramientas internas.
+ToaruOS está implementado principalmente en el lenguaje de programación \textbf{C}, además de ello, se encuentra implementado con el lenguaje de programación de Kuroko, un lenguaje propio, un lenguaje de programación dinámico, compilado a bytecode y un dialecto de Python.
 
 \subsubsection{Arquitectura del sistema}
-El sistema adopta una arquitectura con kernel híbrido y modular denominada \textit{Misaka}, con soporte para multiprocesamiento simétrico y módulos cargables.
+ToaruOS adopta una arquitectura que posee un kernel híbrido y modular, denominada Misaka, es una arquitectura híbrida con módulos cargables en tiempo de ejecución. El kernel proporciona servicios esenciales como la gestión de procesos, memoria y sistemas de archivos, mientras que otros componentes del sistema operativo, como el entorno gráfico y las aplicaciones, se ejecutan en espacio de usuario.
 
 \subsubsection{Componentes implementados}
 \begin{itemize}
-    \item \textbf{Gestión de procesos e hilos:} kernel \textit{Misaka} con SMP y mecanismos de IPC.
-    \item \textbf{Gestión de memoria:} paginación y asignación dinámica, más un \textit{ramdisk} comprimido como sistema raíz.
-    \item \textbf{Sistema de archivos:} estructura tipo Unix con directorios virtuales como \texttt{/dev}, \texttt{/proc} y \texttt{/tmp}.
-    \item \textbf{Interfaz gráfica:} servidor de ventanas \textit{Yutani}, con aplicaciones como la Terminal, el editor \textit{Bim} y el sistema de widgets \textit{TTK}.
+	\item \textbf{Gestión de procesos e hilos:} ToaruOS ToaruOS utiliza el kernel Misaka, un núcleo híbrido con soporte para multiprocesamiento simétrico (SMP), que implementa un planificador de procesos, mecanismos de comunicación entre procesos mediante el sistema pex y una arquitectura basada en procesos expuestos a través del sistema de archivos virtual \texttt{/proc}.
+
+	\item \textbf{Gestión de memoria: } Incorpora un sistema de memoria  con paginación y asignación dinámica dentro del kernel, complementado por una implementación propia de la biblioteca estándar de C (libc) que administra la memoria en espacio de usuario, junto con el uso de un ramdisk comprimido como sistema de archivos raíz inicial.
+
+	\item \textbf{Sistema de archivos:} ToaruOS emplea un filesystem raíz montado desde un ramdisk e incluye soporte para ISO9660, además de una estructura tipo Unix que integra directorios virtuales como /dev, /proc y /tmp, permitiendo la interacción con dispositivos, procesos y almacenamiento temporal de forma eficiente.
+
+	\item \textbf{Dispositivos y controladores:} El sistema dispone de un conjunto modular de controladores cargables que gestionan dispositivos gráficos, audio, almacenamiento IDE, red y periféricos de entrada, ofreciendo además integración avanzada con entornos de virtualización como VirtualBox y VMware, mientras continúa el desarrollo de drivers adicionales como AHCI, USB y virtio.
+
+	\item \textbf{Interfaz gráfica (GUI):}  ToaruOS cuenta con un entorno gráfico completo basado en Yutani, un servidor de ventanas compositado con aceleración por software y un diseño inspirado en interfaces de finales de los años 2000, acompañado por un conjunto de aplicaciones y herramientas gráficas como la Terminal, el editor Bim y el sistema de widgets TTK.
+
+	\item \textbf{Herramientas de sistema:} Incluye utilidades fundamentales como el shell Esh con soporte para tuberías y redirecciones, el cargador dinámico ld.so, el editor de texto Bim, el lenguaje de programación Kuroko y un conjunto de comandos Unix-like, complementados por herramientas de desarrollo internas como auto-dep.krk.
+
+	\item \textbf{Soporte de hardware:} ToaruOS funciona principalmente sobre arquitecturas x86-64, con soporte experimental para ARMv8 y compatibilidad comprobada tanto en entornos virtualizados como en hardware real, incorporando funcionalidades específicas para mejorar la experiencia en máquinas virtuales y extendiendo continuamente su compatibilidad mediante el desarrollo de nuevos controladores.
 \end{itemize}
 
 \subsubsection{Herramientas utilizadas}
+ToaruOS utiliza una variedad de herramientas para su desarrollo y compilación, como se detalla a continuación:
 \begin{itemize}
-    \item \textbf{Compilador:} herramientas GNU, incluyendo GCC y \texttt{make}.
-    \item \textbf{Entorno de prueba:} \textit{VirtualBox} y \textit{QEMU}.
-    \item \textbf{Construcción en contenedor:} uso habitual de \textit{Docker} para compilar el sistema.
-\end{itemize}
+	\item \textbf{Compilador:} utilidades estándar de GNU, incluyendo GCC para la compilación del código fuente (makefile)
+	\item \textbf{Entorno de prueba:} Compatible con VirtualBox y QEMU para la emulación y prueba del sistema operativo.
+	\item \textbf{Misaka Kernel:} El núcleo híbrido de ToaruOS, que proporciona los servicios esenciales del sistema operativo.
+	\item \textbf{Yutani:} El servidor de ventanas utilizado para la interfaz gráfica del sistema.
+	\item \textbf{Kuroko:}  ToaruOS implementa un lenguaje de scripting propio denominado \textit{Kuroko}, basado en bytecode, que permite a los usuarios escribir scripts dentro del sistema operativo.
+	\item Esh Shell: Admite pipes y redirecciones, variables, etc. Proporcionando una interfaz de línea de comandos funcional.
+	\item \textbf{Bim Editor:} Un editor de texto ligero y eficiente, diseñado para integrarse perfectamente con el entorno gráfico de ToaruOS.
+	\item \textbf{Id.so: } Un cargador dinámico que facilita la ejecución de aplicaciones en el sistema operativo.
+	\item \textbf{Terminal:} Una aplicación de terminal que permite a los usuarios interactuar con el sistema operativo a través de la línea de comandos.
+	\item \textbf{Instalación y configuración sugerida:} Para instalar y configurar ToaruOS, se recomienda clonar el repositorio oficial y utilizar los scripts de construcción proporcionados:
+	    \begin{verbatim}
+		git clone https://github.com/klange/toaruos
+		cd toaruos
+		git submodule update --init kuroko
+		docker pull toaruos/build-tools:1.99.x
+		docker run -v pwd:/root/misaka -w /root/misaka -e LANG=C.UTF-8 
+		-t toaruos/build-tools:1.99.x util/build-in-docker.sh
+		\end{verbatim}
+
+    Si se desea compilar localmente en linux, es necesario tener instaladas las herramientas de docker e ingresar al contenedor de docker e inicializar los anteriores comandos con sudo. r
+\end{itemize}	
 
 \begin{figure}[H]
     \centering
@@ -257,6 +296,8 @@ ToaruOS presenta una complejidad media-alta, adecuada para estudiantes que ya do
 
 \begin{table}[H]
     \centering
+    \caption{Ficha técnica resumida de ToaruOS.}
+    \vspace{2mm}
     \begin{tabular}{p{4cm}p{10cm}}
         \hline
         \textbf{Diseño}            & Kernel híbrido modular con entorno de escritorio propio          \\ \hline
@@ -267,46 +308,60 @@ ToaruOS presenta una complejidad media-alta, adecuada para estudiantes que ya do
         \textbf{Uso educativo}     & Alto: estudio de un sistema de escritorio completo               \\
         \hline
     \end{tabular}
-    \caption{Ficha técnica resumida de ToaruOS.}
-    \vspace{1mm}
+    \vspace{1mm} \\
     \textit{Nota. Adaptado de la documentación oficial del proyecto ToaruOS.}
 \end{table}
 
-% =========================
-% Sistema Operativo: HaikuOS
-% =========================
+% ==========================
+% Sistema operativo: HaikuOS
+% ==========================
 \subsection{HaikuOS}
-
 \subsubsection{Nombre del proyecto o sistema operativo}
-HaikuOS es un sistema operativo de código abierto inspirado en BeOS, diseñado para ofrecer una experiencia rápida, eficiente y orientada a tareas multimedia y creativas.
-
+HaikuOS es un sistema operativo de código abierto inspirado en BeOS, diseñado para ofrecer una experiencia de usuario rápida, eficiente y fácil de usar, especialmente en tareas multimedia y creativas
 \subsubsection{Enlace al repositorio y/o documentación oficial}
+
 Repositorio oficial: \url{https://github.com/haiku/haiku}
 
-Sitio web del proyecto: \url{https://www.haiku-os.org/}
+Sitio web del proyecto y descargas: \url{https://www.haiku-os.org/}
 
 \subsubsection{Objetivo del proyecto}
-HaikuOS busca revivir la filosofía de BeOS, proporcionando un entorno de escritorio moderno y sencillo de usar con buen rendimiento en aplicaciones multimedia.
+El objetivo principal de HaikuOS es proporcionar un sistema operativo moderno y eficiente que sea fácil de usar, especialmente para usuarios interesados en aplicaciones multimedia y creativas. HaikuOS busca revivir la filosofía de BeOS, ofreciendo un entorno de escritorio intuitivo y un rendimiento optimizado para tareas que requieren un manejo intensivo de gráficos y multimedia.
 
 \subsubsection{Lenguajes de implementación}
-HaikuOS está implementado principalmente en C++, con partes en C y otros lenguajes para componentes específicos.
+HaikuOS está principalmente implementado en \textbf{C++}, con algunos componentes escritos en \textbf{C} y otros lenguajes según sea necesario para ciertas funcionalidades específicas.
 
 \subsubsection{Arquitectura del sistema}
-Adopta una arquitectura monolítica modular: el kernel gestiona procesos, memoria e interrupciones, mientras que servicios y controladores se implementan como módulos cargables.
+HaikuOS adopta una arquitectura monolítica modular, donde el núcleo del sistema operativo (kernel) maneja las funciones esenciales, mientras que otros componentes del sistema, como controladores de dispositivos y servicios del sistema, están diseñados como módulos que pueden ser cargados y descargados según sea necesario. Esta arquitectura permite un rendimiento eficiente y una fácil extensibilidad del sistema operativo.
 
 \subsubsection{Componentes implementados}
 \begin{itemize}
-    \item \textbf{Gestión de procesos e hilos:} multitarea con hilos ligeros y planificación preemptiva.
-    \item \textbf{Gestión de memoria:} paginación y protección entre procesos.
-    \item \textbf{Sistema de archivos:} Be File System (BFS) con metadatos extensos e índices.
-    \item \textbf{Interfaz gráfica:} escritorio inspirado en BeOS con un conjunto de aplicaciones integradas.
+	\item \textbf{Gestión de procesos e hilos:} HaikuOS implementa un sistema de gestión de procesos y hilos que permite la multitarea preemptiva, facilitando la ejecución simultánea de múltiples aplicaciones y servicios.
+
+	\item \textbf{Gestión de memoria: } HaikuOS utiliza un sistema de gestión de memoria que incluye paginación y segmentación, permitiendo una asignación eficiente de memoria a los procesos y protegiendo la memoria entre ellos.
+
+	\item \textbf{Sistema de archivos:} HaikuOS utiliza el sistema de archivos BFS (Be File System), diseñado para ofrecer un alto rendimiento y soporte para metadatos extensos, facilitando la organización y búsqueda de archivos.
+
+	\item \textbf{Dispositivos y controladores:} HaikuOS incluye una variedad de controladores para gestionar dispositivos de hardware comunes, como tarjetas gráficas, dispositivos de almacenamiento, y periféricos de entrada.
+
+	\item \textbf{Interfaz gráfica (GUI):} HaikuOS cuenta con una interfaz gráfica de usuario intuitiva y fácil de usar, basada en el sistema de ventanas BeOS, que ofrece una experiencia de escritorio coherente y atractiva.
+
+	\item \textbf{Herramientas de sistema:} HaikuOS incluye una serie de herramientas y utilidades del sistema, como un gestor de paquetes, un terminal, y aplicaciones básicas para la gestión del sistema y la administración de archivos.
+
+	\item \textbf{Soporte de hardware:} HaikuOS está diseñado para ser compatible con una amplia gama de hardware, incluyendo arquitecturas x86 y ARM, y continúa expandiendo su soporte para nuevos dispositivos y tecnologías.
 \end{itemize}
 
 \subsubsection{Herramientas utilizadas}
+HaikuOS utiliza diversas herramientas para su desarrollo y mantenimiento, entre las cuales se incluyen:
 \begin{itemize}
-    \item \textbf{Compilador:} GCC.
-    \item \textbf{Sistema de construcción:} \texttt{Makefiles} y herramientas propias.
-    \item \textbf{Entornos de prueba:} \textit{VirtualBox}, \textit{VMware} y \textit{QEMU}.
+	\item \textbf{Compilador:} GCC (GNU Compiler Collection) es la herramienta principal utilizada para compilar el código fuente de HaikuOS.
+	\item \textbf{Sistema de construcción:} HaikuOS utiliza un sistema de construcción personalizado basado en Makefiles para gestionar la compilación y el ensamblaje del sistema operativo.
+	\item \textbf{Entorno de desarrollo integrado (IDE):} Los desarrolladores de HaikuOS pueden utilizar varios IDEs, como Eclipse o Visual Studio Code, para facilitar el desarrollo y la depuración del código.
+
+	\item \textbf{Depuración y pruebas:} HaikuOS utiliza diversas herramientas de depuración y pruebas, incluyendo GDB (GNU Debugger) y herramientas de		 pruebas automatizadas para asegurar la calidad y estabilidad del sistema operativo.
+
+	\item \textbf{Configuración del proyecto:} HaikuOS proporciona imágenes pre construidas (.ISO) que se descargan desde su sitio web oficial. Donde se pueden arrancar con USB, disco o memoria. También es compatible con máquinas virtuales como VirtualBox, VMware y QEMU para pruebas y desarrollo.
+	\item \textbf{Ejecución: } Al iniciar la ISO, se accederá al entorno de instalación.
+
 \end{itemize}
 
 \begin{figure}[H]
@@ -315,11 +370,14 @@ Adopta una arquitectura monolítica modular: el kernel gestiona procesos, memori
     \caption{Escritorio de HaikuOS con el explorador de archivos y aplicaciones multimedia.}
 \end{figure}
 
-\subsubsection{Nivel de complejidad y accesibilidad}
-HaikuOS presenta una complejidad moderada y es útil para estudiar el diseño de un entorno de escritorio ligero orientado a multimedia.
+\subsubsection{Nivel de complejidad}
+HaikuOS es un sistema operativo de complejidad moderada, debido a su arquitectura modular y su enfoque en la facilidad de uso y el rendimiento. Aunque no es tan complejo como sistemas operativos más grandes como Linux o Windows, HaikuOS ofrece una amplia gama de funcionalidades y características que requieren un conocimiento sólido de los conceptos de sistemas operativos para su desarrollo y mantenimiento. Su diseño modular facilita la comprensión y contribución al proyecto, lo que lo convierte en una opción atractiva para desarrolladores interesados en sistemas operativos.
+
 
 \begin{table}[H]
     \centering
+    \caption{Ficha técnica resumida de HaikuOS.}
+    \vspace{2mm}
     \begin{tabular}{p{4cm}p{10cm}}
         \hline
         \textbf{Diseño}            & Kernel monolítico modular inspirado en BeOS        \\ \hline
@@ -330,8 +388,7 @@ HaikuOS presenta una complejidad moderada y es útil para estudiar el diseño de
         \textbf{Uso educativo}     & Medio: estudio de un escritorio ligero              \\
         \hline
     \end{tabular}
-    \caption{Ficha técnica resumida de HaikuOS.}
-    \vspace{1mm}
+    \vspace{1mm} \\
     \textit{Nota. Adaptado de la documentación oficial de HaikuOS.}
 \end{table}
 
@@ -426,6 +483,8 @@ Estas herramientas permiten estudiar el comportamiento del sistema paso por paso
 El nivel de complejidad de xv6 es medio. Su código es compacto y muy usado como base de laboratorio en universidades \cite{xv6_book, xv6_wiki}. Esto permite a los estudiantes comprender e implementar mecanismos críticos, como la paginación y la planificación de procesos, en un entorno controlado y manejable sin la sobrecarga de un sistema operativo comercial.
 \begin{table}[H]
     \centering
+    \caption{Ficha técnica resumida de xv6.}
+    \vspace{2mm}
     \begin{tabular}{p{4cm}p{10cm}}
         \hline
         \textbf{Diseño}            & Kernel monolítico inspirado en Unix V6                               \\ \hline
@@ -436,8 +495,7 @@ El nivel de complejidad de xv6 es medio. Su código es compacto y muy usado como
         \textbf{Uso educativo}     & Muy alto: referencia académica internacional                         \\
         \hline
     \end{tabular}
-    \caption{Ficha técnica resumida de xv6.}
-    \vspace{1mm}
+    \vspace{1mm} \\
     \textit{Nota. Adaptado de la documentación de xv6 y del curso MIT 6.1810/6.828 \cite{xv6_mit_about, xv6_book}.}
 \end{table}
 
@@ -527,6 +585,8 @@ El nivel de complejidad de HobbyOS es bajo-medio, ideal para quienes desean comp
 
 \begin{table}[H]
     \centering
+    \caption{Ficha técnica resumida de HobbyOS.}
+    \vspace{2mm}
     \begin{tabular}{p{4cm}p{10cm}}
         \hline
         \textbf{Diseño}            & Kernel monolítico minimalista                             \\ \hline
@@ -537,8 +597,7 @@ El nivel de complejidad de HobbyOS es bajo-medio, ideal para quienes desean comp
         \textbf{Uso educativo}     & Alto: estudio de arranque y estructura básica             \\
         \hline
     \end{tabular}
-    \caption{Ficha técnica resumida de HobbyOS.}
-    \vspace{1mm}
+    \vspace{1mm} \\
     \textit{Nota. Adaptado de la descripción del proyecto HobbyOS en GitHub \cite{hobbyos_repo, hobbyos_topics}.}
 \end{table}
 
@@ -624,6 +683,8 @@ El nivel de complejidad es **bajo a medio-bajo**, lo que convierte a MikeOS en u
 
 \begin{table}[H]
     \centering
+    \caption{Ficha técnica resumida de MikeOS.}
+    \vspace{2mm}
     \begin{tabular}{p{4cm}p{10cm}}
         \hline
         \textbf{Diseño}            & Kernel monolítico simple en modo real de 16 bits   \\ \hline
@@ -634,8 +695,7 @@ El nivel de complejidad es **bajo a medio-bajo**, lo que convierte a MikeOS en u
         \textbf{Uso educativo}     & Muy alto: introducción a ensamblador y SO simples  \\
         \hline
     \end{tabular}
-    \caption{Ficha técnica resumida de MikeOS.}
-    \vspace{1mm}
+    \vspace{1mm} \\
     \textit{Nota. Adaptado de la documentación oficial de MikeOS \cite{mikeos_about, mikeos_purpose, mikeos_architecture}.}
 \end{table}
 
@@ -690,6 +750,8 @@ El nivel de complejidad de BareMetal OS es medio-alto, ya que su estudio requier
 
 \begin{table}[H]
     \centering
+    \caption{Ficha técnica resumida de BareMetal OS.}
+    \vspace{2mm}
     \begin{tabular}{p{4cm}p{10cm}}
         \hline
         Diseño & Sistema basado en \textit{exokernel} orientado a ejecución \textit{bare metal} \\ \hline
@@ -700,8 +762,7 @@ El nivel de complejidad de BareMetal OS es medio-alto, ya que su estudio requier
         Uso educativo & Avanzado: programación de bajo nivel y estudio de enfoque \textit{exokernel} \\
         \hline
     \end{tabular}
-    \caption{Ficha técnica resumida de BareMetal OS.}
-    \vspace{1mm}
+    \vspace{1mm} \\
     \textit{Nota. Adaptado del repositorio y documentación del proyecto BareMetal OS \cite{bmos_purpose, bmos_architecture}.}
 \end{table}
 
@@ -759,6 +820,8 @@ El nivel de complejidad de PintOS es medio-alto. Aunque su diseño es intenciona
 
 \begin{table}[H]
     \centering
+    \caption{Ficha técnica resumida de PintOS.}
+    \vspace{2mm}
     \begin{tabular}{p{4cm}p{10cm}}
         \hline
         \textbf{Diseño}            & Kernel monolítico académico para x86 de 32 bits \\ \hline
@@ -769,7 +832,6 @@ El nivel de complejidad de PintOS es medio-alto. Aunque su diseño es intenciona
         \textbf{Uso educativo}     & Muy alto: base estructurada para cursos universitarios \\
         \hline
     \end{tabular}
-    \caption{Ficha técnica resumida de PintOS.}
     \vspace{1mm}
     \textit{Nota. Adaptado de la documentación académica de PintOS \cite{pintos_stanford, pintos_purpose}.}
 \end{table}
