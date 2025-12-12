@@ -645,57 +645,64 @@ El nivel de complejidad es **bajo a medio-bajo**, lo que convierte a MikeOS en u
 \subsection{BareMetal OS}
 
 \subsubsection{Nombre del proyecto o sistema operativo}
-BareMetal OS (BMOS) es un sistema operativo de código abierto diseñado para ejecutarse directamente sobre el hardware (\textit{bare metal}) en arquitecturas x86-64 \cite{bmos_wiki}.
+BareMetal OS (BMOS) es un sistema operativo de código abierto diseñado para ejecutarse directamente sobre hardware \textit{bare metal} en sistemas x86-64. El proyecto se define como un sistema basado en \textit{exokernel}, orientado a exponer recursos de hardware a las aplicaciones y reducir la sobrecarga típica de sistemas operativos tradicionales \cite{bmos_purpose, bmos_source}.
 
 \subsubsection{Enlace al repositorio y/o documentación oficial}
-Repositorio histórico: \url{https://github.com/ReturnInfinity/BareMetal-OS} \cite{bmos_purpose, bmos_source, bmos_architecture}.
+Repositorio del proyecto (código y guía de construcción): \url{https://github.com/ReturnInfinity/BareMetal-OS} \cite{bmos_purpose, bmos_architecture}.
 
 \subsubsection{Objetivo del proyecto}
-Su objetivo es experimental y de nicho: proporcionar un entorno para ejecutar aplicaciones \textit{bare metal} de alto rendimiento sin la sobrecarga de un sistema operativo completo \cite{bmos_purpose}.
+El objetivo de BareMetal OS es experimental y de nicho: ofrecer un entorno de muy bajo nivel para ejecutar aplicaciones con control cercano al hardware, priorizando flexibilidad y eficiencia bajo el enfoque \textit{exokernel} \cite{bmos_purpose}.
 
 \subsubsection{Lenguajes de implementación}
-BareMetal OS está implementado casi en su totalidad en ensamblador x86-64 \cite{bmos_source}.
+El sistema está desarrollado principalmente en ensamblador x86-64. Además, el repositorio contempla la construcción de aplicaciones en C/C++ (por ejemplo, demos o utilidades), usando GCC como compilador de apoyo \cite{bmos_source, bmos_purpose}.
 
 \subsubsection{Arquitectura del sistema}
-Presenta una arquitectura monolítica y monotarea para x86-64, con soporte multiprocesador \cite{bmos_architecture}.
+BareMetal OS adopta un enfoque \textit{exokernel}: el núcleo mantiene un diseño minimalista y busca exponer recursos de hardware a las aplicaciones para permitir optimizaciones específicas por tarea. El proyecto está enfocado en plataformas x86-64 multinúcleo \cite{bmos_architecture, bmos_purpose}.
 
 \subsubsection{Componentes implementados}
+Según la estructura descrita en el repositorio, BareMetal OS se organiza en componentes principales \cite{bmos_purpose}:
 \begin{itemize}
-    \item \textbf{Kernel minimalista:} núcleo muy pequeño que inicializa hardware y carga aplicaciones.
-    \item \textbf{Soporte multiprocesador:} capacidad de aprovechar múltiples CPU.
-    \item \textbf{Primitivas de E/S:} funciones básicas para entrada y salida.
+    \item \textit{Pure64}: cargador (loader) del sistema.
+    \item \textit{BareMetal}: kernel del sistema.
+    \item \textit{Monitor}: interfaz simple de línea de comandos.
+    \item \textit{BMFS}: utilidad asociada al \textit{BareMetal File System}.
+    \item \textit{BareMetal-Demo}: colección de programas de demostración.
 \end{itemize}
 
 \subsubsection{Herramientas utilizadas}
+El repositorio incluye un flujo de trabajo automatizado con el script \texttt{baremetal.sh}, que permite preparar, compilar e iniciar el sistema en máquina virtual \cite{bmos_purpose}. En general se emplean:
 \begin{itemize}
-    \item \textbf{Ensambladores x86-64:} como NASM.
-    \item \textbf{Pruebas:} QEMU y Bochs.
+    \item NASM (ensamblador) para compilar el cargador, kernel y aplicaciones en ensamblador.
+    \item QEMU para pruebas rápidas en virtualización.
+    \item GCC para compilar aplicaciones en C/C++ (cuando aplique).
+    \item Git para obtener el código fuente.
 \end{itemize}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{figures/bmos_interface.png}
-    \caption{BareMetal OS ejecutándose en QEMU con una aplicación tipo consola. Extraído del repositorio histórico del proyecto}
+    \caption{BareMetal OS ejecutándose en entorno virtual, mostrando su interfaz tipo consola. Extraído del repositorio del proyecto}
+    \label{fig:bmos_interface}
 \end{figure}
 
 \subsubsection{Nivel de complejidad y accesibilidad}
-El nivel de complejidad es medio-alto, adecuado para estudios avanzados de programación \textit{bare metal} \cite{bmos_wiki}.
+El nivel de complejidad de BareMetal OS es medio-alto, ya que su estudio requiere bases sólidas de arquitectura x86-64 y programación de bajo nivel. Es más adecuado para escenarios avanzados, donde se busca comprender la interacción directa con el hardware y el enfoque \textit{exokernel} \cite{bmos_wiki, bmos_purpose}.
 
 \begin{table}[H]
     \centering
     \begin{tabular}{p{4cm}p{10cm}}
         \hline
-        \textbf{Diseño}            & Kernel monolítico minimalista, bare metal, monotarea/multiprocesador \\ \hline
-        \textbf{Lenguajes}         & Ensamblador x86-64                                                   \\
-        \textbf{Arquitecturas}     & x86-64                                                               \\
-        \textbf{Componentes clave} & Kernel pequeño, soporte APIC/SMP, E/S básica                         \\
-        \textbf{Herramientas}      & Ensambladores 64 bits, QEMU/Bochs                                    \\
-        \textbf{Uso educativo}     & Avanzado: estudio de x86-64 y programación bare metal                \\
+        Diseño & Sistema basado en \textit{exokernel} orientado a ejecución \textit{bare metal} \\ \hline
+        Lenguajes & Ensamblador x86-64 (principal) y soporte para C/C++ en utilidades/demos \\
+        Arquitecturas & x86-64 \\
+        Componentes clave & \textit{Pure64}, \textit{BareMetal} (kernel), \textit{Monitor}, \textit{BMFS}, demos \\
+        Herramientas & NASM, QEMU, GCC, Git (flujo con \texttt{baremetal.sh}) \\
+        Uso educativo & Avanzado: programación de bajo nivel y estudio de enfoque \textit{exokernel} \\
         \hline
     \end{tabular}
     \caption{Ficha técnica resumida de BareMetal OS.}
     \vspace{1mm}
-    \textit{Nota. Adaptado de la documentación y repositorio de BareMetal OS \cite{bmos_wiki, bmos_purpose, bmos_architecture}.}
+    \textit{Nota. Adaptado del repositorio y documentación del proyecto BareMetal OS \cite{bmos_purpose, bmos_architecture}.}
 \end{table}
 
 % =========================
@@ -704,60 +711,65 @@ El nivel de complejidad es medio-alto, adecuado para estudios avanzados de progr
 \subsection{PintOS}
 
 \subsubsection{Nombre del proyecto o sistema operativo}
-PintOS es un framework de sistema operativo minimalista diseñado para la arquitectura x86, utilizado principalmente en cursos universitarios de sistemas operativos \cite{pintos_stanford, pintos_source}.
+PintOS es un \textit{framework} de sistema operativo minimalista orientado a la enseñanza, diseñado para la arquitectura x86 de 32 bits. Se emplea ampliamente en cursos universitarios porque proporciona un código base deliberadamente incompleto que permite a los estudiantes implementar y comprender, de forma guiada, los componentes centrales de un sistema operativo \cite{pintos_stanford, pintos_source}.
 
 \subsubsection{Enlace al repositorio y/o documentación oficial}
-Documentación del proyecto: \url{https://web.stanford.edu/class/cs140/projects/pintos/pintos_1.html} \cite{pintos_stanford, pintos_source}.
+Documentación académica base (Stanford): \url{https://web.stanford.edu/class/cs140/projects/pintos/pintos_1.html} \cite{pintos_stanford}.
 
-Guía de desarrollo: \url{https://github.com/SajedHassan/CSEx61-pintos} \cite{pintos_purpose}.
+Guía de desarrollo y material complementario: \url{https://github.com/SajedHassan/CSEx61-pintos} \cite{pintos_purpose}.
 
 \subsubsection{Objetivo del proyecto}
-El objetivo de PintOS es educativo: proporcionar una base incompleta que los estudiantes deben extender implementando hilos, llamadas al sistema, memoria virtual y sistema de archivos \cite{pintos_purpose}.
+El objetivo de PintOS es estrictamente educativo. Su finalidad es que el estudiante construya progresivamente un sistema operativo funcional a partir de un esqueleto inicial, implementando hilos, sincronización, soporte de programas de usuario, llamadas al sistema, memoria virtual y un sistema de archivos. En ese sentido, PintOS funciona como un laboratorio estructurado donde cada entrega añade capacidades reales al kernel y obliga a justificar decisiones de diseño \cite{pintos_purpose, pintos_stanford}.
 
 \subsubsection{Lenguajes de implementación}
-El código base está escrito principalmente en C, con rutinas de bajo nivel en ensamblador x86 \cite{pintos_source}. Algunos scripts auxiliares utilizan Perl.
+El núcleo y la mayor parte del código están implementados en C. Las rutinas de más bajo nivel, necesarias para el arranque, manejo de interrupciones y cambios de contexto, se implementan en ensamblador x86. Además, el entorno de construcción y automatización incluye scripts auxiliares, típicamente escritos en Perl \cite{pintos_source}.
 
 \subsubsection{Arquitectura del sistema}
-PintOS adopta una arquitectura monolítica simple para x86 de 32 bits. Se ejecuta en modo kernel y sirve como marco para cuatro grandes proyectos académicos \cite{pintos_stanford}.
-
-\subsubsection{Componentes implementados}
-\begin{itemize}
-    \item \textbf{Threads:} hilos, sincronización y planificación.
-    \item \textbf{User Programs:} carga de ejecutables y capa de llamadas al sistema.
-    \item \textbf{Virtual Memory:} paginación y manejo de fallos de página.
-    \item \textbf{File System:} sistema de archivos con directorios y manejo de disco.
-\end{itemize}
-
-\subsubsection{Herramientas utilizadas}
-\begin{itemize}
-    \item \textbf{Compilador:} GCC.
-    \item \textbf{Construcción:} \texttt{make} y \texttt{binutils}.
-    \item \textbf{Depuración:} GDB.
-    \item \textbf{Pruebas:} QEMU o Bochs.
-\end{itemize}
+PintOS utiliza un diseño monolítico académico para x86 de 32 bits: las funciones principales (planificación, sincronización, manejo de memoria, llamadas al sistema y sistema de archivos) residen en el kernel. Sin embargo, su enfoque no es “dar un SO terminado”, sino ofrecer una arquitectura sencilla y controlada para que el alumno integre módulos por etapas, manteniendo un flujo de trabajo repetible de compilación, ejecución y prueba en emuladores \cite{pintos_stanford}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.9\linewidth]{figures/pintos_qemu.png}
-    \caption{PintOS ejecutándose en QEMU durante una práctica de laboratorio. Extraído de la documentación académica del proyecto}
+    \includegraphics[width=0.9\linewidth]{figures/pintos_qem.png}
+    \caption{Componentes del Sistema Operativo PintOS. Extraído del repositorio del proyecto}
+    \label{fig:pintos-qemu}
 \end{figure}
 
+\subsubsection{Componentes implementados}
+PintOS se organiza típicamente en cuatro bloques de trabajo que estructuran el aprendizaje:
+
+\begin{itemize}
+    \item \textbf{Threads:} implementación y gestión de hilos, primitivas de sincronización (bloqueos, semáforos, condiciones) y políticas básicas de planificación.
+    \item \textbf{User Programs:} carga de ejecutables, manejo de argumentos y construcción de la interfaz de llamadas al sistema entre espacio de usuario y kernel.
+    \item \textbf{Virtual Memory:} soporte de paginación, tratamiento de fallos de página, y mecanismos que permiten que los procesos administren memoria de forma más realista.
+    \item \textbf{File System:} construcción de un sistema de archivos funcional con soporte de directorios, persistencia en disco y operaciones típicas de lectura/escritura.
+\end{itemize}
+
+\subsubsection{Herramientas utilizadas}
+El flujo de trabajo está pensado para entornos GNU/Linux, usando herramientas estándar:
+
+\begin{itemize}
+    \item \textbf{Compilación:} GCC y utilidades de binarios (\texttt{binutils}), con automatización mediante \texttt{make}.
+    \item \textbf{Depuración:} GDB para inspección y depuración a nivel de kernel.
+    \item \textbf{Pruebas y ejecución:} emulación en \textit{QEMU} o \textit{Bochs}, lo que permite iterar rápidamente sin hardware dedicado \cite{pintos_stanford}.
+\end{itemize}
+
+
 \subsubsection{Nivel de complejidad y accesibilidad}
-El nivel de complejidad es medio-alto. PintOS obliga a implementar conceptos críticos como sincronización, memoria virtual y sistema de archivos, y cuenta con abundante documentación y soporte académico \cite{pintos_stanford, pintos_purpose}.
+El nivel de complejidad de PintOS es medio-alto. Aunque su diseño es intencionalmente simple en comparación con sistemas operativos de producción, el estudiante debe implementar conceptos críticos que suelen ser difíciles: sincronización correcta, interfaz de llamadas al sistema, paginación y persistencia en disco. Su accesibilidad es alta para fines académicos porque el proyecto está ampliamente documentado, estructurado en etapas y respaldado por materiales docentes \cite{pintos_stanford, pintos_purpose}.
 
 \begin{table}[H]
     \centering
     \begin{tabular}{p{4cm}p{10cm}}
         \hline
-        \textbf{Diseño}            & Kernel monolítico académico para x86 de 32 bits       \\ \hline
-        \textbf{Lenguajes}         & C, ensamblador x86, Perl (scripts)                    \\
-        \textbf{Arquitecturas}     & x86 (32 bits)                                         \\
+        \textbf{Diseño}            & Kernel monolítico académico para x86 de 32 bits \\ \hline
+        \textbf{Lenguajes}         & C, ensamblador x86, Perl (scripts) \\
+        \textbf{Arquitecturas}     & x86 (32 bits) \\
         \textbf{Componentes clave} & Hilos, llamadas al sistema, memoria virtual, sistema de archivos \\
-        \textbf{Herramientas}      & GCC, Make, Perl, QEMU/Bochs, GDB                      \\
-        \textbf{Uso educativo}     & Muy alto: base en cursos de sistemas operativos       \\
+        \textbf{Herramientas}      & GCC, Make, Perl, QEMU/Bochs, GDB \\
+        \textbf{Uso educativo}     & Muy alto: base estructurada para cursos universitarios \\
         \hline
     \end{tabular}
     \caption{Ficha técnica resumida de PintOS.}
     \vspace{1mm}
-    \textit{Nota. Adaptado de la documentación oficial del proyecto PintOS \cite{pintos_stanford, pintos_purpose}.}
+    \textit{Nota. Adaptado de la documentación académica de PintOS \cite{pintos_stanford, pintos_purpose}.}
 \end{table}
